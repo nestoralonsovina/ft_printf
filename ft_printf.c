@@ -3,88 +3,77 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:25:38 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/12 15:19:59 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/19 17:38:46 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+
 #include "ft_printf.h"
 
-static void	print_hex(long nb)
-{
-	if (nb >= 16)
-		print_hex(nb / 16);
-	if ((nb % 16) >= 10)
-		ft_putchar('a' + (nb % 16) - 10);
-	else
-		ft_putchar((nb % 16) + '0');
-}
-
-int		handle_s(char *flags, char *str)
-{
-	char	*ptr;
-
-	ptr = str;
-	if (*flags == 's')
-	{
-		if (*(flags + 1) == '\0')
-		{
-			if (str)
-				while (*str)
-					write(1, str++, 1);
-		}
-	}
-	return (str - ptr);
-}
-
-int		handle_c(char *flags, char c)
-{
-	if (*flags == 'c' && c)
-	{
-		if (*(flags+ 1) == '\0')
-			write(1, &c, 1);
-	}
-	else
-		return (0);
-	return (1);
-}
-
-int		handle_p(char *flags, void *pointer)
-{
-	int		hex;
-	
-	if (*flags == 'p')
-	{
-		if (*(flags + 1) == '\0')
-		{
-			write(1, "0x", 2);
-			print_hex((long)pointer);
-		}
-	}
-	return (123);
-}
-
-int		handle_args(const char *format, va_list al)
-{
+/*
+	pseudocode for handle_args:
 
 	while (*format)
 	{
 		if (*format == '%')
 		{
-			++format;
-			if (*format == 's')
-				handle_s("s", va_arg(al, char *));
-			if (*format == 'c')
-				handle_c("c", (char)va_arg(al, int));
-			if (*format == 'p')
-				handle_p("p", va_arg(al, void *));
+			while (*format is not equal to a valid conversion)
+			{
+				flags += format
+				++formats;
+			}
+			depending on last *format value:
+				call correspondant handler with flags and argument;
+		}
+	}
+*/
+
+int		is_conversion(char c)
+{
+	char flags[] = "cspfdiouxX";
+
+	if (ft_strchr(flags, c) != NULL)
+		return (1);
+	return (0);
+}
+
+void	handle_conversions(char flags[], va_list al)
+{
+	if (ft_strchr(flags, 's'))
+		handle_str(flags, va_arg(al, char *));
+	if (ft_strchr(flags, 'p'))
+		handle_ptr(flags, va_arg(al, void *));
+	if (ft_strchr(flags, 'c'))
+		handle_char(flags, (char)va_arg(al, int));	
+}
+
+int		handle_args(const char *format, va_list al)
+{
+	char	flags[12];
+	int		i;
+	
+	ft_bzero(flags, 12);
+	i = 0;
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			format += 1;
+			while (!is_conversion(*format) && *format)
+			{
+				flags[i++] = *format++;
+			}
+			flags[i] = *format;
+			handle_conversions(flags, al);
+
+			
 		}
 		else
 			ft_putchar(*format);
-		format++;
+		format += 1;
 	}
 	return (1);
 }

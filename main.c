@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/12 14:14:31 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/19 17:20:38 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,18 @@ int		main(void)
 	char *name = "Nestor";
 	char *surname = "Alonso";
 
-	ft_putendl("Test %s flag:");
-	ft_printf("ft_printf - string: %s", name);
+	ft_putendl("\nTest %s flag:");
+	ft_printf("ft_printf - string: %s\n", name);
 	printf("printf - string: %s\n", name);
 	ft_putendl("------------------------------------");
 	ft_putendl("Test %p flag:");
-	ft_printf("ft_printf - address: %p ", name);
+	ft_printf("ft_printf - address: %p\n", name);
 	printf("printf - address: %p\n", name);
-	ft_printf("ft_printf - address: %p ", surname);
+	ft_printf("ft_printf - address: %p\n", surname);
 	printf("printf - address: %p\n", surname);
+	ft_putendl("------------------------------------");
+	ft_putendl("Test %c flag:");
+	ft_printf("ft_printf - character: %c\n", *(name + 1));
+	printf("printf - character: %c\n", *(name + 1));
 	ft_putendl("------------------------------------");
 }
