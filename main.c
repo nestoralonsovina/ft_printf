@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/20 12:17:01 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/20 15:10:38 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ int		main(void)
 	
 	//printf("Flags test: "); ft_printf("%#10d");
 	
-	printf("test return : %d\n", printf("%s", name) == ft_printf("%s", name));
-	
-	
-	ft_putendl("\nTest %%s flag:");
+	printf(" test return : %d\n", printf("Hola mu buenas%s", name) == ft_printf("Hola mu buenas%s", name));
+	ft_putendl("------------------------------------");	
+	printf("test double %%s%s he\n", name);	
+	ft_putendl("------------------------------------");	
+	ft_putendl("Test %%s flag:");
 	ft_printf("ft_printf - string: %s %s\n", name, surname);
 	printf("printf - string: %s\n", name);
 	ft_putendl("------------------------------------");

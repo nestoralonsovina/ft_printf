@@ -6,30 +6,12 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:25:38 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/20 12:21:14 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/20 15:07:57 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "ft_printf.h"
-
-/*
-	pseudocode for handle_args:
-
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			while (*format is not equal to a valid conversion)
-			{
-				flags += format
-				++formats;
-			}
-			depending on last *format value:
-				call correspondant handler with flags and argument;
-		}
-	}
-*/
 
 int		is_conversion(char c)
 {
@@ -90,7 +72,7 @@ int		handle_args(const char *format, va_list al)
 			ret += handle_conversions(flags, al);
 		}
 		else
-			ft_putchar(*format);
+			ret += write(1, format, 1);
 		format += 1;
 	}
 	return (ret);
