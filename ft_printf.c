@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:25:38 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/19 17:38:46 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/20 12:21:14 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,42 +40,60 @@ int		is_conversion(char c)
 	return (0);
 }
 
-void	handle_conversions(char flags[], va_list al)
+int		handle_conversions(char flags[], va_list al)
 {
+	int ret;
+	
+	ret = 0;
 	if (ft_strchr(flags, 's'))
-		handle_str(flags, va_arg(al, char *));
-	if (ft_strchr(flags, 'p'))
-		handle_ptr(flags, va_arg(al, void *));
-	if (ft_strchr(flags, 'c'))
-		handle_char(flags, (char)va_arg(al, int));	
+		ret += handle_str(flags, va_arg(al, char *));
+	else if (ft_strchr(flags, 'p'))
+		ret += handle_ptr(flags, va_arg(al, void *));
+	else if (ft_strchr(flags, 'c'))
+		ret += handle_char(flags, (char)va_arg(al, int));
+	else if (ft_strchr(flags, 'l'))
+		ret += handle_long(flags, al);
+	else if (ft_strchr(flags, 'd') || ft_strchr(flags, 'i'))
+		ret += handle_int(flags, al);
+	else if (ft_strchr(flags, 'f'))
+		ret += handle_float(flags, al);
+	else if (ft_strchr(flags, 'o'))
+		ret += handle_octal(flags, al);
+	else if (ft_strchr(flags, 'u'))
+		ret += handle_decimal(flags, al);
+	else if (ft_strchr(flags, 'x') || ft_strchr(flags, 'X'))
+		ret += handle_hexa(flags, al);
+	return (ret);
 }
 
 int		handle_args(const char *format, va_list al)
 {
 	char	flags[12];
 	int		i;
+	int		ret;
 	
 	ft_bzero(flags, 12);
 	i = 0;
+	ret = 0;
 	while (*format)
 	{
-		if (*format == '%')
+		if (*format == '%' && *(++format) != '%') // posible seg fault if i try to access uninitialize memory
 		{
-			format += 1;
+			// format += 1;  // shouldn't be necessary now
 			while (!is_conversion(*format) && *format)
 			{
 				flags[i++] = *format++;
 			}
 			flags[i] = *format;
-			handle_conversions(flags, al);
-
-			
+			i = 0;
+			// printf("%s\n", flags);  // debug stored flags
+			ret += handle_conversions(flags, al);
 		}
 		else
 			ft_putchar(*format);
 		format += 1;
 	}
-	return (1);
+	return (ret);
 }
 
 int		ft_printf(const char *format, ...)
