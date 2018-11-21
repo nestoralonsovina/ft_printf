@@ -1,5 +1,5 @@
 #include "../../ft_printf.h"
-
+/*
 void print_reverse(char *str)
 {
 	if (*str)
@@ -32,14 +32,15 @@ char	*dec_to_hex(int nb)
 	}
 	return (str);	
 }
-
+*/
 int     handle_hexa(char *flags, va_list al)
 {
-	char	*hex;
+/*	char	*hex;
 	int		ret;
 
 	hex = dec_to_hex(va_arg(al, int));
 	ret = ft_strlen(hex);
-	reverse(hex);	
-    return (ret);
+	print_reverse(hex);	
+    return (ret);*/
+	return (1);
 }

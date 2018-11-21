@@ -13,9 +13,12 @@ HANDLERS =	char.c	\
 			dec.c	\
 			hexa.c
 
+USEFUL_FUNC = fstrjoin.c	\
+
 SRCS += $(addprefix srcs/handlers/handle_, $(HANDLERS))
+SRCS += $(addprefix srcs/useful_functions/, $(USEFUL_FUNC))
 
 all:
 	@make -C libft/
-	@gcc -o printf $(SRCS) libft/libft.a -I libft/ -I.
+	@gcc -o printf -g $(SRCS) libft/libft.a -I libft/ -I.
 	@echo "\033[0;32mPrintf compiled\033[0m"
