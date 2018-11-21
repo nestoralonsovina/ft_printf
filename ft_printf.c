@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:25:38 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/21 18:25:35 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/21 18:56:27 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	search_width(t_param *new)
 	
 	i = 0;
 	new->width = 0;
-	printf(YELLOW "Inside search_width()...\n" RESET );
 	if (new->flags[i] == '0')
 	{
 		++i;
@@ -110,8 +109,6 @@ void	search_width(t_param *new)
 		new->width = new->width * 10 + new->flags[i] - '0';
 		++i;
 	}
-	print_full_param(*new);
-	printf(YELLOW "Exiting search_width()...\n" RESET);
 }
 
 void		search_precision(t_param *new)
@@ -127,9 +124,29 @@ void		search_precision(t_param *new)
 		++i;
 		while (ft_isdigit(ptr[i]))
 		{
-			
+			new->precision = new->precision * 10 + ptr[i] - '0';
+			++i;
 		}
 	}
+}
+
+void		search_modifier(t_param *new)
+{
+	char	*ptr;
+	
+	ptr = new->flags;
+	if (ft_strstr(ptr, "ll"))
+		new->mod = LL;
+	else if (ft_strstr(ptr, "hh"))
+		new->mod = HH;
+	else if (ft_strstr(ptr, "l"))
+		new->mod = L;
+	else if (ft_strstr(ptr, "h"))
+		new->mod = H;
+	else if (ft_strstr(ptr, "L"))
+		new->mod = BIGL;
+	else
+		new->mod = NO;
 }
 
 t_param		init_param(char *flags/*, va_list al*/)
@@ -139,7 +156,8 @@ t_param		init_param(char *flags/*, va_list al*/)
 	new.conversion = ret_conversion(flags);
 	new.flags = flags;
 	search_width(&new);
-	search_precisio(&new);
+	search_precision(&new);
+	search_modifier(&new);
 	return (new);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/21 18:11:35 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/21 18:38:17 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void		print_full_param(t_param curr)
 	printf("conversion: %c\n", curr.conversion);
 	printf("flags: %s\n", curr.flags);
 	printf("width: %d\n", curr.width);
+	printf("precision: %d\n", curr.precision);
 	printf("ind: %d\n", curr.ind);
 	printf("mod: %d\n", curr.mod);
 }
@@ -55,7 +56,7 @@ int		main(void)
 		t_param		new;
 		char		*flags;
 		
-		flags = "010.3d";
+		flags = "010.3hhd";
 		new = init_param(flags);
 		print_full_param(new);
 	}

@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/21 18:25:41 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/21 18:37:50 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef enum	e_modifiers
 {
-	NO = 0, L = 1, H = 2, LL = 3, HH = 4
+	NO = 0, L = 1, H = 2, LL = 3, HH = 4, BIGL = 5
 }				t_modifiers;
 
 typedef enum	e_indentation
@@ -65,7 +65,7 @@ t_param		init_param(char *flags/*, va_list al*/);
 char		ret_conversion(char *flags);
 void		search_width(t_param *new);
 void		search_precision(t_param *new);
-
+void		search_modifier(t_param *new);
 /*
 **	DEBUG
 */
