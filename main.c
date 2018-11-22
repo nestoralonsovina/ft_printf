@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/22 14:45:51 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/22 17:44:24 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		print_full_param(t_param curr)
 	printf("precision: %d\n", curr.precision);
 	printf("ind: %d\n", curr.ind);
 	printf("mod: %d\n", curr.mod);
-	//printf("stored data: %d\n", curr.data.i);
+	printf("stored data: %d\n", curr.data.sc);
 	printf(YELLOW "printf_full_param() ended...\n" RESET);
 	}
 
@@ -34,9 +34,19 @@ int		main(void)
 	char *surname = "Alonso";
 	
 	//printf("Flags test: "); ft_printf("%#10d");
+	if (0)
+	{
+		ft_printf(RESET "itoa_base: %s\n" RESET, ft_itoa_base(100 , 10));
+	}
 	if (1)
 	{
-		ft_printf(RESET "%010s\n" RESET, name);
+		int ret1;
+		int ret2;
+		
+		signed char i = 120;
+	 ret1 = ft_printf(RESET "digito bueno %20hd string %10s\n" RESET, 300, name);
+		ret2 = printf(RESET "digito bueno %20hd string %10s\n" RESET, 300, name);
+		printf("son los return iguales? %d\n", ret1 == ret2);
 	}
 	if (0)
 	{	

@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:09:50 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/22 14:16:04 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/22 17:42:27 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void		search_modifier(t_param *new)
 
 void		search_arg(t_param *new, va_list al)
 {
-	
 	if (new->conv == P)
 		new->data.ptr = va_arg(al, void *);
 	else if (new->conv == S)
@@ -122,6 +121,30 @@ void		search_arg(t_param *new, va_list al)
 	{
 		new->data.i = va_arg(al, int);
 	}
+	else if (new->conv == D || new->conv == I)
+	{
+		if (new->mod == H)
+			new->data.s = va_arg(al, int);
+		else if (new->mod == HH)
+			new->data.sc = va_arg(al, int);
+		else if (new->mod == L)
+			new->data.l = va_arg(al, long);
+		else if (new->mod == LL)
+			new->data.ll = va_arg(al, long long);
+	}
+	else if (new->conv > I && new->conv < F)
+	{
+		if (new->mod == H)
+			new->data.us = va_arg(al, int);
+		else if (new->mod == HH)
+			new->data.uc = va_arg(al, int);
+		else if (new->mod == L)
+			new->data.ul = va_arg(al, unsigned long);
+		else if (new->mod == LL)
+			new->data.ull = va_arg(al, unsigned long long);	
+	}
+	else if (new->conv == F)
+		new->data.f = va_arg(al, double);
 	// leave it here to test
 }
 

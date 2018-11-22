@@ -3,7 +3,7 @@ SRCS = main.c
 
 SRCS += ft_printf.c 
 
-FILES = handle_parameter.c useful_functions.c handle_arguments.c
+FILES = handle_parameter.c useful_functions.c handle_arguments.c handle_conversions.c
 
 HANDLERS =	char.c	\
 			ptr.c	\

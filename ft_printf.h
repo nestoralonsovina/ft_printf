@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/22 14:58:53 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/22 17:41:15 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 typedef union	u_data
 {
 	int					i;
-	float				f;
+	double				f;
 	char				c;
 	void				*ptr;
 	char				*str;
@@ -53,7 +53,13 @@ typedef enum	e_conversion
 {
 	NON, S, P, C, D, I, O, U, X, BIGX, F
 }				t_conversion;
-
+/*  How each flag affects depending on the conversion
+	Modifier          d, i           o, u, x, X        
+	hh                signed char    unsigned char     
+	h                 short          unsigned short    
+	l (ell)           long           unsigned long     
+	ll (ell ell)      long long      unsigned long long
+*/
 typedef struct	s_param 
 {
 	char			*pf_string;
@@ -100,13 +106,7 @@ void		search_modifier(t_param *new);
 **	DEBUG
 */
 
-/*  How each flag affects depending on the conversion
-	Modifier          d, i           o, u, x, X        
-	hh                signed char    unsigned char     
-	h                 short          unsigned short    
-	l (ell)           long           unsigned long     
-	ll (ell ell)      long long      unsigned long long
-*/
+
  
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"      /* Black */
@@ -129,11 +129,14 @@ void		search_modifier(t_param *new);
 void		print_full_param(t_param curr);
 char		*dec_to_hex(int nb);
 void		print_reverse(char *str);
-
+char		*ft_itoa_base(long long value, int base);
 // FUNCTIONS TO HANDLE DIFFERENT FLAGS
 
 char			*add_ind(char *str, t_param *node);
 void			handle_str(t_param *node);
+void			handle_ptr(t_param *node);
+void			handle_integer(t_param *node);
+
 /*
 int				handle_str(char *flags, char *str);
 int				handle_char(char *flags, char c);
