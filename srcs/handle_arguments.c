@@ -8,15 +8,20 @@ int		is_conversion(char c)
 		return (1);
 	return (0);
 }
-
+void	convert_arg(t_param *curr)
+{
+	if (curr->conv == S)
+		handle_str(curr);
+}
 
 char	*handle_args(const char *format, va_list al)
 {
 	char		flags[12];
 	int			i;
 	t_printf	res;
-		
+
 	i = 0;
+	res.buff = ft_strdup("");
 	while (*format)
 	{
 		if (*format == '%' && *(++format) != '%') // posible seg fault if i try to access uninitialize memory
@@ -29,10 +34,13 @@ char	*handle_args(const char *format, va_list al)
 			i = 0;
 			// printf("%s\n", flags);  // debug stored flags
 			res.curr = init_param(flags, al);
+			convert_arg(res.curr);
+			res.buff = fstrjoin(res.buff, res.curr->pf_string);
+			free(res.curr);
 		}
 		else
 			res.buff = add_char(res.buff, *format);
-		format += 1;
+		format += 1; // posible segfault
 	}
 	return (res.buff);
 }

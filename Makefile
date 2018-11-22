@@ -17,7 +17,7 @@ HANDLERS =	char.c	\
 
 #USEFUL_FUNC = fstrjoin.c	\
 
-SRCS += $(addprefix srcs/handlers/handle_, $(HANDLERS))
+#SRCS += $(addprefix srcs/handlers/handle_, $(HANDLERS))
 SRCS += $(addprefix srcs/, $(FILES))
 
 all:

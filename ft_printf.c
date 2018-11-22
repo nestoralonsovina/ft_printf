@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:25:38 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/22 10:22:22 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/22 14:53:34 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,7 @@ int		ft_printf(const char *format, ...)
 	stdesp = handle_args(format, arg);
 	va_end(arg);
 	ft_putstr(stdesp);
-	return (ft_strlen(stdesp));
+	done = ft_strlen(stdesp);
+	free(stdesp);
+	return (done);
 }

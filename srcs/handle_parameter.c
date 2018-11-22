@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:09:50 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/22 10:58:19 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/22 14:16:04 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ char		ret_conversion(char *flags, t_param *curr)
 	}
 	if (con == 0)
 		curr->conv = NON;
+	else if (con == 's')
+		curr->conv = S;
+	else if (con == 'c')
+		curr->conv = C;
+	else if (con == 'p')
+		curr->conv = P;
 	else if (con == 'd')
 		curr->conv = D;
 	else if (con == 'i')
@@ -107,6 +113,16 @@ void		search_modifier(t_param *new)
 void		search_arg(t_param *new, va_list al)
 {
 	
+	if (new->conv == P)
+		new->data.ptr = va_arg(al, void *);
+	else if (new->conv == S)
+		new->data.ptr = va_arg(al, char *);
+	else if (new->conv == C || \
+	 ((new->conv > C && new->conv < BIGX) && new->mod == NO))
+	{
+		new->data.i = va_arg(al, int);
+	}
+	// leave it here to test
 }
 
 t_param		*init_param(char *flags, va_list al)
@@ -119,5 +135,7 @@ t_param		*init_param(char *flags, va_list al)
 	search_width(new);
 	search_precision(new);
 	search_modifier(new);
+	search_arg(new, al);
+	print_full_param(*new);
 	return (new);
 }

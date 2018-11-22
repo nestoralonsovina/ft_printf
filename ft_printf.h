@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/22 10:56:18 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/22 14:58:53 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,23 @@
 
 // diouxX
 
+typedef union	u_data
+{
+	int					i;
+	float				f;
+	char				c;
+	void				*ptr;
+	char				*str;
+	signed char			sc;
+	unsigned char		uc;
+	short				s;
+	unsigned short		us;
+	long				l;
+	long long			ll;
+	unsigned long		ul;
+	unsigned long long	ull;
+}				t_data;
+
 typedef enum	e_modifiers
 {
 	NO = 0, L = 1, H = 2, LL = 3, HH = 4, BIGL = 5
@@ -34,7 +51,7 @@ typedef enum	e_indentation
 // not utilized par l'instant
 typedef enum	e_conversion
 {
-	NON, D, I, F, O, U, X, BIGX 
+	NON, S, P, C, D, I, O, U, X, BIGX, F
 }				t_conversion;
 
 typedef struct	s_param 
@@ -47,7 +64,7 @@ typedef struct	s_param
 	t_indentation	ind;
 	t_modifiers		mod;
 	t_conversion	conv;
-	void			*data;
+	t_data			data;
 }				t_param;
 
 typedef struct	s_printf
@@ -83,6 +100,14 @@ void		search_modifier(t_param *new);
 **	DEBUG
 */
 
+/*  How each flag affects depending on the conversion
+	Modifier          d, i           o, u, x, X        
+	hh                signed char    unsigned char     
+	h                 short          unsigned short    
+	l (ell)           long           unsigned long     
+	ll (ell ell)      long long      unsigned long long
+*/
+ 
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"      /* Black */
 #define RED     "\033[31m"      /* Red */
@@ -102,8 +127,14 @@ void		search_modifier(t_param *new);
 #define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
 void		print_full_param(t_param curr);
+char		*dec_to_hex(int nb);
+void		print_reverse(char *str);
+
 // FUNCTIONS TO HANDLE DIFFERENT FLAGS
 
+char			*add_ind(char *str, t_param *node);
+void			handle_str(t_param *node);
+/*
 int				handle_str(char *flags, char *str);
 int				handle_char(char *flags, char c);
 int				handle_ptr(char *flags, void *ptr);
@@ -113,5 +144,5 @@ int				handle_float(char *flags, va_list al);
 int				handle_octal(char *flags, va_list al);
 int				handle_decimal(char *flags, va_list al);
 int				handle_hexa(char *flags, va_list al);
-
+*/
 #endif
