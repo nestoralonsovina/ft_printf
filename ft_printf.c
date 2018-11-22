@@ -6,22 +6,15 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:25:38 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/21 18:56:27 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/22 10:22:22 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "ft_printf.h"
 
-int		is_conversion(char c)
-{
-	char flags[] = "cspfdiouxX";
-
-	if (ft_strchr(flags, c) != NULL)
-		return (1);
-	return (0);
-}
-
+// pas tres bien fais
+/*
 int		handle_conversions(char flags[], va_list al)
 {
 	int ret;
@@ -47,147 +40,7 @@ int		handle_conversions(char flags[], va_list al)
 		ret += handle_hexa(flags, al);
 	return (ret);
 }
-
-void		*malloc_safe(size_t size)
-{
-	void	*tmp;
-
-	if (!(tmp = malloc(size)))
-	{
-		write(2, "malloc failure !\n", 17);
-		exit(1);
-	}
-	return (tmp);
-}
-
-char	*add_char(char *str, char c)
-{
-	char 	*new;
-	int		len;
-
-	len = ft_strlen(str);
-	new = (char *)malloc_safe(len + 2);
-	new = ft_strcpy(new, str);
-	new[len] = c;
-	new[len + 1] = c;
-	if (str)
-		free(str);
-	return (new);
-}
-
-char		ret_conversion(char *flags)
-{
-	char	posibles[] = "cspfdiouxX";
-	int		i;
-	
-	i = 0;
-	while (posibles[i])
-	{
-		if (ft_strchr(flags, posibles[i]) != NULL)
-			return (posibles[i]);
-		++i;
-	}
-	return ((char)0); 
-}
-
-void	search_width(t_param *new)
-{
-	int i;
-	
-	i = 0;
-	new->width = 0;
-	if (new->flags[i] == '0')
-	{
-		++i;
-		new->ind = ZERO;
-	}else if (ft_isdigit(new->flags[i]))
-		new->ind = CLEAR;
-	else
-		new->ind = NONE;
-	while (ft_isdigit(new->flags[i]))
-	{
-		new->width = new->width * 10 + new->flags[i] - '0';
-		++i;
-	}
-}
-
-void		search_precision(t_param *new)
-{
-	char	*ptr;
-	int		i;
-	
-	i = 0;
-	ptr = ft_strchr(new->flags, '.');
-	new->precision = 0;
-	if (ptr && ptr[i] == '.')
-	{
-		++i;
-		while (ft_isdigit(ptr[i]))
-		{
-			new->precision = new->precision * 10 + ptr[i] - '0';
-			++i;
-		}
-	}
-}
-
-void		search_modifier(t_param *new)
-{
-	char	*ptr;
-	
-	ptr = new->flags;
-	if (ft_strstr(ptr, "ll"))
-		new->mod = LL;
-	else if (ft_strstr(ptr, "hh"))
-		new->mod = HH;
-	else if (ft_strstr(ptr, "l"))
-		new->mod = L;
-	else if (ft_strstr(ptr, "h"))
-		new->mod = H;
-	else if (ft_strstr(ptr, "L"))
-		new->mod = BIGL;
-	else
-		new->mod = NO;
-}
-
-t_param		init_param(char *flags/*, va_list al*/)
-{
-	t_param		new;
-	
-	new.conversion = ret_conversion(flags);
-	new.flags = flags;
-	search_width(&new);
-	search_precision(&new);
-	search_modifier(&new);
-	return (new);
-}
-
-char	*handle_args(const char *format, va_list al)
-{
-	char		flags[12];
-	int			i;
-	t_printf	res;
-		
-	i = 0;
-	while (*format)
-	{
-		if (*format == '%' && *(++format) != '%') // posible seg fault if i try to access uninitialize memory
-		{
-			while (!is_conversion(*format) && *format)
-			{
-				flags[i++] = *format++;
-			}
-			flags[i] = *format;
-			i = 0;
-			// printf("%s\n", flags);  // debug stored flags
-			//res.curr = init_param(flags, al);
-		}
-		else
-			res.buff = add_char(res.buff, *format);
-		format += 1;
-	}
-	return (res.buff);
-}
-
+*/
 int		ft_printf(const char *format, ...)
 {
 	va_list arg;

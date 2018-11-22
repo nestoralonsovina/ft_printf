@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/21 18:37:50 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/22 10:56:18 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include "libft/libft.h"
 # include <stdio.h>
 
+// diouxX
+
 typedef enum	e_modifiers
 {
 	NO = 0, L = 1, H = 2, LL = 3, HH = 4, BIGL = 5
@@ -29,6 +31,12 @@ typedef enum	e_indentation
 	NONE = 0, CLEAR = 1, ZERO = 2
 }				t_indentation;
 
+// not utilized par l'instant
+typedef enum	e_conversion
+{
+	NON, D, I, F, O, U, X, BIGX 
+}				t_conversion;
+
 typedef struct	s_param 
 {
 	char			*pf_string;
@@ -38,6 +46,7 @@ typedef struct	s_param
 	int				precision;
 	t_indentation	ind;
 	t_modifiers		mod;
+	t_conversion	conv;
 	void			*data;
 }				t_param;
 
@@ -56,16 +65,20 @@ int				handle_conversions(char flags[], va_list al);
 */
 
 char			*fstrjoin(char *s1, char *s2);
+void			*malloc_safe(size_t size);
+char			*add_char(char *str, char c);
 
 /*
 **	MANAGE PARAMETERS
 */
 
-t_param		init_param(char *flags/*, va_list al*/);
-char		ret_conversion(char *flags);
+t_param		*init_param(char *flags, va_list al);
+char		ret_conversion(char *flags, t_param *curr);
+int			is_conversion(char c);
 void		search_width(t_param *new);
 void		search_precision(t_param *new);
 void		search_modifier(t_param *new);
+
 /*
 **	DEBUG
 */

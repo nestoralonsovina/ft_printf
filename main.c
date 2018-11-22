@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/21 18:38:17 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/22 10:56:52 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void		print_full_param(t_param curr)
 {
 	printf("pf_string: %s\n", curr.pf_string);
 	printf("conversion: %c\n", curr.conversion);
+	printf("conv enum: %d\n", curr.conv);
 	printf("flags: %s\n", curr.flags);
 	printf("width: %d\n", curr.width);
 	printf("precision: %d\n", curr.precision);
@@ -51,14 +52,22 @@ int		main(void)
 		printf("printf - character: %c\n", *(name + 1));
 		ft_putendl("------------------------------------");
 	}
-	if (1)
+	if (0)
 	{
 		t_param		new;
 		char		*flags;
 		
-		flags = "010.3hhd";
-		new = init_param(flags);
+		flags = "010.3hhu";
+		//new = init_param(flags);
 		print_full_param(new);
+	}
+	if (0)
+	{
+		char *str = "hola";
+		while (ft_strlen(str) < 10)
+			str = add_char(ft_strdup(str), 'a');
+		printf("%s\n", str);
+		free(str);
 	}
 	return (0);
 }
