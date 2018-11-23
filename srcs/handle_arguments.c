@@ -16,6 +16,8 @@ void	convert_arg(t_param *curr)
 		handle_ptr(curr);
 	else if (curr->conv == D || curr->conv == I)
 		handle_integer(curr);
+	else if (curr->conv == O)
+		handle_octal(curr);
 }
 
 char	*handle_args(const char *format, va_list al)

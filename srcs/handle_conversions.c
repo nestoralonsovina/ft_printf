@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 14:55:39 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/22 17:28:47 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/23 11:42:30 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	handle_ptr(t_param *node)
 {
 	char	*res;
 
-	res = ft_itoa_base((long long)node->data.ptr, 16);
+	res = ft_itoa_base((unsigned int)node->data.ptr, 16);
 	res = fstrjoin(ft_strdup("0x"), res);
 	if (node->ind == NONE)
 		node->pf_string = res;
@@ -62,18 +62,38 @@ void	handle_integer(t_param *node)
 	char	*res;
 	
 	if (node->mod == H)
-		res = ft_itoa_base((long long)node->data.s, 10);
+		res = ft_itoa(node->data.s);
 	else if (node->mod == HH)
-		res = ft_itoa_base((long long)node->data.sc, 10);	
+		res = ft_itoa(node->data.sc);	
 	else if (node->mod == L)
-		res = ft_itoa_base((long long)node->data.l, 10);
+		res = ft_itoa(node->data.l);
 	else if (node->mod == LL)
-		res = ft_itoa_base(node->data.ll, 10);
+		res = ft_itoa(node->data.ll);
 	else
-		res = ft_itoa_base((long long)node->data.i, 10);
+		res = ft_itoa(node->data.i);
 	if (node->ind == NONE)
 		node->pf_string = res;
 	else
 		node->pf_string = add_ind(res, node);
+}
+
+void	handle_octal(t_param *node)
+{
+	char	*res;
+	
+	if (node->mod == H)
+		res = ft_itoa_base(node->data.us, 8);
+	else if (node->mod == HH)
+		res = ft_itoa_base(node->data.uc, 8);	
+	else if (node->mod == L)
+		res = ft_itoa_base(node->data.ul, 8);
+	else if (node->mod == LL)
+		res = ft_itoa_base(node->data.ull, 8);
+	else
+		res = ft_itoa_base((unsigned int)node->data.i, 8);
+	if (node->ind == NONE)
+		node->pf_string = res;
+	else
+		node->pf_string = add_ind(res, node);	
 }
 

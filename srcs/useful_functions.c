@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:11:31 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/22 16:09:24 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/23 11:42:53 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,32 +72,20 @@ void	reverse(char str[], int length)
     } 
 } 
 
-char	*ft_itoa_base(long long num, int base) 
+char	*ft_itoa_base(unsigned long num, int base) 
 {
 	char str[66];
 	int i = 0; 
-	int isNegative = 0; 
 	int rem;
 
 	if (num == 0) 
-	{ 
-		str[i++] = '0'; 
-		str[i] = '\0'; 
-		return (ft_strdup(str)); 
-	} 
-	if (num < 0 && base == 10) 
-	{ 
-		isNegative = 1; 
-		num = -num; 
-	} 
+		return (ft_strdup("0")); 
 	while (num != 0) 
 	{ 
 		rem = num % base; 
 		str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0'; 
 		num = num/base; 
 	} 
-	if (isNegative) 
-		str[i++] = '-'; 
 	str[i] = '\0'; 
 	reverse(str, i); 
 	return (ft_strdup(str)); 

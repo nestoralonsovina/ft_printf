@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/22 17:41:15 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/23 11:42:43 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,14 @@ void		search_modifier(t_param *new);
 void		print_full_param(t_param curr);
 char		*dec_to_hex(int nb);
 void		print_reverse(char *str);
-char		*ft_itoa_base(long long value, int base);
+char		*ft_itoa_base(unsigned long value, int base);
 // FUNCTIONS TO HANDLE DIFFERENT FLAGS
 
 char			*add_ind(char *str, t_param *node);
 void			handle_str(t_param *node);
 void			handle_ptr(t_param *node);
 void			handle_integer(t_param *node);
+void			handle_octal(t_param *node);
 
 /*
 int				handle_str(char *flags, char *str);
