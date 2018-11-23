@@ -1,4 +1,4 @@
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
 int		is_conversion(char c)
 {
@@ -12,8 +12,6 @@ void	convert_arg(t_param *curr)
 {
 	if (curr->conv == S)
 		handle_str(curr);
-	else if (curr->conv == C)
-		handle_char(curr);
 	else if (curr->conv == P)
 		handle_ptr(curr);
 	else if (curr->conv == D || curr->conv == I)

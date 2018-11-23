@@ -6,11 +6,11 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:09:50 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/23 12:11:22 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/23 17:31:44 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
 char		ret_conversion(char *flags, t_param *curr)
 {
@@ -54,9 +54,14 @@ char		ret_conversion(char *flags, t_param *curr)
 void	search_width(t_param *new)
 {
 	int i;
-	
 	i = 0;
 	new->width = 0;
+	if (new->flags[i] == '#')
+		++i;
+	if (new->flags[i] == '-')
+	{
+		++i;
+	}
 	if (new->flags[i] == '0')
 	{
 		++i;
@@ -117,7 +122,7 @@ void		search_arg(t_param *new, va_list al)
 	else if (new->conv == S)
 		new->data.ptr = va_arg(al, char *);
 	else if (new->conv == C || \
-	 ((new->conv > C && new->conv < BIGX) && new->mod == NO))
+	 ((new->conv > C && new->conv <= BIGX) && new->mod == NO))
 	{
 		new->data.i = va_arg(al, int);
 	}
@@ -159,6 +164,6 @@ t_param		*init_param(char *flags, va_list al)
 	search_precision(new);
 	search_modifier(new);
 	search_arg(new, al);
-	print_full_param(*new);
+	//print_full_param(*new);
 	return (new);
 }

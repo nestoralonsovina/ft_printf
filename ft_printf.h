@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/23 11:58:40 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/23 17:25:56 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef enum	e_modifiers
 
 typedef enum	e_indentation
 {
-	NONE = 0, CLEAR = 1, ZERO = 2
+	NONE = 1, CLEAR = 2, ZERO = 4, AFTER = 8
 }				t_indentation;
 
 // not utilized par l'instant
@@ -132,23 +132,29 @@ void		print_reverse(char *str);
 char		*ft_itoa_base(unsigned long value, int base);
 // FUNCTIONS TO HANDLE DIFFERENT FLAGS
 
+void			handle_ind(char *res, t_param *node);
 char			*add_ind(char *str, t_param *node);
 void			handle_str(t_param *node);
 void			handle_ptr(t_param *node);
 void			handle_integer(t_param *node);
 void			handle_octal(t_param *node);
 void			handle_hexa(t_param *node);
-void			handle_char(t_param *node);
+//void			handle_char(t_param *node);
+
 
 /*
-int				handle_str(char *flags, char *str);
-int				handle_char(char *flags, char c);
-int				handle_ptr(char *flags, void *ptr);
-int				handle_long(char *flags, va_list al);
-int				handle_int(char *flags, va_list al);
-int				handle_float(char *flags, va_list al);
-int				handle_octal(char *flags, va_list al);
-int				handle_decimal(char *flags, va_list al);
-int				handle_hexa(char *flags, va_list al);
+**	LIBFT FUNCTIONS
+*/
+/*
+char				*ft_itoa(int nbr);
+int					ft_isdigit(int c);
+char				*ft_strcpy(char *dst, const char *src);
+void				ft_strclr(char *s);
+char				*ft_strnew(size_t size);
+char				*ft_strchr(const char *s, int c);
+void				ft_putstr(char *str);
+char				*ft_strdup(const char *s1);
+char				*ft_strstr(const char *str, const char *to_find);
+void			*ft_memset(void *b, int c, size_t len);
 */
 #endif
