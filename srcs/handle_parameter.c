@@ -6,11 +6,11 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:09:50 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/22 17:42:27 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/23 12:11:22 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 char		ret_conversion(char *flags, t_param *curr)
 {

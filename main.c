@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/23 10:52:51 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/23 11:55:38 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ int		main(void)
 	{
 		ft_printf(RESET "itoa_base: %s\n" RESET, ft_itoa_base(100 , 10));
 	}
-	if (1)
+	if (0)
 	{
 		int ret1;
 		int ret2;
 		
-		int i = -10;
-	 ret1 = ft_printf(RESET "digit %20o string %10s\n" RESET, i, name);
-		ret2 = printf(RESET "digit %20o string %10s\n" RESET, i, name);
+		int i = 1015;
+	 ret1 = ft_printf(RESET "digit %20x string %10s\n" RESET, i, name);
+		ret2 = printf(RESET "digit %20x string %10s\n" RESET, i, name);
 		printf("are the returns equal? %d\n", ret1 == ret2);
 	}
-	if (0)
+	if (1)
 	{	
 		printf(" test return : %d\n", printf("Hola mu buenas%s", name) == ft_printf("Hola mu buenas%s", name));
 		ft_putendl("------------------------------------");	

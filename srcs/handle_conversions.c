@@ -6,11 +6,11 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 14:55:39 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/23 11:42:30 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/23 12:11:34 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 char	*add_ind(char *str, t_param *node)
 {
@@ -26,7 +26,7 @@ char	*add_ind(char *str, t_param *node)
 	{
 		while (node->width - len > 0)
 		{
-			if (node->ind == CLEAR || node->conv == S || node->conv == P)
+			if (node->ind == CLEAR || node->conv == S || node->conv == P || node->conv == C)
 				new = add_char(new, ' ');
 			else
 				new = add_char(new, '0');
@@ -94,6 +94,26 @@ void	handle_octal(t_param *node)
 	if (node->ind == NONE)
 		node->pf_string = res;
 	else
-		node->pf_string = add_ind(res, node);	
+		node->pf_string = add_ind(res, node);
+}
+
+void	handle_hexa(t_param *node)
+{	
+	char	*res;
+	
+	if (node->mod == H)
+		res = ft_itoa_base(node->data.us, 16);
+	else if (node->mod == HH)
+		res = ft_itoa_base(node->data.uc, 16);	
+	else if (node->mod == L)
+		res = ft_itoa_base(node->data.ul, 16);
+	else if (node->mod == LL)
+		res = ft_itoa_base(node->data.ull, 16);
+	else
+		res = ft_itoa_base((unsigned int)node->data.i, 16);
+	if (node->ind == NONE)
+		node->pf_string = res;
+	else
+		node->pf_string = add_ind(res, node);
 }
 
