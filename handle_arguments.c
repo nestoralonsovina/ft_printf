@@ -20,6 +20,8 @@ void	convert_arg(t_param *curr)
 		handle_octal(curr);
 	else if (curr->conv == X || curr->conv == BIGX)
 		handle_hexa(curr);
+	else if (curr->conv == U)
+		handle_u(curr);
 }
 
 char	*handle_args(const char *format, va_list al)

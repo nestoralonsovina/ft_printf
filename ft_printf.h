@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/26 11:57:50 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/26 17:35:25 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef union	u_data
 {
 	int					i;
+	unsigned int		ui;
 	double				f;
 	char				c;
 	void				*ptr;
@@ -90,7 +91,7 @@ int				handle_conversions(char flags[], va_list al);
 char			*fstrjoin(char *s1, char *s2);
 void			*malloc_safe(size_t size);
 char			*add_char(char *str, char c);
-
+char			*data_to_base(t_param *node, int base);
 /*
 **	MANAGE PARAMETERS
 */
@@ -130,6 +131,7 @@ void		print_full_param(t_param curr);
 char		*dec_to_hex(int nb);
 void		print_reverse(char *str);
 char		*ft_itoa_base(unsigned long value, int base);
+char		*ft_decimal_itoa(long long nbr);
 // FUNCTIONS TO HANDLE DIFFERENT FLAGS
 
 void			handle_ind(char *res, t_param *node);
@@ -139,6 +141,7 @@ void			handle_ptr(t_param *node);
 void			handle_integer(t_param *node);
 void			handle_octal(t_param *node);
 void			handle_hexa(t_param *node);
+void			handle_u(t_param *node);
 //void			handle_char(t_param *node);
 
 

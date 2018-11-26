@@ -6,12 +6,13 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/26 11:57:58 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/26 17:21:51 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../ft_printf.h"
+#include <limits.h>
 
 void		print_full_param(t_param curr)
 {
@@ -24,7 +25,7 @@ void		print_full_param(t_param curr)
 	printf("precision: %d\n", curr.precision);
 	printf("ind: %d\n", curr.ind);
 	printf("mod: %d\n", curr.mod);
-	printf("stored data: %d\n", curr.data.i);
+	printf("stored data: %hd\n", curr.data.s);
 	printf(YELLOW "printf_full_param() ended...\n" RESET);
 	}
 
@@ -42,7 +43,7 @@ int		main(void)
 	}
 	if (1)
 	{
-		 ft_printf("%#10x\n", 13);
+		ft_printf("%d", -151454);
 	}
 	if (0)
 	{

@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:09:50 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/25 16:56:10 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/26 16:19:51 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,8 @@ void		search_arg(t_param *new, va_list al)
 		new->data.ptr = va_arg(al, void *);
 	else if (new->conv == S)
 		new->data.ptr = va_arg(al, char *);
-	else if (new->conv == C || \
-	 ((new->conv > C && new->conv <= BIGX) && new->mod == NO))
-	{
-		new->data.i = va_arg(al, int);
-	}
+	else if (new->conv == C)
+		new->data.c = va_arg(al, int);
 	else if (new->conv == D || new->conv == I)
 	{
 		if (new->mod == H)
@@ -136,6 +133,8 @@ void		search_arg(t_param *new, va_list al)
 			new->data.l = va_arg(al, long);
 		else if (new->mod == LL)
 			new->data.ll = va_arg(al, long long);
+		else
+			new->data.i = va_arg(al, int);
 	}
 	else if (new->conv > I && new->conv < F)
 	{
@@ -147,10 +146,11 @@ void		search_arg(t_param *new, va_list al)
 			new->data.ul = va_arg(al, unsigned long);
 		else if (new->mod == LL)
 			new->data.ull = va_arg(al, unsigned long long);
+		else
+			new->data.ui = va_arg(al, unsigned int);
 	}
 	else if (new->conv == F)
 		new->data.f = va_arg(al, double);
-	// leave it here to test
 }
 
 t_param		*init_param(char *flags, va_list al)

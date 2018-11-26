@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:11:31 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/25 16:56:14 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/26 12:43:40 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,3 +90,4 @@ char	*ft_itoa_base(unsigned long num, int base)
 	reverse(str, i);
 	return (ft_strdup(str));
 }
+

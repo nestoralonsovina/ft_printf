@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 14:55:39 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/26 11:59:47 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/26 17:35:05 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*add_ind(char *str, t_param *node)
 	{
 		while (node->width - len > 0)
 		{
-			if (node->ind == CLEAR || node->conv == S || node->conv == P || node->conv == C)
+			if (node->ind == CLEAR || node->conv == S || node->conv == P || node->conv == C || ft_strchr(node->flags, '-'))
 				new = add_char(new, ' ');
 			else
 				new = add_char(new, '0');
@@ -68,40 +68,85 @@ void	handle_ptr(t_param *node)
 		node->pf_string = add_ind(res, node);
 }
 
-void	handle_integer(t_param *node)
+int		is_negative(t_param *node)
 {
-	char	*res;
+	if (node->data.i < 0 && (node->mod == NO))
+		return (-1);
+	else if (node->data.l < 0 && node->mod == L)
+		return (-1);
+	else if (node->data.ll < 0 && node->mod == LL)
+		return (-1);
+	else if (node->data.s < 0 && node->mod == H)
+		return (-1);
+	else if (node->data.sc < 0 && node->mod == HH)
+		return (-1);
+	return (1);
+}
 
-	if (node->mod == H)
-		res = ft_itoa(node->data.s);
-	else if (node->mod == HH)
-		res = ft_itoa(node->data.sc);
+void	to_unsigned(t_param *node, int neg)
+{
+	if (node->mod == NO)
+		node->data.ui = neg * node->data.i;
 	else if (node->mod == L)
-		res = ft_itoa(node->data.l);
+		node->data.ul = neg * node->data.l;
 	else if (node->mod == LL)
-		res = ft_itoa(node->data.ll);
-	else
-		res = ft_itoa(node->data.i);
+		node->data.ull = neg * node->data.ll;
+	else if (node->mod == H)
+		node->data.us = neg * node->data.s;
+	else if (node->mod == HH)
+		node->data.uc = neg * node->data.sc;
+}
+
+void	handle_u(t_param *node)
+{
+	char *res;
+
+	res = data_to_base(node, 10);
 	if (node->ind == NONE)
 		node->pf_string = res;
 	else
 		node->pf_string = add_ind(res, node);
 }
 
-void	handle_octal(t_param *node)
+void	handle_integer(t_param *node)
+{
+	char	*res;
+	int		negative;
+
+	//negative = 0;
+	negative = is_negative(node);
+	to_unsigned(node, negative);
+	res = data_to_base(node, 10);
+	if (negative == -1)
+		res = fstrjoin(ft_strdup("-"), res);
+	if (node->ind == NONE)
+		node->pf_string = res;
+	else
+		node->pf_string = add_ind(res, node);
+}
+
+char	*data_to_base(t_param *node, int base)
 {
 	char	*res;
 
 	if (node->mod == H)
-		res = ft_itoa_base(node->data.us, 8);
+		res = ft_itoa_base(node->data.us, base);
 	else if (node->mod == HH)
-		res = ft_itoa_base(node->data.uc, 8);
+		res = ft_itoa_base(node->data.uc, base);
 	else if (node->mod == L)
-		res = ft_itoa_base(node->data.ul, 8);
+		res = ft_itoa_base(node->data.ul, base);
 	else if (node->mod == LL)
-		res = ft_itoa_base(node->data.ull, 8);
+		res = ft_itoa_base(node->data.ull, base);
 	else
-		res = ft_itoa_base((unsigned int)node->data.i, 8);
+		res = ft_itoa_base(node->data.ui, base);
+	return (res);
+}
+
+void	handle_octal(t_param *node)
+{
+	char	*res;
+
+	res = data_to_base(node, 8);
 	if (node->ind == NONE)
 		node->pf_string = res;
 	else
@@ -131,23 +176,14 @@ void	handle_ind(char *res, t_param *node)
 
 void	handle_hexa(t_param *node)
 {
-	printf("inside handle_hexa()...\n");
-
 	char	*res;
 
-	//print_full_param(*node);
-
-	if (node->mod == H)
-		res = ft_itoa_base(node->data.us, 16);
-	else if (node->mod == HH)
-		res = ft_itoa_base(node->data.uc, 16);
-	else if (node->mod == L)
-		res = ft_itoa_base(node->data.ul, 16);
-	else if (node->mod == LL)
-		res = ft_itoa_base(node->data.ull, 16);
-	else
-		res = ft_itoa_base((unsigned int)node->data.i, 16);
-
+	res = data_to_base(node, 16);
+	if (ft_strcmp(res, "0") == 0)
+	{
+		node->pf_string = res;
+		return ;
+	}
 	if (ft_strchr(node->flags, '#'))
 	{
 		if (node->ind < ZERO)
@@ -157,6 +193,7 @@ void	handle_hexa(t_param *node)
 		}
 		else if (node->ind == ZERO)
 		{
+			node->width -= 2;
 			handle_ind(res, node);
 			node->pf_string = fstrjoin(ft_strdup("0x"), node->pf_string);
 		}
