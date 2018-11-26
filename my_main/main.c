@@ -6,12 +6,12 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/23 17:31:06 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/26 11:57:58 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "ft_printf.h"
+#include "../libft/libft.h"
+#include "../ft_printf.h"
 
 void		print_full_param(t_param curr)
 {
@@ -24,7 +24,7 @@ void		print_full_param(t_param curr)
 	printf("precision: %d\n", curr.precision);
 	printf("ind: %d\n", curr.ind);
 	printf("mod: %d\n", curr.mod);
-	printf("stored data: %d\n", curr.data.sc);
+	printf("stored data: %d\n", curr.data.i);
 	printf(YELLOW "printf_full_param() ended...\n" RESET);
 	}
 
@@ -32,17 +32,17 @@ int		main(void)
 {
 	char *name = "Nestor";
 	char *surname = "Alonso";
-	
+
 	//printf("Flags test: "); ft_printf("%#10d");
 	if (0)
 	{
 		t_indentation e = ZERO | AFTER;
 		printf("%d\n", e & ZERO);
-		
+
 	}
 	if (1)
 	{
-		 ft_printf("%#-08x", 42);
+		 ft_printf("%#10x\n", 13);
 	}
 	if (0)
 	{
@@ -52,18 +52,18 @@ int		main(void)
 	{
 		int ret1;
 		int ret2;
-		
+
 		int i = 1015;
 	 ret1 = ft_printf(RESET "digit %20x string %10s\n" RESET, i, name);
 		ret2 = printf(RESET "digit %20x string %10s\n" RESET, i, name);
 		printf("are the returns equal? %d\n", ret1 == ret2);
 	}
 	if (0)
-	{	
+	{
 		printf(" test return : %d\n", printf("Hola mu buenas%s", name) == ft_printf("Hola mu buenas%s", name));
-		ft_putendl("------------------------------------");	
-		printf("test double %%s%s he\n", name);	
-		ft_putendl("------------------------------------");	
+		ft_putendl("------------------------------------");
+		printf("test double %%s%s he\n", name);
+		ft_putendl("------------------------------------");
 		ft_putendl("Test %%s flag:");
 		ft_printf("ft_printf - string: %s %s\n", name, surname);
 		printf("printf - string: %s\n", name);
@@ -83,7 +83,7 @@ int		main(void)
 	{
 		t_param		new;
 		char		*flags;
-		
+
 		flags = "010.3hhu";
 		//new = init_param(flags);
 		print_full_param(new);

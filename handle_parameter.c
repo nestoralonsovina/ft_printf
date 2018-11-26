@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:09:50 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/23 17:31:44 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/25 16:56:10 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char		ret_conversion(char *flags, t_param *curr)
 	char	posibles[] = "cspfdiouxX";
 	char	con;
 	int		i;
-	
+
 	i = 0;
 	con = 0;
 	while (posibles[i])
@@ -48,7 +48,7 @@ char		ret_conversion(char *flags, t_param *curr)
 		curr->conv = X;
 	else if (con == 'X')
 		curr->conv = BIGX;
-	return (con); 
+	return (con);
 }
 
 void	search_width(t_param *new)
@@ -81,7 +81,7 @@ void		search_precision(t_param *new)
 {
 	char	*ptr;
 	int		i;
-	
+
 	i = 0;
 	ptr = ft_strchr(new->flags, '.');
 	new->precision = 0;
@@ -99,7 +99,7 @@ void		search_precision(t_param *new)
 void		search_modifier(t_param *new)
 {
 	char	*ptr;
-	
+
 	ptr = new->flags;
 	if (ft_strstr(ptr, "ll"))
 		new->mod = LL;
@@ -146,7 +146,7 @@ void		search_arg(t_param *new, va_list al)
 		else if (new->mod == L)
 			new->data.ul = va_arg(al, unsigned long);
 		else if (new->mod == LL)
-			new->data.ull = va_arg(al, unsigned long long);	
+			new->data.ull = va_arg(al, unsigned long long);
 	}
 	else if (new->conv == F)
 		new->data.f = va_arg(al, double);
@@ -156,7 +156,7 @@ void		search_arg(t_param *new, va_list al)
 t_param		*init_param(char *flags, va_list al)
 {
 	t_param		*new;
-	
+
 	new = (t_param *)malloc_safe(sizeof(*new));
 	new->conversion = ret_conversion(flags, new);
 	new->flags = flags;

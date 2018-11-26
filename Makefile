@@ -62,7 +62,7 @@ LIBFT += ft_lstnew.c		\
 		ft_lstdel.c		\
 		ft_lstadd.c		\
 		ft_lstiter.c	\
-		ft_lstmap.c		
+		ft_lstmap.c
 
 LIBFTSRCS = $(addprefix libft/, $(LIBFT))
 LIBFTOBJS = $(LIBFT:.c=.o)
@@ -73,7 +73,7 @@ NAME = libftprintf.a
 SRCS += ft_printf.c handle_parameter.c \
 		useful_functions.c handle_arguments.c \
 		handle_conversions.c
-		
+
 
 #USEFUL_FUNC = fstrjoin.c
 
@@ -103,7 +103,7 @@ HEAD = ft_printf.h
 # OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Compile and create everything.
-all: $(NAME)
+all: $(NAME) clean
 
 # This won't run if the .o files don't exist or are not modified
 $(NAME): $(OBJS) $(LIBFTOBJS)

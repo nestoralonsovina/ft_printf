@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/23 17:25:56 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/26 11:57:50 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ typedef enum	e_conversion
 	NON, S, P, C, D, I, O, U, X, BIGX, F
 }				t_conversion;
 /*  How each flag affects depending on the conversion
-	Modifier          d, i           o, u, x, X        
-	hh                signed char    unsigned char     
-	h                 short          unsigned short    
-	l (ell)           long           unsigned long     
+	Modifier          d, i           o, u, x, X
+	hh                signed char    unsigned char
+	h                 short          unsigned short
+	l (ell)           long           unsigned long
 	ll (ell ell)      long long      unsigned long long
 */
-typedef struct	s_param 
+typedef struct	s_param
 {
 	char			*pf_string;
 	char			conversion;
@@ -107,7 +107,7 @@ void		search_modifier(t_param *new);
 */
 
 
- 
+
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"      /* Black */
 #define RED     "\033[31m"      /* Red */
