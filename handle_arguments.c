@@ -8,7 +8,7 @@ int		is_conversion(char c)
 		return (1);
 	return (0);
 }
-void	convert_arg(t_param *curr)
+void	convert_arg(t_param *curr, t_printf *head)
 {
 	if (curr->conv == S)
 		handle_str(curr);
@@ -22,16 +22,20 @@ void	convert_arg(t_param *curr)
 		handle_hexa(curr);
 	else if (curr->conv == U)
 		handle_u(curr);
+	else if (curr->conv == C)
+		handle_c(curr, head);
 }
 
-char	*handle_args(const char *format, va_list al)
+t_printf	*handle_args(const char *format, va_list al)
 {
 	char		flags[12];
 	int			i;
-	t_printf	res;
+	t_printf	*res;
 
 	i = 0;
-	res.buff = ft_strdup("");
+	
+	res = (t_printf *)malloc(sizeof(*res));
+	res->buff = ft_strdup("");
 	while (*format)
 	{
 		ft_strclr(flags);
@@ -44,15 +48,15 @@ char	*handle_args(const char *format, va_list al)
 			flags[i] = *format;
 			i = 0;
 			// printf("%s\n", flags);  // debug stored flags
-			res.curr = init_param(flags, al);
-			convert_arg(res.curr);
-			res.buff = fstrjoin(res.buff, res.curr->pf_string);
-			free(res.curr);
+			res->curr = init_param(flags, al);
+			convert_arg(res->curr, res);
+			res->buff = fstrjoin(res->buff, res->curr->pf_string);
+			free(res->curr);
 		}
 		else
-			res.buff = add_char(res.buff, *format);
+			res->buff = add_char(res->buff, *format);
 		format += 1; // posible segfault
 	}
-	return (res.buff);
+	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/27 15:13:58 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/27 16:38:30 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,12 @@ typedef struct	s_param
 typedef struct	s_printf
 {
 	char			*buff;
+	size_t			len;
 	t_param			*curr;
 }				t_printf;
 
 int				ft_printf(const char *format, ...);
-char			*handle_args(const char *format, va_list arg);
+t_printf		*handle_args(const char *format, va_list arg);
 int				handle_conversions(char flags[], va_list al);
 
 /*
@@ -143,6 +144,7 @@ void			handle_integer(t_param *node);
 void			handle_octal(t_param *node);
 void			handle_hexa(t_param *node);
 void			handle_u(t_param *node);
+void			handle_c(t_param *node ,t_printf *head);
 //void			handle_char(t_param *node);
 
 

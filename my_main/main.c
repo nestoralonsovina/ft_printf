@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/27 15:13:57 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/27 17:30:55 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,20 @@ int		main(void)
 	}
 	if (0)
 	{
+		int ret =  ft_printf("@ft_printf :|%5.2c||null: %c||%2.5c|\n", 42, 0, 42);
+		int ret2 = printf(   "@printf    :|%5.2c||null: %c||%2.5c|\n", 42, 0, 42);
+		ft_printf("ret ft_printf: %d ret printf: %d", ret, ret2);
+	}
+	if (0)
+	{
 		void	*ptr = NULL;
 	 ft_printf("ft_printf: %.5p|%.p|%.0p|%9.2p|%2.9p\n", ptr, ptr, ptr, 1234, 1234);
 		printf("libprintf: %.5p|%.p|%.0p|%9.2p|%2.9p\n", ptr, ptr, ptr, 1234, 1234);
 	}
-	if (0)
+	if (1)
 	{
-		ft_printf(RESET "itoa_base: %s\n" RESET, ft_itoa_base(100 , 10));
+		ft_printf("@moulitest: %.10d\n", -42);
+		   printf("@moulitest: %.10d\n", -42);
 	}
 	if (0)
 	{

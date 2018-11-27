@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 14:55:39 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/27 15:13:59 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/27 17:30:54 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,19 @@ char	*add_prec(char *str, t_param *node)
 		new = fstrjoin(new, str);
 		return (new);
 	}
+}
+
+void	handle_c(t_param *node, t_printf *head)
+{
+	char	*res;
+
+	if (node->data.c == 0)
+		head->len = 1;
+	res = ft_strdup(" ");
+	res[0] = node->data.c;
+	node->precision = -1;
+	res = add_ind(res, node);
+	node->pf_string = res;
 }
 
 void	handle_str(t_param *node)
@@ -158,13 +171,13 @@ void	handle_integer(t_param *node)
 	negative = is_negative(node);
 	to_unsigned(node, negative);
 	res = data_to_base(node, 10);
-	if (negative == -1 && node->ind == NONE)
+	if (negative == -1 && node->ind == NONE && node->precision == -1)
 		res = fstrjoin(ft_strdup("-"), res);
 	else if (ft_strchr(node->flags, '+') && negative != -1 && node->ind == NONE)
 		res = fstrjoin(ft_strdup("+"), res);
 	else
 	{
-	if (node->ind == ZERO)
+	if (node->ind == ZERO || node->precision)
 	{
 		if (negative == -1)
 			--(node->width);
@@ -176,7 +189,7 @@ void	handle_integer(t_param *node)
 		else if (ft_strchr(node->flags, '+'))
 			res = fstrjoin(ft_strdup("+"), res);
 	}
-	else if (node->ind == CLEAR || node->precision)
+	else if (node->ind == CLEAR)
 	{	
 		if (negative == -1)
 			res = fstrjoin(ft_strdup("-"), res);

@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:25:38 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/26 11:04:00 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/27 16:40:10 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 int		ft_printf(const char *format, ...)
 {
-	va_list arg;
-	int		done;
-	char	*stdesp;
+	va_list		arg;
+	int			done;
+	t_printf	*res;
 
 	va_start(arg, format);
-	stdesp = handle_args(format, arg);
+	res = handle_args(format, arg);
 	va_end(arg);
-	ft_putstr(stdesp);
-	done = ft_strlen(stdesp);
-	free(stdesp);
+	ft_putstr(res->buff);
+	res->len += ft_strlen(res->buff);
+	free(res->buff);
+	done = res->len;
+	free(res);
 	return (done);
 }
