@@ -130,4 +130,13 @@ fclean: clean
 
 re: fclean all
 
+test:
+	@make
+	@echo "libfprintf.a compiled"
+	@gcc -g -o printf my_main/main.c libftprintf.a
+	@echo "./printf executable compiled"
+	@echo "executing ./printf..."
+	@echo ""
+	@./printf
+
 .PHONY: clean fclean all re

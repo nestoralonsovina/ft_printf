@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:09:50 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/26 16:19:51 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/27 13:34:34 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	search_width(t_param *new)
 	{
 		++i;
 		new->ind = ZERO;
+		if (new->flags[i] == '+')
+			++i;
 	}else if (ft_isdigit(new->flags[i]))
 		new->ind = CLEAR;
 	else
@@ -84,6 +86,9 @@ void		search_precision(t_param *new)
 
 	i = 0;
 	ptr = ft_strchr(new->flags, '.');
+	new->precision = -1;
+	if (ptr == NULL)
+		return ;
 	new->precision = 0;
 	if (ptr && ptr[i] == '.')
 	{

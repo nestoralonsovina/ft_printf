@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/26 17:21:51 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/27 15:13:57 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ int		main(void)
 	{
 		t_indentation e = ZERO | AFTER;
 		printf("%d\n", e & ZERO);
-
 	}
-	if (1)
+	if (0)
 	{
-		ft_printf("%d", -151454);
+		void	*ptr = NULL;
+	 ft_printf("ft_printf: %.5p|%.p|%.0p|%9.2p|%2.9p\n", ptr, ptr, ptr, 1234, 1234);
+		printf("libprintf: %.5p|%.p|%.0p|%9.2p|%2.9p\n", ptr, ptr, ptr, 1234, 1234);
 	}
 	if (0)
 	{
@@ -55,7 +56,7 @@ int		main(void)
 		int ret2;
 
 		int i = 1015;
-	 ret1 = ft_printf(RESET "digit %20x string %10s\n" RESET, i, name);
+	 	ret1 = ft_printf(RESET "digit %20x string %10s\n" RESET, i, name);
 		ret2 = printf(RESET "digit %20x string %10s\n" RESET, i, name);
 		printf("are the returns equal? %d\n", ret1 == ret2);
 	}

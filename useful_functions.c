@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:11:31 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/26 12:43:40 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/27 13:41:18 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	reverse(char str[], int length)
     }
 }
 
-char	*ft_itoa_base(unsigned long num, int base)
+char	*ft_itoa_base(unsigned long long num, int base)
 {
 	char str[66];
 	int i = 0;

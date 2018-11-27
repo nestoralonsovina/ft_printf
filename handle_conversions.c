@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 14:55:39 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/26 17:35:05 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/27 15:13:59 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ char	*add_ind(char *str, t_param *node)
 	char	*new;
 
 	str = ft_strdup(str);
+	//printf("str after: %s\n", str);
+	str = add_prec(str, node);
+	//printf("str after: %s\n", str);
 	len = ft_strlen(str);
 	new = ft_strnew(1);
 	if (len >= node->width)
@@ -36,6 +39,33 @@ char	*add_ind(char *str, t_param *node)
 			new = fstrjoin(str, new);
 		else
 			new = fstrjoin(new, str);
+		return (new);
+	}
+}
+
+char	*add_prec(char *str, t_param *node)
+{
+	int		len;
+	char	*new;
+
+	if (!(node->conv > C && node->conv < F) && node->conv != P)
+		return (str);
+	if (node->ind == ZERO && node->precision > -1)
+		node->ind = CLEAR;
+	if (node->precision == 0 && node->conv != P)
+		return (ft_strdup(" "));
+	new = ft_strnew(1);
+	len = ft_strlen(str);
+	if (len >= node->precision)
+		return (str);
+	else
+	{
+		while (node->precision - len > 0)
+		{
+			new = add_char(new, '0');
+			--(node->precision);
+		}
+		new = fstrjoin(new, str);
 		return (new);
 	}
 }
@@ -60,12 +90,22 @@ void	handle_ptr(t_param *node)
 {
 	char	*res;
 
-	res = ft_itoa_base((unsigned int)node->data.ptr, 16);
-	res = fstrjoin(ft_strdup("0x"), res);
-	if (node->ind == NONE)
-		node->pf_string = res;
+//	print_full_param(*node);
+	res = ft_itoa_base((unsigned long long)node->data.ptr, 16);
+	if (node->precision == 0)
+		res = ft_strdup("");
+	if (node->ind == CLEAR && node->width > node->precision)
+	{
+		res = fstrjoin(ft_strdup("0x"), res);
+		res = add_ind(res, node);
+	}
 	else
-		node->pf_string = add_ind(res, node);
+	{
+		node->width -= 2;
+		res = add_ind(res, node);
+		res = fstrjoin(ft_strdup("0x"), res);
+	}
+	node->pf_string = res;
 }
 
 int		is_negative(t_param *node)
@@ -114,15 +154,38 @@ void	handle_integer(t_param *node)
 	int		negative;
 
 	//negative = 0;
+	//print_full_param(*node);
 	negative = is_negative(node);
 	to_unsigned(node, negative);
 	res = data_to_base(node, 10);
-	if (negative == -1)
+	if (negative == -1 && node->ind == NONE)
 		res = fstrjoin(ft_strdup("-"), res);
-	if (node->ind == NONE)
-		node->pf_string = res;
+	else if (ft_strchr(node->flags, '+') && negative != -1 && node->ind == NONE)
+		res = fstrjoin(ft_strdup("+"), res);
 	else
-		node->pf_string = add_ind(res, node);
+	{
+	if (node->ind == ZERO)
+	{
+		if (negative == -1)
+			--(node->width);
+		else if (ft_strchr(node->flags, '+'))
+			--(node->width);
+		res = add_ind(res, node);
+		if (negative == -1)
+			res = fstrjoin(ft_strdup("-"), res);
+		else if (ft_strchr(node->flags, '+'))
+			res = fstrjoin(ft_strdup("+"), res);
+	}
+	else if (node->ind == CLEAR || node->precision)
+	{	
+		if (negative == -1)
+			res = fstrjoin(ft_strdup("-"), res);
+		else if (ft_strchr(node->flags, '+'))
+			res = fstrjoin(ft_strdup("+"), res);
+		res = add_ind(res, node);
+		}
+	}
+	node->pf_string = res;
 }
 
 char	*data_to_base(t_param *node, int base)
