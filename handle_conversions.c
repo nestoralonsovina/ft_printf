@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 14:55:39 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/28 13:05:41 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/28 14:34:43 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,26 @@ void	handle_c(t_param *node, t_printf *head)
 {
 	char	*res;
 
+	res = NULL;
 	if (node->data.c == 0)
 	{
-		head->len = 1;
+		if (node->ind != NONE)
+		{
+			res = add_ind(ft_strdup(""), node);
+			head->len += write(1, res, ft_strlen(res));
+			free(res);
+		}
+		head->len += write(1, &node->data.c, 1);
 	}
-	res = ft_strdup(" ");
-	res[0] = node->data.c;
-	node->precision = -1;
-	res = add_ind(res, node);
-	node->pf_string = res;
+	else
+	{
+		res = ft_strdup(" ");
+		res[0] = node->data.c;
+		node->precision = -1;
+		res = add_ind(res, node);
+		node->pf_string = res;
+		head->len += write(1, node->pf_string, ft_strlen(node->pf_string));
+	}
 }
 
 void	handle_str(t_param *node)

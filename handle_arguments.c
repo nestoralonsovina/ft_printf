@@ -51,11 +51,12 @@ t_printf	*handle_args(const char *format, va_list al)
 			// printf("%s\n", flags);  // debug stored flags
 			res->curr = init_param(flags, al);
 			convert_arg(res->curr, res);
-			res->buff = fstrjoin(res->buff, res->curr->pf_string);
+			if (res->curr->conv != C) // I'm handling char personally because they are incredible.
+				res->len += write(1, res->curr->pf_string, ft_strlen(res->curr->pf_string));
 			free(res->curr);
 		}
 		else
-			res->buff = add_char(res->buff, *format);
+			res->len += write(1, format, 1);
 		format += 1; // posible segfault
 	}
 	return (res);

@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/28 10:42:47 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/28 14:10:17 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void			handle_integer(t_param *node);
 void			handle_octal(t_param *node);
 void			handle_hexa(t_param *node);
 void			handle_u(t_param *node);
-void			handle_c(t_param *node ,t_printf *head);
+void			handle_c(t_param *node, t_printf *head);
 //void			handle_char(t_param *node);
 
 

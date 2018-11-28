@@ -2,3 +2,4 @@
 .DS_Store
 printf
 .vscode
+printf.dSYM/
