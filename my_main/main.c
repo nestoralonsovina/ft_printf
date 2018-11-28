@@ -42,7 +42,25 @@ int		main(void)
 	}
 	if (1)
 	{
-		ft_printf("%2c", 0);	
+		//printf("@moulitest: %5.x %5.0x|\n", 0, 0);
+		//ft_printf("@moulitest: %5.x %5.0x|\n", 0, 0);
+		//ft_printf("%-#6o|\n", 2500);
+		//   printf("%-#6o|\n", 2500);
+		//ft_printf("@moulitest: %#.x %#.0x\n", 0, 0);
+		ft_printf("@moulitest: %.2o %.0o %.o|\n", 0, 0, 0);
+		ft_printf("@moulitest: %#.o %#.0o|\n", 0, 0);
+		ft_printf("@moulitest: %.10o|\n", 42);
+		printf("@moulitest: %.2o %.0o %.o|\n", 0, 0, 0);
+		printf("@moulitest: %#.o %#.0o|\n", 0, 0);
+		printf("@moulitest: %.10o|\n", 42);
+	}	
+	if (0)
+	{
+		ft_printf("% d\n", 42);
+		ft_printf("%0+5d\n", 42);
+		   printf("%0+5d\n", -42);
+		   printf("%0+5d\n", 42);
+		   printf("%zi\n", LLONG_MIN);
 	}
 	if (0)
 	{
@@ -62,8 +80,8 @@ int		main(void)
 	}
 	if (0)
 	{
-		ft_printf("@moulitest: %.10d\n", -42);
-		   printf("@moulitest: %.10d\n", -42);
+		ft_printf("% 0+-#10.5lld\n", 42);
+		printf("% 0+-#10.5lld\n", 42);
 	}
 	if (0)
 	{

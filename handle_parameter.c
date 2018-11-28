@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:09:50 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/27 16:38:32 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/28 16:44:31 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,27 +56,20 @@ void	search_width(t_param *new)
 	int i;
 	i = 0;
 	new->width = 0;
-	if (new->flags[i] == '#')
+
+	while (new->flags[i] == '-' || new->flags[i] == '+' || new->flags[i] == '#')
 		++i;
-	if (new->flags[i] == '-')
-	{
-		++i;
-	}
 	if (new->flags[i] == '0')
 	{
-		++i;
 		new->ind = ZERO;
-		if (new->flags[i] == '+')
+		++i;
+		while (new->flags[i] == '-' || new->flags[i] == '+' || new->flags[i] == '#')
 			++i;
 	}else if (ft_isdigit(new->flags[i]))
 		new->ind = CLEAR;
 	else
 		new->ind = NONE;
-	while (ft_isdigit(new->flags[i]))
-	{
-		new->width = new->width * 10 + new->flags[i] - '0';
-		++i;
-	}
+	new->width = ft_atoi(&new->flags[i]);
 }
 
 void		search_precision(t_param *new)
@@ -164,7 +157,10 @@ t_param		*init_param(char *flags, va_list al)
 
 	new = (t_param *)malloc_safe(sizeof(*new));
 	new->conversion = ret_conversion(flags, new);
-	new->flags = flags;
+	if (ft_strcmp(flags, " d") != 0)
+		new->flags = ft_strtrim(flags);
+	else
+		new->flags = ft_strdup(flags);
 	search_width(new);
 	search_precision(new);
 	search_modifier(new);

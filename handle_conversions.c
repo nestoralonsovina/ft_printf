@@ -6,69 +6,11 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 14:55:39 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/28 14:34:43 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/28 18:55:17 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-char	*add_ind(char *str, t_param *node)
-{
-	int		len;
-	char	*new;
-
-	//str = ft_strdup(str);
-	//printf("str after: %s\n", str);
-	str = add_prec(str, node);
-	//printf("str after: %s\n", str);
-	len = ft_strlen(str);
-	if (len >= node->width)
-		return (str);
-	else
-	{
-		new = ft_strnew(1);
-		while (node->width - len > 0)
-		{
-			if (node->ind == CLEAR/* || node->conv == S*/ || node->conv == P || node->conv == C || ft_strchr(node->flags, '-'))
-				new = add_char(new, ' ');
-			else
-				new = add_char(new, '0');
-			--(node->width);
-		}
-		if (ft_strchr(node->flags, '-'))
-			new = fstrjoin(str, new);
-		else
-			new = fstrjoin(new, str);
-		return (new);
-	}
-}
-
-char	*add_prec(char *str, t_param *node)
-{
-	int		len;
-	char	*new;
-
-	if (!(node->conv > C && node->conv < F) && node->conv != P)
-		return (str);
-	if (node->ind == ZERO && node->precision > -1)
-		node->ind = CLEAR;
-	if (node->precision == 0 && node->conv != P)
-		return (ft_strdup(" "));
-	len = ft_strlen(str);
-	if (len >= node->precision)
-		return (str);
-	else
-	{
-		new = ft_strnew(1);
-		while (node->precision - len > 0)
-		{
-			new = add_char(new, '0');
-			--(node->precision);
-		}
-		new = fstrjoin(new, str);
-		return (new);
-	}
-}
 
 void	handle_c(t_param *node, t_printf *head)
 {
@@ -79,6 +21,7 @@ void	handle_c(t_param *node, t_printf *head)
 	{
 		if (node->ind != NONE)
 		{
+			--node->width;
 			res = add_ind(ft_strdup(""), node);
 			head->len += write(1, res, ft_strlen(res));
 			free(res);
@@ -93,6 +36,7 @@ void	handle_c(t_param *node, t_printf *head)
 		res = add_ind(res, node);
 		node->pf_string = res;
 		head->len += write(1, node->pf_string, ft_strlen(node->pf_string));
+		free(res);
 	}
 }
 
@@ -183,13 +127,14 @@ void	handle_integer(t_param *node)
 	negative = is_negative(node);
 	to_unsigned(node, negative);
 	res = data_to_base(node, 10);
-	if (negative == -1 && node->ind == NONE && node->precision == -1)
+	res = add_prec(res, node);
+	if (negative == -1 && node->ind == NONE)
 		res = fstrjoin(ft_strdup("-"), res);
 	else if (ft_strchr(node->flags, '+') && negative != -1 && node->ind == NONE)
 		res = fstrjoin(ft_strdup("+"), res);
 	else
 	{
-	if (node->ind == ZERO || node->precision)
+	if (node->ind == ZERO)
 	{
 		if (negative == -1)
 			--(node->width);
@@ -200,6 +145,7 @@ void	handle_integer(t_param *node)
 			res = fstrjoin(ft_strdup("-"), res);
 		else if (ft_strchr(node->flags, '+'))
 			res = fstrjoin(ft_strdup("+"), res);
+		//printf("ahora si que si chaval\n");
 	}
 	else if (node->ind == CLEAR)
 	{	
@@ -207,10 +153,14 @@ void	handle_integer(t_param *node)
 			res = fstrjoin(ft_strdup("-"), res);
 		else if (ft_strchr(node->flags, '+'))
 			res = fstrjoin(ft_strdup("+"), res);
+		//printf("ahora si que si chaval\n");
 		res = add_ind(res, node);
 		}
 	}
-	node->pf_string = res;
+	if (ft_strcmp(node->flags, " d") == 0 && negative > -1)
+		node->pf_string = fstrjoin(ft_strdup(" "), res);
+	else
+		node->pf_string = res;
 }
 
 char	*data_to_base(t_param *node, int base)
@@ -234,11 +184,10 @@ void	handle_octal(t_param *node)
 {
 	char	*res;
 
+	//print_full_param(*node);
 	res = data_to_base(node, 8);
-	if (node->ind == NONE)
-		node->pf_string = res;
-	else
-		node->pf_string = add_ind(res, node);
+
+	node->pf_string = res;
 }
 
 char	*ft_strupper(char *res)
@@ -274,8 +223,11 @@ void	handle_hexa(t_param *node)
 			free(res);
 			res = ft_strdup("");
 		}
-		node->pf_string = res;
-		return ;
+		if (node->ind == NONE)
+		{
+			node->pf_string = res;
+			return ;
+		}
 	}
 	if (ft_strchr(node->flags, '#'))
 	{

@@ -48,11 +48,15 @@ t_printf	*handle_args(const char *format, va_list al)
 			}
 			flags[i] = *format;
 			i = 0;
-			// printf("%s\n", flags);  // debug stored flags
+			//printf("%s\n", flags);  // debug stored flags
 			res->curr = init_param(flags, al);
 			convert_arg(res->curr, res);
 			if (res->curr->conv != C) // I'm handling char personally because they are incredible.
+			{
 				res->len += write(1, res->curr->pf_string, ft_strlen(res->curr->pf_string));
+				free(res->curr->pf_string);
+			}
+			free(res->curr->flags);
 			free(res->curr);
 		}
 		else

@@ -72,7 +72,7 @@ NAME = libftprintf.a
 
 SRCS += ft_printf.c handle_parameter.c \
 		useful_functions.c handle_arguments.c \
-		handle_conversions.c
+		handle_conversions.c indentation.c
 
 
 #USEFUL_FUNC = fstrjoin.c
@@ -109,7 +109,7 @@ all: $(NAME) clean
 $(NAME): $(OBJS) $(LIBFTOBJS)
 	@$(AR) $(NAME) *.o
 	@$(RLIB) $(NAME)
-	@echo "\033[0;32mlbprintf compiled\033[0m"
+	@echo "\033[0;32mlibprintf compiled\033[0m"
 
 # This won't run if the source files don't exit or are not modified
 $(OBJS): $(SRCS)
@@ -140,6 +140,7 @@ test:
 	@./printf
 
 leaks:
-	make test
+	make
+	gcc -g -o printf my_main/main.c libftprintf.a
 	valgrind --leak-check=full ./printf
 .PHONY: clean fclean all re
