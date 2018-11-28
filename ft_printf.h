@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/27 16:38:30 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/28 10:42:47 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct	s_param
 typedef struct	s_printf
 {
 	char			*buff;
-	size_t			len;
+	int				len;
 	t_param			*curr;
 }				t_printf;
 

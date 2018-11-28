@@ -36,9 +36,10 @@ t_printf	*handle_args(const char *format, va_list al)
 	
 	res = (t_printf *)malloc(sizeof(*res));
 	res->buff = ft_strdup("");
+	res->len = 0;
 	while (*format)
 	{
-		ft_strclr(flags);
+		ft_bzero(flags ,12);
 		if (*format == '%' && *(++format) != '%') // posible seg fault if i try to access uninitialize memory
 		{
 			while (!is_conversion(*format) && *format)

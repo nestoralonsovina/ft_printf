@@ -139,4 +139,7 @@ test:
 	@echo ""
 	@./printf
 
+leaks:
+	make test
+	valgrind --leak-check=full ./printf
 .PHONY: clean fclean all re

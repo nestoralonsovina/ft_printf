@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 14:55:39 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/27 17:30:54 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/11/28 13:05:41 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ char	*add_ind(char *str, t_param *node)
 	int		len;
 	char	*new;
 
-	str = ft_strdup(str);
+	//str = ft_strdup(str);
 	//printf("str after: %s\n", str);
 	str = add_prec(str, node);
 	//printf("str after: %s\n", str);
 	len = ft_strlen(str);
-	new = ft_strnew(1);
 	if (len >= node->width)
 		return (str);
 	else
 	{
+		new = ft_strnew(1);
 		while (node->width - len > 0)
 		{
-			if (node->ind == CLEAR || node->conv == S || node->conv == P || node->conv == C || ft_strchr(node->flags, '-'))
+			if (node->ind == CLEAR/* || node->conv == S*/ || node->conv == P || node->conv == C || ft_strchr(node->flags, '-'))
 				new = add_char(new, ' ');
 			else
 				new = add_char(new, '0');
@@ -54,12 +54,12 @@ char	*add_prec(char *str, t_param *node)
 		node->ind = CLEAR;
 	if (node->precision == 0 && node->conv != P)
 		return (ft_strdup(" "));
-	new = ft_strnew(1);
 	len = ft_strlen(str);
 	if (len >= node->precision)
 		return (str);
 	else
 	{
+		new = ft_strnew(1);
 		while (node->precision - len > 0)
 		{
 			new = add_char(new, '0');
@@ -75,7 +75,9 @@ void	handle_c(t_param *node, t_printf *head)
 	char	*res;
 
 	if (node->data.c == 0)
+	{
 		head->len = 1;
+	}
 	res = ft_strdup(" ");
 	res[0] = node->data.c;
 	node->precision = -1;
@@ -87,11 +89,7 @@ void	handle_str(t_param *node)
 {
 	char	*res;
 	if (node->data.str == NULL)
-	{
 		res = ft_strdup("(null)");
-		handle_ind(res, node);
-		return ;
-	}
 	else
 		res = ft_strdup(node->data.str);
 	if (ft_strchr(node->flags, '.') && (size_t)node->precision < ft_strlen(res))
@@ -106,7 +104,10 @@ void	handle_ptr(t_param *node)
 //	print_full_param(*node);
 	res = ft_itoa_base((unsigned long long)node->data.ptr, 16);
 	if (node->precision == 0)
+	{
+		free(res);
 		res = ft_strdup("");
+	}
 	if (node->ind == CLEAR && node->width > node->precision)
 	{
 		res = fstrjoin(ft_strdup("0x"), res);
@@ -257,6 +258,11 @@ void	handle_hexa(t_param *node)
 	res = data_to_base(node, 16);
 	if (ft_strcmp(res, "0") == 0)
 	{
+		if (node->precision == 0)
+		{
+			free(res);
+			res = ft_strdup("");
+		}
 		node->pf_string = res;
 		return ;
 	}
