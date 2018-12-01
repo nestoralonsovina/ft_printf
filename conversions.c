@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_conversions.c                               :+:      :+:    :+:   */
+/*   conversions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 14:55:39 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/28 18:55:17 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/01 23:20:13 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	handle_ptr(t_param *node)
 {
 	char	*res;
 
-//	print_full_param(*node);
 	res = ft_itoa_base((unsigned long long)node->data.ptr, 16);
 	if (node->precision == 0)
 	{
@@ -111,10 +110,9 @@ void	handle_u(t_param *node)
 	char *res;
 
 	res = data_to_base(node, 10);
-	if (node->ind == NONE)
-		node->pf_string = res;
-	else
-		node->pf_string = add_ind(res, node);
+	res = add_prec(res, node);
+	res = add_ind(res, node);
+	node->pf_string = res;
 }
 
 void	handle_integer(t_param *node)
@@ -127,7 +125,8 @@ void	handle_integer(t_param *node)
 	negative = is_negative(node);
 	to_unsigned(node, negative);
 	res = data_to_base(node, 10);
-	res = add_prec(res, node);
+	if (node->precision != 0 || ft_strcmp(res, "0") == 0)
+		res = add_prec(res, node);
 	if (negative == -1 && node->ind == NONE)
 		res = fstrjoin(ft_strdup("-"), res);
 	else if (ft_strchr(node->flags, '+') && negative != -1 && node->ind == NONE)
@@ -148,7 +147,7 @@ void	handle_integer(t_param *node)
 		//printf("ahora si que si chaval\n");
 	}
 	else if (node->ind == CLEAR)
-	{	
+	{
 		if (negative == -1)
 			res = fstrjoin(ft_strdup("-"), res);
 		else if (ft_strchr(node->flags, '+'))
@@ -184,9 +183,16 @@ void	handle_octal(t_param *node)
 {
 	char	*res;
 
-	//print_full_param(*node);
 	res = data_to_base(node, 8);
-
+	if (ft_strchr(node->flags, '#'))
+	{
+		if (node->precision <= (int)ft_strlen(res) && ft_strchr(node->flags, '.'))
+			node->precision = ft_strlen(res);
+		else
+			res = fstrjoin(ft_strdup("0"), res);
+	}
+	res = add_prec(res, node);
+	res = add_ind(res, node);
 	node->pf_string = res;
 }
 

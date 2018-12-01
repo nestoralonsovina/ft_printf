@@ -1,33 +1,37 @@
 #include "ft_printf.h"
 
+char	*new_str(char c, int size)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	str = (char *)malloc_safe(sizeof(char) * size);
+	while (i < size)
+		str[i++] = c;
+	str[i] = '\0';
+	return (str);
+}
+
 char	*add_ind(char *str, t_param *node)
 {
 	int		len;
 	char	*new;
+	char	*ind;
 
-	//str = ft_strdup(str);
-	//printf("str after: %s\n", str);
-	if (node->conv != D || node->conv != O)
-        str = add_prec(str, node);
-	//printf("str after: %s\n", str);
 	len = ft_strlen(str);
 	if (len >= node->width)
 		return (str);
 	else
 	{
-		new = ft_strnew(1);
-		while (node->width - len > 0)
-		{
-			if (node->ind == CLEAR/* || node->conv == S*/ || node->conv == P || node->conv == C || ft_strchr(node->flags, '-'))
-				new = add_char(new, ' ');
-			else
-				new = add_char(new, '0');
-			--(node->width);
-		}
-		if (ft_strchr(node->flags, '-'))
-			new = fstrjoin(str, new);
+		if (node->ind == CLEAR || node->conv == P || node->conv == C || ft_strchr(node->flags, '-'))
+			ind = new_str(' ', node->width - len);
 		else
-			new = fstrjoin(new, str);
+			ind = new_str('0', node->width - len);
+		if (ft_strchr(node->flags, '-'))
+			new = fstrjoin(str, ind);
+		else
+			new = fstrjoin(ind, str);
 		return (new);
 	}
 }
@@ -36,26 +40,15 @@ char	*add_prec(char *str, t_param *node)
 {
 	int		len;
 	char	*new;
-    
-    //print_full_param(*node);
-	if (!(node->conv > C && node->conv < F) && node->conv != P)
-		return (str);
+
 	if (node->ind == ZERO && node->precision > -1)
 		node->ind = CLEAR;
-	if (node->precision == 0 && node->conv != P)
-		return (ft_strdup(" "));
 	len = ft_strlen(str);
+	if (node->precision == 0)
+		return (ft_strdup(""));
 	if (len >= node->precision)
 		return (str);
 	else
-	{
-		new = ft_strnew(1);
-		while (node->precision - len > 0)
-		{
-			new = add_char(new, '0');
-			--(node->precision);
-		}
-		new = fstrjoin(new, str);
-		return (new);
-	}
+		new = fstrjoin(new_str('0', node->precision - len), str);
+	return (new);
 }

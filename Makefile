@@ -70,9 +70,9 @@ LIBFTOBJS = $(LIBFT:.c=.o)
 # Name of the library
 NAME = libftprintf.a
 
-SRCS += ft_printf.c handle_parameter.c \
-		useful_functions.c handle_arguments.c \
-		handle_conversions.c indentation.c
+SRCS += ft_printf.c parameter.c \
+		useful_functions.c arguments.c \
+		conversions.c indentation.c
 
 
 #USEFUL_FUNC = fstrjoin.c

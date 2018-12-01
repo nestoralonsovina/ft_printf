@@ -47,13 +47,10 @@ int		main(void)
 		//ft_printf("%-#6o|\n", 2500);
 		//   printf("%-#6o|\n", 2500);
 		//ft_printf("@moulitest: %#.x %#.0x\n", 0, 0);
-		ft_printf("@moulitest: %.2o %.0o %.o|\n", 0, 0, 0);
-		ft_printf("@moulitest: %#.o %#.0o|\n", 0, 0);
-		ft_printf("@moulitest: %.10o|\n", 42);
-		printf("@moulitest: %.2o %.0o %.o|\n", 0, 0, 0);
-		printf("@moulitest: %#.o %#.0o|\n", 0, 0);
-		printf("@moulitest: %.10o|\n", 42);
-	}	
+		ft_printf("@moulitest: %.d %.0d|\n", 42, 43);
+		ft_printf("------------------------------\n");
+		printf("@moulitest: %.d %.0d|\n", 42, 43);
+	}
 	if (0)
 	{
 		ft_printf("% d\n", 42);

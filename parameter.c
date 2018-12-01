@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_parameter.c                                 :+:      :+:    :+:   */
+/*   parameter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:09:50 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/28 16:44:31 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/01 19:40:39 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,8 @@ void		search_precision(t_param *new)
 	if (ptr && ptr[i] == '.')
 	{
 		++i;
-		while (ft_isdigit(ptr[i]))
-		{
-			new->precision = new->precision * 10 + ptr[i] - '0';
-			++i;
-		}
+		if (ft_isdigit(ptr[i]))
+			new->precision = ft_atoi(&ptr[i]);
 	}
 }
 
@@ -165,6 +162,5 @@ t_param		*init_param(char *flags, va_list al)
 	search_precision(new);
 	search_modifier(new);
 	search_arg(new, al);
-	//print_full_param(*new);
 	return (new);
 }
