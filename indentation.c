@@ -20,15 +20,16 @@ char	*add_ind(char *str, t_param *node)
 	char	*ind;
 
 	len = ft_strlen(str);
+	//printd(node->ind & MINUS)
 	if (len >= node->width)
 		return (str);
 	else
 	{
-		if (node->ind == CLEAR || node->conv == P || node->conv == C || ft_strchr(node->flags, '-'))
+		if (node->ind & CLEAR || node->conv == P || node->ind & MINUS)
 			ind = new_str(' ', node->width - len);
 		else
 			ind = new_str('0', node->width - len);
-		if (ft_strchr(node->flags, '-'))
+		if (node->ind & MINUS)
 			new = fstrjoin(str, ind);
 		else
 			new = fstrjoin(ind, str);
@@ -41,8 +42,11 @@ char	*add_prec(char *str, t_param *node)
 	int		len;
 	char	*new;
 
-	if (node->ind == ZERO && node->precision > -1)
-		node->ind = CLEAR;
+	if (node->ind & ZERO && node->ind & PRECISION)
+	{
+		node->ind &= ~ZERO;
+		node->ind |= CLEAR;
+	}
 	len = ft_strlen(str);
 	if (node->precision == 0)
 		return (ft_strdup(""));

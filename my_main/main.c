@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/28 14:23:05t s by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/15 15:43:19 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		print_full_param(t_param curr)
 	printf(YELLOW "printf_full_param() ended...\n" RESET);
 	}
 
+
 int		main(void)
 {
 	char *name = "Nestor";
@@ -37,19 +38,45 @@ int		main(void)
 	//printf("Flags test: "); ft_printf("%#10d");
 	if (0)
 	{
-		t_indentation e = ZERO | AFTER;
-		printf("%d\n", e & ZERO);
+		int ret = ft_printf("%++ d\n", -42);
+		printd(ret);
 	}
 	if (1)
 	{
-		//printf("@moulitest: %5.x %5.0x|\n", 0, 0);
-		//ft_printf("@moulitest: %5.x %5.0x|\n", 0, 0);
-		//ft_printf("%-#6o|\n", 2500);
-		//   printf("%-#6o|\n", 2500);
-		//ft_printf("@moulitest: %#.x %#.0x\n", 0, 0);
-		ft_printf("@moulitest: %.d %.0d|\n", 42, 43);
+		ft_printf("% Z%s", "test");
+	}
+	if (0)
+	{
 		ft_printf("------------------------------\n");
-		printf("@moulitest: %.d %.0d|\n", 42, 43);
+		ft_printf("@ft-prt: %++ d\n", 42);
+		   printf("@printf: %++ d\n", 42);
+		ft_printf("------------------------------\n");
+	}
+	if (0)
+	{
+		ft_printf("@ft-prt: %5.x %5.0x|\n", 0, 0);
+		   printf("@printf: %5.x %5.0x|\n", 0, 0);
+		ft_printf("------------------------------\n");
+		ft_printf("@ft-prt: %-#6o|\n", 2500);
+		   printf("@printf: %-#6o|\n", 2500);
+		ft_printf("------------------------------\n");
+		ft_printf("@ft-prt: %#.x %#.0x\n", 0, 0);
+		   printf("@printf: %#.x %#.0x\n", 0, 0);
+		ft_printf("------------------------------\n");
+		ft_printf("@ft-prt: %.d %.0d|\n", 42, 43);
+		   printf("@printf: %.d %.0d|\n", 42, 43);
+		ft_printf("------------------------------\n");
+		ft_printf("@ft-ptr: %#.x %#.0x\n", 0, 0);
+		   printf("@printf: %#.x %#.0x\n", 0, 0);
+		ft_printf("------------------------------\n");
+		ft_printf("@ft-ptr: %05d\n", 42);
+           printf("@printf: %05d\n", 42);
+		ft_printf("------------------------------\n");
+		ft_printf("@ft-ptr: %#08x\n", 42);
+		   printf("@printf: %#08x\n", 42);
+		ft_printf("------------------------------\n");
+		ft_printf("@ft-ptr: %#08x\n", 42);
+		   printf("@printf: %#08x\n", 42);
 	}
 	if (0)
 	{
@@ -67,7 +94,12 @@ int		main(void)
 		ft_printf("ret ft_printf: %d ret printf: %d\n", ret, ret2);
 	    ret =  ft_printf("ft_printf: %.5p|%.p|%.0p|%9.2p|%2.9p\n", ptr, ptr, ptr, 1234, 1234);
 		ret2 =    printf("libprintf: %.5p|%.p|%.0p|%9.2p|%2.9p\n", ptr, ptr, ptr, 1234, 1234);
-		ft_printf("ret ft_printf: %d ret printf: %d\n", ret, ret2);
+		ft_printf("%ld", -2147483649);
+		//ft_printf("ret ft_printf: %d ret printf: %d\n", ret, ret2);
+	}
+	if (0)
+	{
+		ft_printf("esto es mucha precision: %200d %50d", 5, 20);
 	}
 	if (0)
 	{
@@ -78,7 +110,6 @@ int		main(void)
 	if (0)
 	{
 		ft_printf("% 0+-#10.5lld\n", 42);
-		printf("% 0+-#10.5lld\n", 42);
 	}
 	if (0)
 	{
@@ -123,10 +154,9 @@ int		main(void)
 	if (0)
 	{
 		char *str = "hola";
-		while (ft_strlen(str) < 10)
-			str = add_char(ft_strdup(str), 'a');
-		printf("%s\n", str);
-		free(str);
+		ft_printf("hola %s %s\n", "Nestor", "Alonso");
+		ft_putchar('\n');
+		ft_printf("hola hola");
 	}
 	if (0)
 	{

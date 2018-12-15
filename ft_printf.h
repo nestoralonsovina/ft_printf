@@ -6,12 +6,17 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/28 14:10:17 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/13 18:26:14 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
+#define printd(x) printf("%d\n", x);
+#define prints(x) printf("%s\n", x);
+
+
 
 # include <stdarg.h>
 # include <locale.h>
@@ -43,12 +48,12 @@ typedef enum	e_modifiers
 {
 	NO = 0, L = 1, H = 2, LL = 3, HH = 4, BIGL = 5
 }				t_modifiers;
-
+/*
 typedef enum	e_indentation
 {
-	NONE = 1, CLEAR = 2, ZERO = 4, AFTER = 8
+	NONE = 1, CLEAR = 2, ZERO = 4, AFTER = 8, SPACE = 16
 }				t_indentation;
-
+*/
 // not utilized par l'instant
 typedef enum	e_conversion
 {
@@ -61,6 +66,16 @@ typedef enum	e_conversion
 	l (ell)           long           unsigned long
 	ll (ell ell)      long long      unsigned long long
 */
+
+# define NONE (1 << 0)
+# define CLEAR (1 << 1)
+# define ZERO (1 << 2)
+# define MINUS (1 << 3)
+# define PLUS (1 << 4)
+# define SPACE (1 << 5)
+# define SHARP (1 << 6)
+# define PRECISION (1 << 7)
+
 typedef struct	s_param
 {
 	char			*pf_string;
@@ -68,7 +83,7 @@ typedef struct	s_param
 	char			*flags;
 	int				width;
 	int				precision;
-	t_indentation	ind;
+	short				ind;
 	t_modifiers		mod;
 	t_conversion	conv;
 	t_data			data;
@@ -76,7 +91,7 @@ typedef struct	s_param
 
 typedef struct	s_printf
 {
-	char			*buff;
+	const char		*inp;
 	int				len;
 	t_param			*curr;
 }				t_printf;
@@ -107,7 +122,7 @@ void		search_modifier(t_param *new);
 /*
 **	DEBUG
 */
-
+void		set_conversion(char con, t_param *curr);
 
 
 #define RESET   "\033[0m"

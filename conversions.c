@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 14:55:39 by nalonso           #+#    #+#             */
-/*   Updated: 2018/12/01 23:20:13 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/13 19:54:49 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	handle_c(t_param *node, t_printf *head)
 	res = NULL;
 	if (node->data.c == 0)
 	{
-		if (node->ind != NONE)
+		if (node->ind & CLEAR || node->ind & ZERO)
 		{
 			--node->width;
 			res = add_ind(ft_strdup(""), node);
@@ -47,7 +47,7 @@ void	handle_str(t_param *node)
 		res = ft_strdup("(null)");
 	else
 		res = ft_strdup(node->data.str);
-	if (ft_strchr(node->flags, '.') && (size_t)node->precision < ft_strlen(res))
+	if (node->ind & PRECISION && (size_t)node->precision < ft_strlen(res))
 		res[node->precision] = '\0';
 	handle_ind(res, node);
 }
@@ -62,14 +62,16 @@ void	handle_ptr(t_param *node)
 		free(res);
 		res = ft_strdup("");
 	}
-	if (node->ind == CLEAR && node->width > node->precision)
+	if (node->ind & CLEAR && node->width > node->precision)
 	{
 		res = fstrjoin(ft_strdup("0x"), res);
+		res = add_prec(res, node);
 		res = add_ind(res, node);
 	}
 	else
 	{
 		node->width -= 2;
+		res = add_prec(res, node);
 		res = add_ind(res, node);
 		res = fstrjoin(ft_strdup("0x"), res);
 	}
@@ -125,38 +127,41 @@ void	handle_integer(t_param *node)
 	negative = is_negative(node);
 	to_unsigned(node, negative);
 	res = data_to_base(node, 10);
+	if ((node->width > 0 || node->ind & PLUS) && node->ind & SPACE)
+		node->ind &= ~SPACE;
 	if (node->precision != 0 || ft_strcmp(res, "0") == 0)
 		res = add_prec(res, node);
-	if (negative == -1 && node->ind == NONE)
+	if (negative == -1 && !(node->ind & CLEAR) && !(node->ind & ZERO))
 		res = fstrjoin(ft_strdup("-"), res);
-	else if (ft_strchr(node->flags, '+') && negative != -1 && node->ind == NONE)
+	else if (node->ind & PLUS && negative > -1 && node->ind & NONE)
 		res = fstrjoin(ft_strdup("+"), res);
 	else
 	{
-	if (node->ind == ZERO)
-	{
-		if (negative == -1)
-			--(node->width);
-		else if (ft_strchr(node->flags, '+'))
-			--(node->width);
-		res = add_ind(res, node);
-		if (negative == -1)
-			res = fstrjoin(ft_strdup("-"), res);
-		else if (ft_strchr(node->flags, '+'))
-			res = fstrjoin(ft_strdup("+"), res);
-		//printf("ahora si que si chaval\n");
-	}
-	else if (node->ind == CLEAR)
-	{
-		if (negative == -1)
-			res = fstrjoin(ft_strdup("-"), res);
-		else if (ft_strchr(node->flags, '+'))
-			res = fstrjoin(ft_strdup("+"), res);
-		//printf("ahora si que si chaval\n");
-		res = add_ind(res, node);
+		//printd(node->ind & ZERO)
+		if (node->ind & ZERO)
+		{
+			if (negative == -1)
+				--(node->width);
+			else if (node->ind & PLUS)
+				--(node->width);
+			res = add_ind(res, node);
+			if (negative == -1)
+				res = fstrjoin(ft_strdup("-"), res);
+			else if (node->ind & PLUS)
+				res = fstrjoin(ft_strdup("+"), res);
+			//printf("ahora si que si chaval\n");
+		}
+		else if (node->ind & CLEAR)
+		{
+			if (negative == -1)
+				res = fstrjoin(ft_strdup("-"), res);
+			else if (node->ind & PLUS)
+				res = fstrjoin(ft_strdup("+"), res);
+			//printf("ahora si que si chaval\n");
+			res = add_ind(res, node);
 		}
 	}
-	if (ft_strcmp(node->flags, " d") == 0 && negative > -1)
+	if (node->ind & SPACE && negative > -1) // man 3 print ' ' blank to make it properly.
 		node->pf_string = fstrjoin(ft_strdup(" "), res);
 	else
 		node->pf_string = res;
@@ -184,11 +189,11 @@ void	handle_octal(t_param *node)
 	char	*res;
 
 	res = data_to_base(node, 8);
-	if (ft_strchr(node->flags, '#'))
+	if (node->ind & SHARP)
 	{
-		if (node->precision <= (int)ft_strlen(res) && ft_strchr(node->flags, '.'))
+		if (node->precision <= (int)ft_strlen(res) && node->ind & PRECISION)
 			node->precision = ft_strlen(res);
-		else
+		else if (ft_strcmp(res, "0") != 0)
 			res = fstrjoin(ft_strdup("0"), res);
 	}
 	res = add_prec(res, node);
@@ -211,7 +216,7 @@ char	*ft_strupper(char *res)
 
 void	handle_ind(char *res, t_param *node)
 {
-	if (node->ind == NONE)
+	if (node->ind == 0)
 		node->pf_string = res;
 	else
 		node->pf_string = add_ind(res, node);
@@ -229,20 +234,20 @@ void	handle_hexa(t_param *node)
 			free(res);
 			res = ft_strdup("");
 		}
-		if (node->ind == NONE)
+		if (node->ind & NONE)
 		{
 			node->pf_string = res;
 			return ;
 		}
 	}
-	if (ft_strchr(node->flags, '#'))
+	if (node->ind & SHARP)
 	{
-		if (node->ind < ZERO)
+		if (node->ind & CLEAR || node->ind & NONE)
 		{
 			res = fstrjoin(ft_strdup("0x"), res);
 			handle_ind(res, node);
 		}
-		else if (node->ind == ZERO)
+		else if (node->ind & ZERO)
 		{
 			node->width -= 2;
 			handle_ind(res, node);
