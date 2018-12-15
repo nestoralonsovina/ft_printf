@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 14:55:39 by nalonso           #+#    #+#             */
-/*   Updated: 2018/12/13 19:54:49 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/15 15:56:24 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	handle_c(t_param *node, t_printf *head)
 		head->len += write(1, node->pf_string, ft_strlen(node->pf_string));
 		free(res);
 	}
+	node->pf_string = NULL;
 }
 
 void	handle_str(t_param *node)

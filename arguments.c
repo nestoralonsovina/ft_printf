@@ -177,7 +177,7 @@ t_printf *handle_args(const char *format, va_list al)
 			if (!*p->inp)
 				break;
 			parse_arg(p, al);
-			if (p->curr->conv != C && p->curr->pf_string)
+			if (p->curr->pf_string)
 			{
 				p->len += write(1, p->curr->pf_string, ft_strlen(p->curr->pf_string));
 				free(p->curr->pf_string);
