@@ -72,7 +72,7 @@ NAME = libftprintf.a
 
 SRCS += ft_printf.c parameter.c \
 		useful_functions.c arguments.c \
-		conversions.c indentation.c
+		conversions.c indentation.c floats.c
 
 
 #USEFUL_FUNC = fstrjoin.c

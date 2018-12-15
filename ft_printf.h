@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/12/13 18:26:14 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/15 19:28:07 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef union	u_data
 {
 	int					i;
 	unsigned int		ui;
-	double				f;
 	char				c;
 	void				*ptr;
 	char				*str;
@@ -42,6 +41,8 @@ typedef union	u_data
 	long long			ll;
 	unsigned long		ul;
 	unsigned long long	ull;
+	double				d;
+	long double			ld;
 }				t_data;
 
 typedef enum	e_modifiers
@@ -160,6 +161,7 @@ void			handle_octal(t_param *node);
 void			handle_hexa(t_param *node);
 void			handle_u(t_param *node);
 void			handle_c(t_param *node, t_printf *head);
+void			handle_float(t_param *a);
 //void			handle_char(t_param *node);
 
 

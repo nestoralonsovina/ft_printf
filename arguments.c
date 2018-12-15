@@ -12,7 +12,7 @@ void		set_conversion(char con, t_param *curr)
 		curr->conv = D;
 	else if (con == 'i')
 		curr->conv = I;
-	else if (con == 'f')
+	else if (con == 'f' || con == 'F')
 		curr->conv = F;
 	else if (con == 'o')
 		curr->conv = O;
@@ -61,7 +61,7 @@ void		search_arg(t_param *new, va_list al)
 			new->data.ui = va_arg(al, unsigned int);
 	}
 	else if (new->conv == F)
-		new->data.f = va_arg(al, double);
+		new->data.d = va_arg(al, double);
 }
 
 void convert_arg(t_printf *p)
@@ -80,6 +80,8 @@ void convert_arg(t_printf *p)
 		handle_u(p->curr);
 	else if (p->curr->conv == C)
 		handle_c(p->curr, p);
+	else if (p->curr->conv == F)
+		handle_float(p->curr);
 }
 
 void	search_width_precision(t_printf *p)
@@ -148,7 +150,7 @@ void parse_arg(t_printf *p, va_list al)
 	}
 	if (*p->inp == '%')
 		a->pf_string = add_ind(ft_strdup("%"), a);
-	else if (ft_strchr("cspdiouxX", *p->inp) == NULL || !*p->inp)
+	else if (ft_strchr("cspdiouxXfF", *p->inp) == NULL || !*p->inp)
 	{
 		if (*p->inp)
 			p->len += write(1, p->inp, 1);
