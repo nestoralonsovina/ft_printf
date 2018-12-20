@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/12/15 19:28:07 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/20 11:58:51 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef enum	e_indentation
 // not utilized par l'instant
 typedef enum	e_conversion
 {
-	NON, S, P, C, D, I, O, U, X, BIGX, F
+	NON, S, P, C, D, I, O, U, X, BIGX, B, F, N
 }				t_conversion;
 /*  How each flag affects depending on the conversion
 	Modifier          d, i           o, u, x, X
@@ -76,6 +76,7 @@ typedef enum	e_conversion
 # define SPACE (1 << 5)
 # define SHARP (1 << 6)
 # define PRECISION (1 << 7)
+# define NEGATIVE (1 << 8)
 
 typedef struct	s_param
 {
@@ -109,6 +110,8 @@ char			*fstrjoin(char *s1, char *s2);
 void			*malloc_safe(size_t size);
 char			*add_char(char *str, char c);
 char			*data_to_base(t_param *node, int base);
+char			*ft_strndup(const char *s1, size_t n);
+
 /*
 **	MANAGE PARAMETERS
 */
@@ -163,8 +166,8 @@ void			handle_u(t_param *node);
 void			handle_c(t_param *node, t_printf *head);
 void			handle_float(t_param *a);
 //void			handle_char(t_param *node);
-
-
+void			handle_binary(t_param *n);
+void			handle_base(t_param *n, unsigned int base);
 /*
 **	LIBFT FUNCTIONS
 */

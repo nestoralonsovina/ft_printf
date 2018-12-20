@@ -8,20 +8,22 @@ void		set_conversion(char con, t_param *curr)
 		curr->conv = C;
 	else if (con == 'p')
 		curr->conv = P;
-	else if (con == 'd')
+	else if (con == 'd' || con == 'D')
 		curr->conv = D;
 	else if (con == 'i')
 		curr->conv = I;
 	else if (con == 'f' || con == 'F')
 		curr->conv = F;
-	else if (con == 'o')
+	else if (con == 'o' || con == 'O')
 		curr->conv = O;
-	else if (con == 'u')
+	else if (con == 'u' || con == 'U')
 		curr->conv = U;
 	else if (con == 'x')
 		curr->conv = X;
 	else if (con == 'X')
 		curr->conv = BIGX;
+	else if (con == 'b')
+		curr->conv = B;
 	else
 		curr->conv = NON;
 }
@@ -61,7 +63,12 @@ void		search_arg(t_param *new, va_list al)
 			new->data.ui = va_arg(al, unsigned int);
 	}
 	else if (new->conv == F)
-		new->data.d = va_arg(al, double);
+	{
+		if (new->mod == BIGL)
+			new->data.ld = va_arg(al, long double);
+		else
+			new->data.d = va_arg(al, double);
+	}
 }
 
 void convert_arg(t_printf *p)
@@ -73,15 +80,17 @@ void convert_arg(t_printf *p)
 	else if (p->curr->conv == D || p->curr->conv == I)
 		handle_integer(p->curr);
 	else if (p->curr->conv == O)
-		handle_octal(p->curr);
+		handle_base(p->curr, 8);
 	else if (p->curr->conv == X || p->curr->conv == BIGX)
-		handle_hexa(p->curr);
+		handle_base(p->curr, 16);
 	else if (p->curr->conv == U)
-		handle_u(p->curr);
+		handle_base(p->curr, 10);
 	else if (p->curr->conv == C)
 		handle_c(p->curr, p);
 	else if (p->curr->conv == F)
 		handle_float(p->curr);
+	else if (p->curr->conv == B)
+		handle_base(p->curr, 2);
 }
 
 void	search_width_precision(t_printf *p)
@@ -150,7 +159,7 @@ void parse_arg(t_printf *p, va_list al)
 	}
 	if (*p->inp == '%')
 		a->pf_string = add_ind(ft_strdup("%"), a);
-	else if (ft_strchr("cspdiouxXfF", *p->inp) == NULL || !*p->inp)
+	else if (ft_strchr("bcspdiouxXfFODU", *p->inp) == NULL || !*p->inp)
 	{
 		if (*p->inp)
 			p->len += write(1, p->inp, 1);
@@ -158,6 +167,8 @@ void parse_arg(t_printf *p, va_list al)
 	}
 	else if (*p->inp)
 	{
+		if (ft_strchr("ODU", *p->inp) != NULL)
+			a->mod = a->mod == L ? LL : L;
 		set_conversion(*p->inp, p->curr);
 		search_arg(p->curr, al);
 		convert_arg(p);

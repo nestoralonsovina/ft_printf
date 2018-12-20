@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:11:31 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/27 13:41:18 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/20 09:51:20 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,20 @@ void		*malloc_safe(size_t size)
 	return (tmp);
 }
 
-char	*add_char(char *str, char c)
+char	*ft_strndup(const char *s1, size_t n)
 {
-	char 	*new;
-	int		len;
+	char	*s2;
+	size_t	i;
 
-	len = ft_strlen(str);
-	new = (char *)malloc_safe(len + 2);
-	new = ft_strcpy(new, str);
-	new[len] = c;
-	new[len + 1] = '\0';
-	if (str)
-		free(str);
-	return (new);
+	i = 0;
+	if (!(s2 = ft_strnew(n)))
+		return (NULL);
+	while (s1[i] && i < n)
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	return (s2);
 }
 
 char	*fstrjoin(char *s1, char *s2)
@@ -51,13 +52,13 @@ char	*fstrjoin(char *s1, char *s2)
 	return (ptr);
 }
 
-void	swap(char *c1, char *c2)
+void	swap(char *start, char *end)
 {
 	char	tmp;
 
-	tmp = *c1;
-	*c1 = *c2;
-	*c2 = tmp;
+	tmp = *start;
+	*start = *end;
+	*end = tmp;
 }
 
 void	reverse(char str[], int length)

@@ -20,7 +20,6 @@ char	*add_ind(char *str, t_param *node)
 	char	*ind;
 
 	len = ft_strlen(str);
-	//printd(node->ind & MINUS)
 	if (len >= node->width)
 		return (str);
 	else
@@ -33,8 +32,8 @@ char	*add_ind(char *str, t_param *node)
 			new = fstrjoin(str, ind);
 		else
 			new = fstrjoin(ind, str);
-		return (new);
 	}
+	return (new);
 }
 
 char	*add_prec(char *str, t_param *node)
@@ -42,6 +41,8 @@ char	*add_prec(char *str, t_param *node)
 	int		len;
 	char	*new;
 
+	if (!(node->ind & PRECISION))
+		return (str);
 	if (node->ind & ZERO && node->ind & PRECISION)
 	{
 		node->ind &= ~ZERO;

@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/12/15 19:29:23 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/20 09:52:51 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		print_full_param(t_param curr)
 	}
 
 
-int		main(void)
+int		main(int ac, char **av)
 {
 	char *name = "Nestor";
 	char *surname = "Alonso";
@@ -38,14 +38,48 @@ int		main(void)
 	//printf("Flags test: "); ft_printf("%#10d");
 	if (0)
 	{
-		int ret = ft_printf("%++ d\n", -42);
-		printd(ret);
+		int *n;
+
+		n = (int *)malloc(sizeof(int) * 10);
+		for (int i = 0; i < 10; i++)
+			printf("%ld\n", n++);
+		//ft_printf("primero: %x  ultimo: %x resta: %x tamano int: %d\n", n, n + 10, 40, sizeof(int));
 	}
-	if (1)
+	if (0)
+	{
+		unsigned int n = atoll(av[1]);
+		ft_printf("Number %lld in binary is %b\n", n, n);
+		ft_printf("Number %lld in hexadecimal is %x\n", n, n);
+		ft_printf("Number %lld in octal is %o\n", n, n);
+		ft_printf("Number %lld in decimal is %u\n", n, n);
+		ft_printf("-------------Indentation and Precision------------\n");
+		ft_printf("-----------ft_printf----------\n");
+		ft_printf("Number %lld in hexadecimal is |%#5.3x|\n", n, n);
+		ft_printf("Number %lld in octal is       |%#o|\n", n, n);
+		ft_printf("Number %lld in decimal is     |%5.3u|\n", n, n);
+		ft_printf("-----------printf----------\n");
+		   printf("Number %lld in hexadecimal is |%#5.3x|\n", n, n);
+		   printf("Number %lld in octal is       |%#o|\n", n, n);
+		   printf("Number %lld in decimal is     |%5.3u|\n", n, n);
+	
+	}
+	if (0)
+	{
+		printf("{% 03d}\n", 15);
+		ft_printf("{% 03d}\n", 15);
+		ft_printf("%lld", -9223372036854775808);
+	}
+	if (0)
+	{
+		printf("%.2x\n", 42);
+		ft_printf("%.2x\n", 42);
+		printf("%#8x\n", 42);
+		ft_printf("%#8x\n", 42);
+	}
+	if (0)
 	{
 		printf("{%f} {%F}\n", 1.4199999570846558, 1.4199999570846558);
 		ft_printf("{%f} {%F}\n", 1.4199999570846558, 1.4199999570846558);
-
 		printf("{%f} {%F}\n", -1.42, -1.42);
 		ft_printf("{%f} {%F}\n", -1.42, -1.42);
 
@@ -91,7 +125,7 @@ int		main(void)
 		   printf("%0+5d\n", 42);
 		   printf("%zi\n", LLONG_MIN);
 	}
-	if (0)
+	if (1)
 	{
 		int		ret =  ft_printf("@ft_printf :|%5.2c||null: %c||%2.5c|\n", 42, 0, 42);
 		int		ret2 =    printf("@printf    :|%5.2c||null: %c||%2.5c|\n", 42, 0, 42);

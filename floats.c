@@ -10,7 +10,7 @@ static double	ft_pow(double n, int pow)
 	return (pow ? n * ft_pow(n, pow - 1) : 1);
 }
 
-void			dtoa_string(double n, t_param *a, long value)
+void			dtoa_string(long double n, t_param *a, long value)
 {
 	int		len;
 	char	s[256];
@@ -32,12 +32,12 @@ void			dtoa_string(double n, t_param *a, long value)
 void			handle_float(t_param *a)
 {
 
-	double		n;
-	int			len;
-	double		decimal;
-	long		value;
+	long double			n;
+	int					len;
+	long double			decimal;
+	long				value;
 
-	n = a->data.d;
+	n = (a->mod == BIGL) ? a->data.ld : a->data.d;
 	value = 0;
 	if (!(a->ind & PRECISION))
 		a->precision = 6;
