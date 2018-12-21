@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void		set_conversion(char con, t_param *curr)
 {

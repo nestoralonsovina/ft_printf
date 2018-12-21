@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 static double	ft_dabs(double n)
 {
@@ -33,7 +33,6 @@ void			handle_float(t_param *a)
 {
 
 	long double			n;
-	int					len;
 	long double			decimal;
 	long				value;
 
@@ -41,10 +40,9 @@ void			handle_float(t_param *a)
 	value = 0;
 	if (!(a->ind & PRECISION))
 		a->precision = 6;
-	len = 1;
-	decimal = ft_dabs(a->data.d); // valor absoluto for ever
-	decimal = (decimal - (long)(ft_dabs(n))) * ft_pow(10, a->precision + 1); // primero se queda el 0.... y luego se coge el resto.
-	decimal = ((long)decimal % 10 > 4) ? decimal / 10 + 1 : decimal / 10; // redondear el ultimo decimal para evita .1999999 o cosas asi
+	decimal = ft_dabs(a->data.d);
+	decimal = (decimal - (long)(ft_dabs(n))) * ft_pow(10, a->precision + 1);
+	decimal = ((long)decimal % 10 > 4) ? decimal / 10 + 1 : decimal / 10;
 	value = (long)decimal;
 	dtoa_string(n, a, value);
 }

@@ -21,7 +21,7 @@
 # include <stdarg.h>
 # include <locale.h>
 # include <unistd.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <stdio.h>
 
 // diouxX

@@ -24,7 +24,7 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 		((unsigned char *)dst)[index] = ((unsigned char *)src)[index];
 		if (((unsigned char *)src)[index] == ch)
 		{
-			return (&dst[index + 1]);
+			return (&((char *)dst)[index + 1]);
 		}
 		index++;
 	}

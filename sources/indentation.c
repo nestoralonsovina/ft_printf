@@ -1,6 +1,6 @@
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-char	*new_str(char c, int size)
+static char	*new_str(char c, int size)
 {
 	char	*str;
 	int		i;
