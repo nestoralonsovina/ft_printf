@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/12/24 11:16:44 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/24 12:45:05 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 
 #include <stdarg.h>
+#include <unistd.h>
 #include "../libft/libft.h"
 #include <stdio.h>
 

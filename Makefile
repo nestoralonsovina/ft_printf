@@ -1,7 +1,7 @@
 
 # Compiler
 
-CC = clang
+CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
 
@@ -34,9 +34,6 @@ SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
 # Utils
 
-
-
-
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
 all: $(NAME)
@@ -44,7 +41,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@make -C $(LIBFT)
 	@cp libft/libft.a ./$(NAME)
-	@ar rcs $(NAME) $(OBJS)
+	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
 $(DIR_O)/%.o: $(DIR_S)/%.c
