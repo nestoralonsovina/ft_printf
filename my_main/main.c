@@ -6,12 +6,12 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/12/20 09:52:51 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/24 10:38:05 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
-#include "../ft_printf.h"
+#include "../includes/ft_printf.h"
 #include <limits.h>
 
 void		print_full_param(t_param curr)

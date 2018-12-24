@@ -1,7 +1,7 @@
 
 # Compiler
 
-CC = gcc
+CC = clang
 
 FLAGS = -Wall -Wextra -Werror
 
@@ -32,6 +32,11 @@ SOURCES = arguments.c \
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 
+# Utils
+
+
+
+
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
 all: $(NAME)
@@ -39,7 +44,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@make -C $(LIBFT)
 	@cp libft/libft.a ./$(NAME)
-	@ar rc $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
 $(DIR_O)/%.o: $(DIR_S)/%.c
@@ -53,7 +58,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-	@make fclean 0C $(LIBFT)
+	@make fclean -C $(LIBFT)
 
 leaks:
 	make
@@ -62,7 +67,7 @@ leaks:
 
 test:
 	make
-	gcc - g -o printf my_main/main.c libftprintf.a
+	gcc -g -o printf my_main/main.c libftprintf.a -I includes/f
 	./printf
 
 .PHONY: clean fclean all re

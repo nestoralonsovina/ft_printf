@@ -6,25 +6,26 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/12/20 11:58:51 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/24 11:16:44 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#define printd(x) printf("%d\n", x);
-#define prints(x) printf("%s\n", x);
+#include <stdarg.h>
+#include "../libft/libft.h"
+#include <stdio.h>
 
-
-
-# include <stdarg.h>
-# include <locale.h>
-# include <unistd.h>
-# include "../libft/libft.h"
-# include <stdio.h>
-
-// diouxX
+# define NONE (1 << 0)
+# define CLEAR (1 << 1)
+# define ZERO (1 << 2)
+# define MINUS (1 << 3)
+# define PLUS (1 << 4)
+# define SPACE (1 << 5)
+# define SHARP (1 << 6)
+# define PRECISION (1 << 7)
+# define NEGATIVE (1 << 8)
 
 typedef union	u_data
 {
@@ -49,34 +50,11 @@ typedef enum	e_modifiers
 {
 	NO = 0, L = 1, H = 2, LL = 3, HH = 4, BIGL = 5
 }				t_modifiers;
-/*
-typedef enum	e_indentation
-{
-	NONE = 1, CLEAR = 2, ZERO = 4, AFTER = 8, SPACE = 16
-}				t_indentation;
-*/
-// not utilized par l'instant
+
 typedef enum	e_conversion
 {
 	NON, S, P, C, D, I, O, U, X, BIGX, B, F, N
 }				t_conversion;
-/*  How each flag affects depending on the conversion
-	Modifier          d, i           o, u, x, X
-	hh                signed char    unsigned char
-	h                 short          unsigned short
-	l (ell)           long           unsigned long
-	ll (ell ell)      long long      unsigned long long
-*/
-
-# define NONE (1 << 0)
-# define CLEAR (1 << 1)
-# define ZERO (1 << 2)
-# define MINUS (1 << 3)
-# define PLUS (1 << 4)
-# define SPACE (1 << 5)
-# define SHARP (1 << 6)
-# define PRECISION (1 << 7)
-# define NEGATIVE (1 << 8)
 
 typedef struct	s_param
 {
@@ -165,7 +143,6 @@ void			handle_hexa(t_param *node);
 void			handle_u(t_param *node);
 void			handle_c(t_param *node, t_printf *head);
 void			handle_float(t_param *a);
-//void			handle_char(t_param *node);
 void			handle_binary(t_param *n);
 void			handle_base(t_param *n, unsigned int base);
 /*
