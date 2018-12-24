@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2018/12/24 10:38:05 by nalonso          ###   ########.fr       */
+/*   Updated: 2018/12/24 13:28:23 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,18 @@
 #include "../includes/ft_printf.h"
 #include <limits.h>
 
-void		print_full_param(t_param curr)
-{
-	printf(YELLOW "printf_full_param() starting...\n" RESET);
-	//printf("pf_string: %s\n", curr.pf_string);
-	printf("conversion: %c\n", curr.conversion);
-	printf("conv enum: %d\n", curr.conv);
-	printf("flags: %s\n", curr.flags);
-	printf("width: %d\n", curr.width);
-	printf("precision: %d\n", curr.precision);
-	printf("ind: %d\n", curr.ind);
-	printf("mod: %d\n", curr.mod);
-	printf("stored data: %hd\n", curr.data.s);
-	printf(YELLOW "printf_full_param() ended...\n" RESET);
-	}
-
-
 int		main(int ac, char **av)
 {
 	char *name = "Nestor";
 	char *surname = "Alonso";
 
 	//printf("Flags test: "); ft_printf("%#10d");
+	if (1)
+	{
+		char *str = "hola guapo";
+		int ret = printf(RED "%s" RESET, str);
+		printf("\n(ret + colors): %d strlen: %d (strlen + color + reset): %d\n", ret, ft_strlen(str), ft_strlen(str) + ft_strlen(RED) + ft_strlen(RESET));
+	}
 	if (0)
 	{
 		int *n;
