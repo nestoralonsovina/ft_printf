@@ -22,6 +22,14 @@ int		main(int ac, char **av)
 	//printf("Flags test: "); ft_printf("%#10d");
 	if (1)
 	{
+		printf("{%-15Z}\n", 123);
+		ft_printf("{%-15Z}\n", 123);	
+		int n1, n2;
+		ft_printf("hola me %s%n llamo nestor %n\n", "hola", &n1, &n2);
+		printf("n1: %d n2: %d\n", n1, n2);	
+	}
+	if (0)
+	{
 		char *str = "Bonjour les amigos";
 		int ret2 = ft_printf("{c}%s{R} {b}%s{R} {y}%s{R} {m}%s{R}", str, str, str, str);
 		printf("\n(ret + colors): %d strlen: %d (strlen + color + reset): %d\n", ret2, ft_strlen(str), ft_strlen(str) + ft_strlen(RED) + ft_strlen(RESET));
@@ -116,7 +124,7 @@ int		main(int ac, char **av)
 		   printf("%0+5d\n", 42);
 		   printf("%zi\n", LLONG_MIN);
 	}
-	if (1)
+	if (0)
 	{
 		int		ret =  ft_printf("@ft_printf :|%5.2c||null: %c||%2.5c|\n", 42, 0, 42);
 		int		ret2 =    printf("@printf    :|%5.2c||null: %c||%2.5c|\n", 42, 0, 42);

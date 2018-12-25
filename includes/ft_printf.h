@@ -18,6 +18,10 @@
 #include "../libft/libft.h"
 #include <stdio.h>
 
+/*
+** Differente flag activation constants
+*/
+
 # define NONE (1 << 0)
 # define CLEAR (1 << 1)
 # define ZERO (1 << 2)
@@ -27,6 +31,20 @@
 # define SHARP (1 << 6)
 # define PRECISION (1 << 7)
 # define NEGATIVE (1 << 8)
+
+/*
+** Color escape codes
+*/
+
+# define RESET   "\033[0m"
+# define BLACK   "\033[30m"
+# define RED     "\033[31m"
+# define GREEN   "\033[32m"
+# define YELLOW  "\033[33m"
+# define BLUE    "\033[34m"
+# define MAGENTA "\033[35m"
+# define CYAN    "\033[36m"
+# define WHITE   "\033[37m"
 
 typedef union	u_data
 {
@@ -108,16 +126,6 @@ void		search_modifier(t_param *new);
 */
 void		set_conversion(char con, t_param *curr);
 
-
-#define RESET   "\033[0m"
-#define BLACK   "\033[30m"      /* Black */
-#define RED     "\033[31m"      /* Red */
-#define GREEN   "\033[32m"      /* Green */
-#define YELLOW  "\033[33m"      /* Yellow */
-#define BLUE    "\033[34m"      /* Blue */
-#define MAGENTA "\033[35m"      /* Magenta */
-#define CYAN    "\033[36m"      /* Cyan */
-#define WHITE   "\033[37m"      /* White */
 
 void		print_full_param(t_param curr);
 char		*dec_to_hex(int nb);

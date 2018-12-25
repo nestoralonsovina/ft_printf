@@ -160,7 +160,10 @@ void parse_arg(t_printf *p, va_list al)
 	if (*p->inp == '%')
 		a->pf_string = add_ind(ft_strdup("%"), a);
 	else if (*p->inp == 'n')
-		*(va_arg(al, int *)) = p->len;
+	{
+		*va_arg(al, int *) = p->len;
+		p->curr->pf_string = NULL;
+	}
 	else if (ft_strchr("bcspdiouxXfFODU", *p->inp) == NULL || !*p->inp)
 	{
 		if (*p->inp)
