@@ -22,9 +22,10 @@ int		main(int ac, char **av)
 	//printf("Flags test: "); ft_printf("%#10d");
 	if (1)
 	{
-		char *str = "hola guapo";
-		int ret = printf(RED "%s" RESET, str);
-		printf("\n(ret + colors): %d strlen: %d (strlen + color + reset): %d\n", ret, ft_strlen(str), ft_strlen(str) + ft_strlen(RED) + ft_strlen(RESET));
+		char *str = "Bonjour les amigos";
+		int ret2 = ft_printf("{c}%s{R} {b}%s{R} {y}%s{R} {m}%s{R}", str, str, str, str);
+		printf("\n(ret + colors): %d strlen: %d (strlen + color + reset): %d\n", ret2, ft_strlen(str), ft_strlen(str) + ft_strlen(RED) + ft_strlen(RESET));
+		
 	}
 	if (0)
 	{

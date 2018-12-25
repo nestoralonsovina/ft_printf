@@ -80,6 +80,7 @@ typedef struct	s_printf
 int				ft_printf(const char *format, ...);
 t_printf		*handle_args(const char *format, va_list arg);
 int				handle_conversions(char flags[], va_list al);
+int				colors(t_printf *p);
 
 /*
 **	USEFUL FUNCTIONS

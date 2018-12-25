@@ -159,6 +159,8 @@ void parse_arg(t_printf *p, va_list al)
 	}
 	if (*p->inp == '%')
 		a->pf_string = add_ind(ft_strdup("%"), a);
+	else if (*p->inp == 'n')
+		*(va_arg(al, int *)) = p->len;
 	else if (ft_strchr("bcspdiouxXfFODU", *p->inp) == NULL || !*p->inp)
 	{
 		if (*p->inp)
@@ -198,7 +200,10 @@ t_printf *handle_args(const char *format, va_list al)
 			}
 		}
 		else
-			p->len += write(1, p->inp, 1);
+		{
+			if (!colors(p))
+				p->len += write(1, p->inp, 1);
+		}
 		if (*p->inp)
 			++p->inp;
 	}
