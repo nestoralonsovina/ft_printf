@@ -199,8 +199,8 @@ t_printf *handle_args(const char *format, va_list al)
 			{
 				p->len += write(1, p->curr->pf_string, ft_strlen(p->curr->pf_string));
 				free(p->curr->pf_string);
-				free(p->curr);
 			}
+			free(p->curr);
 		}
 		else
 		{

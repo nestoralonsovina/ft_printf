@@ -60,7 +60,7 @@ fclean: clean
 
 leaks:
 	make
-	gcc -g -o printf my_main/main.c libftprintf.a
+	gcc -o printf my_main/main.c libftprintf.a -g
 	valgrind --leak-check=full ./printf
 
 test:
