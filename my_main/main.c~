@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/06 20:28:11 by nestoralo        ###   ########.fr       */
+/*   Updated: 2019/01/06 11:32:44 by nestoralo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,6 @@ int		main(int ac, char **av)
 	char *surname = "Alonso";
 
 	//printf("Flags test: "); ft_printf("%#10d");
-	if (1)
-	{
-		int ret = 0,ter = 0;
-
-		//ft_printf("", 2513372628);
-		ret = ft_printf("!%052.2hhd!", 2880569480);
-		ter = printf("!%052.2hhd!", 2880569480);
-		printf("!ret: %d ter: %d", ret, ter);
-	}
-	/*
 	if (0)
 	{
 		long long		ioro = 2;
@@ -95,8 +85,6 @@ int		main(int ac, char **av)
 	}
 	if (0)
 	{
-		ft_printf("@moulitest: %.d %.0d\n", 42, 43);
-		printf("@moulitest: %.d %.0d\n", 42, 43);
 		printf("{% 03d}\n", 15);
 		ft_printf("{% 03d}\n", 15);
 		ft_printf("%lld", -9223372036854775808);
@@ -157,7 +145,7 @@ int		main(int ac, char **av)
 		   printf("%0+5d\n", 42);
 		   printf("%zi\n", LLONG_MIN);
 	}
-	if (0)
+	if (1)
 	{
 		int		ret =  ft_printf("@ft_printf :|%5.2c||null: %c||%2.5c|\n", 42, 0, 42);
 		int		ret2 =    printf("@printf    :|%5.2c||null: %c||%2.5c|\n", 42, 0, 42);
@@ -192,7 +180,6 @@ int		main(int ac, char **av)
 		ret2 = printf(RESET "digit %20x string %10s\n" RESET, i, name);
 		printf("are the returns equal? %d\n", ret1 == ret2);
 	}
-
 	if (0)
 	{
 		printf(" test return : %d\n", printf("Hola mu buenas%s", name) == ft_printf("Hola mu buenas%s", name));
@@ -234,6 +221,6 @@ int		main(int ac, char **av)
 	{
 		print_reverse(dec_to_hex(10000));
 		ft_putchar('\n');
-	}*/
+	}
 	return (0);
 }

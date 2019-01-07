@@ -28,7 +28,7 @@ static void      to_unsigned(t_param *n, int neg)
 	else if (n->mod == HH)
 		n->data.uc = neg * n->data.sc;
 }
-
+/*
 void	handle_integer(t_param *n)
 {
 	char	*res;
@@ -71,7 +71,42 @@ void	handle_integer(t_param *n)
 		res = add_ind(res, n);
 	}
 	n->pf_string = res;
-
+ 	!%02.48hhi!
 }
+*/
+void	handle_integer(t_param *n)
+{
+	char	*res;
+	char	f;
+	int		neg;
 
-
+	neg = is_negative(n);
+	to_unsigned(n, neg);
+	neg = (neg < 0) ? 1 : 0;
+	res = data_to_base(n ,10);
+	n->width = ((n->precision > n->width ) && (n->ind & ZERO)) ? n->precision : n->width;
+	if ((n->ind & PRECISION))
+	{
+		if (!ft_strcmp("0",res) && !n->precision && !(n->ind & ZERO)) {
+			ft_strclr(res);
+		}
+		if (n->precision != 0)
+			res = add_prec(res, n);
+	}
+	(n->ind & SPACE) ? f = ' ' : 0;
+	(neg) ? f = '-' : 0;
+	(n->ind & PLUS && !neg) ? f = '+' : 0;
+	if (n->ind & ZERO && f)
+	{
+		--n->width;
+		res = add_ind(res, n);
+		res = add_char(res, f);
+	}
+	else
+	{
+		if (f)
+			res = add_char(res, f);
+		res = add_ind(res, n);
+	}
+	n->pf_string = res;
+}

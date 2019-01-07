@@ -40,12 +40,12 @@ void	handle_base(t_param *n, unsigned int base)
 	err = (!(ft_strcmp("0", res))) ? 1 : 0;
 	n->width = ((n->precision > n->width) && (n->ind & ZERO)) ? n->precision : n->width;
 	(base == 16 && (n->ind & ZERO) && (n->ind & SHARP) && !(n->ind & MINUS)) ? n->width -= 2 : 0;
-	if (((base == 8 || base == 16) && !(base == 8 && n->ind & ZERO) && (n->ind & SHARP)) || n->conv == P)
+	if (((base == 8 || base == 16) && !(base == 8 && n->ind & ZERO) && (n->ind & SHARP)))
 		i[0] = '0';
 	if (n->conv == P || (base == 16 && n->ind & SHARP))
 		i[1] = n->conv == BIGX ? 'X' : 'x';
 	i[2] = '\0';
-	if ((!err && !(base == 16 && (n->ind & ZERO) && !(n->ind & MINUS))) || (n->conv == P && !(n->ind & ZERO)))
+	if ((!err && !(base == 16 && (n->ind & ZERO) && !(n->ind & MINUS))))
 		res = fstrjoin(ft_strdup(i), res);
 	if (((n->ind & PRECISION) && !(n->ind & ZERO) && (n->precision != 0)) || err)
 		res = add_prec(res, n);
@@ -59,16 +59,15 @@ void	handle_ptr(t_param *n)
 {
 	char	*res;
 
-	res = ft_itoa_base((unsigned long long)n->data.ptr, 16);
 	if (n->precision == 0)
-	{
-		free(res);
 		res = ft_strdup("");
-	}
+	else
+		res = ft_itoa_base((unsigned long long)n->data.ptr, 16);
 	if (n->ind & CLEAR && n->width > n->precision)
 	{
 		res = fstrjoin(ft_strdup("0x"), res);
-		res = add_prec(res, n);
+		if (n->precision)
+			res = add_prec(res, n);
 		res = add_ind(res, n);
 	}
 	else

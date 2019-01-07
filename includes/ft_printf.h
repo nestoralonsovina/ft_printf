@@ -72,7 +72,7 @@ typedef enum	e_modifiers
 
 typedef enum	e_conversion
 {
-	NON, S, P, C, D, I, O, U, X, BIGX, B, F, N
+	NON, S, P, C, D, O, U, X, BIGX, B, F, N
 }				t_conversion;
 
 typedef struct	s_param

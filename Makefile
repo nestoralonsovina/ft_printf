@@ -58,6 +58,8 @@ fclean: clean
 	@rm -f $(NAME)
 	@make fclean -C $(LIBFT)
 
+re: fclean all
+
 leaks:
 	make
 	gcc -o printf my_main/main.c libftprintf.a -g

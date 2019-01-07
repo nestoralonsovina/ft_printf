@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:11:31 by nalonso           #+#    #+#             */
-/*   Updated: 2018/12/20 09:51:20 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/06 14:14:36 by nestoralo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,27 @@ char	*ft_strndup(const char *s1, size_t n)
 		i++;
 	}
 	return (s2);
+}
+
+char	*add_char(char *str, char c)
+{
+	char 	*new;
+	int		len;
+	int		i;
+
+	i = 0;
+	len = ft_strlen(str);
+	new = (char *)malloc_safe(len + 2);
+	new[0] = c;
+	while (str[i] != '\0')
+	{
+		new[i + 1] = str[i];
+		++i;
+	}
+	new[i + 1] = '\0';
+	if (str)
+		free(str);
+	return (new);
 }
 
 char	*fstrjoin(char *s1, char *s2)

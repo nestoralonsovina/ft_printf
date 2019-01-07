@@ -8,10 +8,8 @@ void		set_conversion(char con, t_param *curr)
 		curr->conv = C;
 	else if (con == 'p')
 		curr->conv = P;
-	else if (con == 'd' || con == 'D')
+	else if (con == 'd' || con == 'D' || con == 'i')
 		curr->conv = D;
-	else if (con == 'i')
-		curr->conv = I;
 	else if (con == 'f' || con == 'F')
 		curr->conv = F;
 	else if (con == 'o' || con == 'O')
@@ -36,7 +34,7 @@ void		search_arg(t_param *new, va_list al)
 		new->data.str = va_arg(al, char *);
 	else if (new->conv == C)
 		new->data.c = va_arg(al, int);
-	else if (new->conv == D || new->conv == I)
+	else if (new->conv == D)
 	{
 		if (new->mod == H)
 			new->data.s = va_arg(al, int);
@@ -49,7 +47,7 @@ void		search_arg(t_param *new, va_list al)
 		else
 			new->data.i = va_arg(al, int);
 	}
-	else if (new->conv > I && new->conv < F)
+	else if (new->conv > D && new->conv < F)
 	{
 		if (new->mod == H)
 			new->data.us = va_arg(al, int);
@@ -77,7 +75,7 @@ void convert_arg(t_printf *p)
 		handle_str(p->curr);
 	else if (p->curr->conv == P)
 		handle_ptr(p->curr);
-	else if (p->curr->conv == D || p->curr->conv == I)
+	else if (p->curr->conv == D)
 		handle_integer(p->curr);
 	else if (p->curr->conv == O)
 		handle_base(p->curr, 8);
@@ -128,6 +126,15 @@ void	assign_flag(t_printf *p)
 		a->ind |= ZERO;
 }
 
+void	parse_flags(t_printf *p)
+{
+	while (ft_strchr("#+- 0", *p->inp))
+	{
+		assign_flag(p);
+		++p->inp;
+	}
+}
+
 void parse_arg(t_printf *p, va_list al)
 {
 	t_param	*a;
@@ -137,15 +144,14 @@ void parse_arg(t_printf *p, va_list al)
 	a->ind = 0;
 	a->width = 0;
 	a->precision = 1;
-	while (ft_strchr("#+- 0", *p->inp))
-		{assign_flag(p);++p->inp;}
+	parse_flags(p);
 	search_width_precision(p);
 	if (a->width > 0 && !(a->ind & ZERO))
 		{a->ind |= CLEAR;}
 	if (!(a->ind & CLEAR) && !(a->ind & ZERO))
 		a->ind |= NONE;
 	a->mod = NO;
-	while (69)
+	while (42)
 	{
 		if (*p->inp == 'l')
 			a->mod = (p->inp[1] == 'l' && ++p->inp) ? LL : L;
@@ -157,6 +163,7 @@ void parse_arg(t_printf *p, va_list al)
 			break ;
 		++p->inp;
 	}
+	parse_flags(p);
 	if (*p->inp == '%')
 		a->pf_string = add_ind(ft_strdup("%"), a);
 	else if (*p->inp == 'n')
@@ -175,6 +182,11 @@ void parse_arg(t_printf *p, va_list al)
 		if (ft_strchr("ODU", *p->inp) != NULL)
 			a->mod = a->mod == L ? LL : L;
 		set_conversion(*p->inp, p->curr);
+		if ((a->ind & ZERO) && (a->ind & PRECISION) && a->conv != C && a->conv != S)
+		{
+			a->ind &= ~ZERO;
+			a->ind |= CLEAR;
+		}
 		search_arg(p->curr, al);
 		convert_arg(p);
 	}
