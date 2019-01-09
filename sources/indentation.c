@@ -6,7 +6,7 @@ static char	*new_str(char c, int size)
 	int		i;
 
 	i = 0;
-	str = (char *)malloc_safe(sizeof(char) * size);
+	str = (char *)malloc_safe(sizeof(char) * size + 1);
 	while (i < size)
 		str[i++] = c;
 	str[i] = '\0';

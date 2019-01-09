@@ -132,34 +132,16 @@ char		*dec_to_hex(int nb);
 void		print_reverse(char *str);
 char		*ft_itoa_base(unsigned long long value, int base);
 char		*ft_decimal_itoa(long long nbr);
+
 // FUNCTIONS TO HANDLE DIFFERENT FLAGS
 
-void			handle_ind(char *res, t_param *node);
 char			*add_ind(char *str, t_param *node);
 char			*add_prec(char *str, t_param *node);
 void			handle_str(t_param *node);
 void			handle_ptr(t_param *node);
 void			handle_integer(t_param *node);
-void			handle_octal(t_param *node);
-void			handle_hexa(t_param *node);
-void			handle_u(t_param *node);
 void			handle_c(t_param *node, t_printf *head);
 void			handle_float(t_param *a);
-void			handle_binary(t_param *n);
 void			handle_base(t_param *n, unsigned int base);
-/*
-**	LIBFT FUNCTIONS
-*/
-/*
-char				*ft_itoa(int nbr);
-int					ft_isdigit(int c);
-char				*ft_strcpy(char *dst, const char *src);
-void				ft_strclr(char *s);
-char				*ft_strnew(size_t size);
-char				*ft_strchr(const char *s, int c);
-void				ft_putstr(char *str);
-char				*ft_strdup(const char *s1);
-char				*ft_strstr(const char *str, const char *to_find);
-void			*ft_memset(void *b, int c, size_t len);
-*/
+
 #endif

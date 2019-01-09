@@ -66,7 +66,7 @@ leaks:
 	valgrind --leak-check=full ./printf
 
 test:
-	make
+	make re
 	gcc -g -o printf my_main/main.c libftprintf.a -I includes/f
 	./printf
 
