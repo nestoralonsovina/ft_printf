@@ -1,0 +1,1 @@
+while [ 1 ];do bash ~/42FileChecker/42FileChecker.sh --project "ft_printf" --path "/Users/nalonso/projects/ft_printf" --no-norminette --no-speedtest --no-leaks --no-forbidden --no-update ;sleep 60;clear;done

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hand_di.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 12:05:08 by nalonso           #+#    #+#             */
+/*   Updated: 2019/01/10 12:08:09 by nalonso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
 static int		is_negative(t_param *n)
@@ -15,7 +27,7 @@ static int		is_negative(t_param *n)
 	return (1);
 }
 
-static void      to_unsigned(t_param *n, int neg)
+static void		to_unsigned(t_param *n, int neg)
 {
 	if (n->mod == NO)
 		n->data.ui = neg * n->data.i;
@@ -38,11 +50,11 @@ void	handle_integer(t_param *n)
 	neg = is_negative(n);
 	to_unsigned(n, neg);
 	neg = (neg < 0) ? 1 : 0;
-	res = data_to_base(n ,10);
+	res = data_to_base(n, 10);
 	//n->width = ((n->precision > n->width ) && (n->ind & ZERO)) ? n->precision : n->width; // not useful?
 	if ((n->ind & PRECISION))
 	{
-		if (!ft_strcmp("0",res))
+		if (!ft_strcmp("0", res))
 			ft_strclr(res);
 		if (n->precision != 0)
 			res = add_prec(res, n);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   arguments.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 11:28:37 by nalonso           #+#    #+#             */
+/*   Updated: 2019/01/10 15:55:11 by nalonso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
 void		set_conversion(char con, t_param *curr)
@@ -69,7 +81,9 @@ void		search_arg(t_param *new, va_list al)
 	}
 }
 
-void convert_arg(t_printf *p)
+void handle_hexa(t_param *n, unsigned int base);
+
+void	convert_arg(t_printf *p)
 {
 	if (p->curr->conv == S)
 		handle_str(p->curr);
@@ -80,7 +94,7 @@ void convert_arg(t_printf *p)
 	else if (p->curr->conv == O)
 		handle_base(p->curr, 8);
 	else if (p->curr->conv == X || p->curr->conv == BIGX)
-		handle_base(p->curr, 16);
+		handle_hexa(p->curr, 16);
 	else if (p->curr->conv == U)
 		handle_base(p->curr, 10);
 	else if (p->curr->conv == C)
@@ -107,6 +121,10 @@ void	search_width_precision(t_printf *p)
 			++p->inp;
 		p->curr->ind |= PRECISION;
 	}
+	if (p->curr->width > 0 && !(p->curr->ind & ZERO))
+		p->curr->ind |= CLEAR;
+	if (!(p->curr->ind & CLEAR) && !(p->curr->ind & ZERO))
+		p->curr->ind |= NONE;
 }
 
 void	assign_flag(t_printf *p)
@@ -135,21 +153,11 @@ void	parse_flags(t_printf *p)
 	}
 }
 
-void parse_arg(t_printf *p, va_list al)
+void	parse_modifiers(t_printf *p)
 {
-	t_param	*a;
+	t_param *a;
 
-	p->curr = (t_param *)malloc_safe(sizeof(t_param));
 	a = p->curr;
-	a->ind = 0;
-	a->width = 0;
-	a->precision = 1;
-	parse_flags(p);
-	search_width_precision(p);
-	if (a->width > 0 && !(a->ind & ZERO))
-		{a->ind |= CLEAR;}
-	if (!(a->ind & CLEAR) && !(a->ind & ZERO))
-		a->ind |= NONE;
 	a->mod = NO;
 	while (42)
 	{
@@ -163,6 +171,20 @@ void parse_arg(t_printf *p, va_list al)
 			break ;
 		++p->inp;
 	}
+}
+
+void	parse_arg(t_printf *p, va_list al)
+{
+	t_param	*a;
+
+	p->curr = (t_param *)malloc_safe(sizeof(t_param));
+	a = p->curr;
+	a->ind = 0;
+	a->width = 0;
+	a->precision = 1;
+	parse_flags(p);
+	search_width_precision(p);
+	parse_modifiers(p);
 	parse_flags(p);
 	if (*p->inp == '%')
 		a->pf_string = add_ind(ft_strdup("%"), a);
@@ -171,7 +193,7 @@ void parse_arg(t_printf *p, va_list al)
 		*va_arg(al, int *) = p->len;
 		p->curr->pf_string = NULL;
 	}
-	else if (ft_strchr("bcspdiouxXfFODU", *p->inp) == NULL || !*p->inp)
+	else if (ft_strchr("bcspdiouxXfODU", *p->inp) == NULL || !*p->inp)
 	{
 		if (*p->inp)
 			p->len += write(1, p->inp, 1);
@@ -182,7 +204,8 @@ void parse_arg(t_printf *p, va_list al)
 		if (ft_strchr("ODU", *p->inp) != NULL)
 			a->mod = a->mod == L ? LL : L;
 		set_conversion(*p->inp, p->curr);
-		if ((a->ind & ZERO) && (a->ind & PRECISION) && a->conv != C && a->conv != S)
+		if ((a->ind & ZERO) && (a->ind & PRECISION) \
+				&& a->conv != C && a->conv != S)
 		{
 			a->ind &= ~ZERO;
 			a->ind |= CLEAR;
@@ -192,35 +215,34 @@ void parse_arg(t_printf *p, va_list al)
 	}
 }
 
-t_printf *handle_args(const char *format, va_list al)
+int		handle_args(const char *format, va_list al)
 {
-	t_printf	*p;
+	t_printf	p;
 
-	p = (t_printf *)malloc_safe(sizeof(*p));
-	p->inp = format;
-	p->len = 0;
-	while (*p->inp)
+	p.inp = format;
+	p.len = 0;
+	while (*p.inp)
 	{
-		if (*p->inp == '%')
+		if (*p.inp == '%')
 		{
-			++p->inp;
-			if (!*p->inp)
-				break;
-			parse_arg(p, al);
-			if (p->curr->pf_string)
+			++p.inp;
+			if (!*p.inp)
+				break ;
+			parse_arg(&p, al);
+			if (p.curr->pf_string)
 			{
-				p->len += write(1, p->curr->pf_string, ft_strlen(p->curr->pf_string));
-				free(p->curr->pf_string);
+				p.len += write(1, p.curr->pf_string, ft_strlen(p.curr->pf_string));
+				free(p.curr->pf_string);
 			}
-			free(p->curr);
+			free(p.curr);
 		}
 		else
 		{
-			if (!colors(p))
-				p->len += write(1, p->inp, 1);
+			if (!colors(&p))
+				p.len += write(1, p.inp, 1);
 		}
-		if (*p->inp)
-			++p->inp;
+		if (*p.inp)
+			++p.inp;
 	}
-	return (p);
+	return (p.len);
 }

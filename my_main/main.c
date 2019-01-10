@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/06 20:28:11 by nestoralo        ###   ########.fr       */
+/*   Updated: 2019/01/10 16:27:28 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,28 @@ int		main(int ac, char **av)
 	char *surname = "Alonso";
 
 	//printf("Flags test: "); ft_printf("%#10d");
-	if (1) {
+	if (1)
+	{
+		ft_printf("%2c", (char)-26);
+	}
+	if (0) {
 		int ret = 0, ter = 0;
 
-		ter =    printf("   printf: %0#11llo", 1708887654);
-		ret = ft_printf("ft_printf: %0#11llo", 1708887654);
-		printf("!ft_printf: %d printf: %d", ret, ter);
+		printf("!%#-08x!", 42);
+		ft_printf("!%#-08x!", 42);
+		ter =    printf("   printf: |%-#16.2hhx|", -1503432331);
+		ret = ft_printf("ft_printf: |%-#16.2hhx|", -1503432331);
+		printf("!ft_printf: %d printf: %d\n", ret, ter);
 
 		//ret = ft_printf("!%+015.10u!", 0);
 		//ter = printf("!%+015.10u!", 0);
 		//printf("!ret: %d ter: %d", ret, ter);
 	}
 
+	if (0) {
+		   printf("   printf: |%+ 15.5lf|\n", atof(av[1]));
+		ft_printf("ft_printf: |%+ 15.5lf|\n", atof(av[1]));
+	}
 
 	/*
 	if (0)

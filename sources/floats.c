@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   floats.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 12:13:23 by nalonso           #+#    #+#             */
+/*   Updated: 2019/01/10 12:33:28 by nalonso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
 static double	ft_dabs(double n)
@@ -10,12 +22,26 @@ static double	ft_pow(double n, int pow)
 	return (pow ? n * ft_pow(n, pow - 1) : 1);
 }
 
+static char		*float_indentation(t_param *a, char *res, long double n)
+{
+	n = a->precision;
+	return (res);
+}
+/*
+ *(p->f & F_APP_PRECI && p->f & F_ZERO) ? s[0] = ' ' : 0;
+ 	(p->f & F_SPACE) ? s[0] = ' ' : 0;
+		(n < 0) ? s[0] = '-' : 0;
+		(p->f & F_PLUS && n >= 0) ? s[0] = '+' : 0;
+ *
+ * */
 void			dtoa_string(long double n, t_param *a, long value)
 {
 	int		len;
 	char	s[256];
+	char	*buff;
 	long	tmp;
 
+	buff = NULL;
 	len = 0;
 	tmp = (long)(n > 0 ? n : -n);
 	(n < 0) ? s[len++] = '-' : 0;
@@ -24,9 +50,12 @@ void			dtoa_string(long double n, t_param *a, long value)
 	s[len++] = '.';
 	s[len] = '\0';
 	len += a->precision;
-	ft_strcat(s, ft_itoa_base(value, 10));
+	buff = ft_itoa_base(value, 10);
+	if (a->precision > (int)ft_strlen(buff))
+		buff = fstrjoin(buff, new_str('0', a->precision - ft_strlen(buff)));
+	ft_strcat(s, buff);
 	s[len] = '\0';
-	a->pf_string = ft_strdup(s);
+	a->pf_string = float_indentation(a, ft_strdup(s), n);
 }
 
 void			handle_float(t_param *a)

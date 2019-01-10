@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   indentation.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 11:21:13 by nalonso           #+#    #+#             */
+/*   Updated: 2019/01/10 16:27:41 by nalonso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
 
-static char	*new_str(char c, int size)
+char	*new_str(char c, int size)
 {
 	char	*str;
 	int		i;
@@ -41,7 +53,7 @@ char	*add_prec(char *str, t_param *node)
 	int		len;
 	char	*new;
 
-	if (!(node->ind & PRECISION))
+	if (!(node->ind & PRECISION) && !(node->ind & ZERO))
 		return (str);
 	if (node->ind & ZERO && node->ind & PRECISION)
 	{

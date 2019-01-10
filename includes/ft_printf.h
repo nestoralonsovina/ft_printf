@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2018/12/24 13:30:56 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/10 11:37:16 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdio.h>
 
 /*
-** Differente flag activation constants
+** Different flag activation constants
 */
 
 # define NONE (1 << 0)
@@ -96,7 +96,7 @@ typedef struct	s_printf
 }				t_printf;
 
 int				ft_printf(const char *format, ...);
-t_printf		*handle_args(const char *format, va_list arg);
+int				handle_args(const char *format, va_list arg);
 int				handle_conversions(char flags[], va_list al);
 int				colors(t_printf *p);
 
@@ -109,7 +109,7 @@ void			*malloc_safe(size_t size);
 char			*add_char(char *str, char c);
 char			*data_to_base(t_param *node, int base);
 char			*ft_strndup(const char *s1, size_t n);
-
+char			*new_str(char c, int size);
 /*
 **	MANAGE PARAMETERS
 */

@@ -6,13 +6,13 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 10:11:31 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/06 14:14:36 by nestoralo        ###   ########.fr       */
+/*   Updated: 2019/01/10 11:26:05 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void		*malloc_safe(size_t size)
+void	*malloc_safe(size_t size)
 {
 	void	*tmp;
 
@@ -42,7 +42,7 @@ char	*ft_strndup(const char *s1, size_t n)
 
 char	*add_char(char *str, char c)
 {
-	char 	*new;
+	char	*new;
 	int		len;
 	int		i;
 
@@ -84,32 +84,35 @@ void	swap(char *start, char *end)
 
 void	reverse(char str[], int length)
 {
-    int start = 0;
-    int end = length -1;
-    while (start < end)
-    {
-        swap((str+start), (str+end));
-        start++;
-        end--;
-    }
+	int	start;
+	int	end;
+
+	start = 0;
+	end = length - 1;
+	while (start < end)
+	{
+		swap((str + start), (str + end));
+		start++;
+		end--;
+	}
 }
 
 char	*ft_itoa_base(unsigned long long num, int base)
 {
-	char str[66];
-	int i = 0;
-	int rem;
+	char	str[66];
+	int		i;
+	int		rem;
 
+	i = 0;
 	if (num == 0)
 		return (ft_strdup("0"));
 	while (num != 0)
 	{
 		rem = num % base;
 		str[i++] = (rem > 9) ? (rem - 10) + 'a' : rem + '0';
-		num = num/base;
+		num = num / base;
 	}
 	str[i] = '\0';
 	reverse(str, i);
 	return (ft_strdup(str));
 }
-

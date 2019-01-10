@@ -1,16 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bonus.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 11:21:36 by nalonso           #+#    #+#             */
+/*   Updated: 2019/01/10 12:13:18 by nalonso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ft_printf.h"
-
-
-/*
-** Support for the following bonus:
-**   1. Colors
-**   2. %n flag, stores in the argument of the type (int *) the current len printed.
-**   3. %UDO flags, the correspond to %lu %ld and %lo.
-**   4. %b flag, to print an unsigned number in binary TODO: add signed numbers support. If possible without making to much of a mess.
-**   5. %aA %eE flags to print hexadecimal and octal numbers in decimal notation. TODO: everything
-**   6. Posible addition: support for %lc and %ls to print wide characters. TODO: everything too
-*/
-
 
 static int		valid_color(t_printf *p)
 {
