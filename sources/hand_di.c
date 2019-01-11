@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 12:05:08 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/10 12:08:09 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/11 12:34:01 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,10 @@ static void		to_unsigned(t_param *n, int neg)
 		n->data.uc = neg * n->data.sc;
 }
 
-void	handle_integer(t_param *n)
+static char		*int_indentation(char *res, int neg, t_param *n)
 {
-	char	*res;
 	char	f;
-	int		neg;
 
-	neg = is_negative(n);
-	to_unsigned(n, neg);
-	neg = (neg < 0) ? 1 : 0;
-	res = data_to_base(n, 10);
-	//n->width = ((n->precision > n->width ) && (n->ind & ZERO)) ? n->precision : n->width; // not useful?
 	if ((n->ind & PRECISION))
 	{
 		if (!ft_strcmp("0", res))
@@ -74,5 +67,18 @@ void	handle_integer(t_param *n)
 			res = add_char(res, f);
 		res = add_ind(res, n);
 	}
+	return (res);
+}
+
+void			handle_integer(t_param *n)
+{
+	char	*res;
+	int		neg;
+
+	neg = is_negative(n);
+	to_unsigned(n, neg);
+	neg = (neg < 0) ? 1 : 0;
+	res = data_to_base(n, 10);
+	res = int_indentation(res, neg, n);
 	n->pf_string = res;
 }

@@ -6,47 +6,30 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:54:28 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/10 16:27:28 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/11 14:31:29 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../includes/ft_printf.h"
 #include <limits.h>
-/*
-void clean_Base(t_param *n, unsigned int base)
-{
-	char	*res;
-	char	i[3];
-	int		err;
 
-	res = data_to_base(n, base);
-	err = (!(ft_strcmp("0", res))) ? 1 : 0;
-	n->width = ((n->precision > n->width) && (n->ind & ZERO)) ? n->precision : n->width;
-	(base == 16 && (n->ind & ZERO) && (n->ind & SHARP) && !(n->ind & MINUS)) ? n->width -= 2 : 0;
-	(base == 8 && (n->ind & ZERO && n->width < (int)ft_strlen(res)) && n->ind & SHARP) ? n->ind &= ~ZERO : 0;
-	if ((base == 8 || base == 16) && !(base == 8 && n->ind & ZERO) && (n->ind & SHARP))
-		i[0] = '0';
-	if ((base == 16 && n->ind & SHARP))
-		i[1] = n->conv == BIGX ? 'X' : 'x';
-	i[2] = '\0';
-	if ((!err && !(base == 16 && ((n->ind & ZERO) || n->ind & PRECISION) && !(n->ind & MINUS))))
-		res = fstrjoin(ft_strdup(i), res);
-	if (((n->ind & PRECISION) && !(n->ind & ZERO) && (n->precision != 0)) || err)
-		res = add_prec(res, n);
-	res = add_ind(res, n);
-	if ((err && base == 8 && (n->ind & PRECISION)) || (!err && base == 16 && ((n->ind & ZERO) || n->ind & PRECISION)  && !(n->ind & MINUS)))
-		res = fstrjoin(ft_strdup(i), res);
-	n->pf_string = (n->conv == BIGX) ? ft_strupper(res) : res;
-}
-*/
 int		main(int ac, char **av)
 {
 	char *name = "Nestor";
 	char *surname = "Alonso";
 
+	if (1) {
+		double arg = 0.000000;
+		int ret, ter;
+		
+		ret=   printf("   printf: |{%.15lf}{%.15lF}|\n", atof(av[1]), atof(av[1]));
+		ter=ft_printf("ft_printf: |{%.15lf}{%.15lF}|\n", atof(av[1]), atof(av[1]));
+		printf("ft_printf: %d printf: %d\n", ret, ter);
+	}
 	//printf("Flags test: "); ft_printf("%#10d");
-	if (1)
+	/*
+	if (0)
 	{
 		ft_printf("%2c", (char)-26);
 	}
@@ -64,12 +47,6 @@ int		main(int ac, char **av)
 		//printf("!ret: %d ter: %d", ret, ter);
 	}
 
-	if (0) {
-		   printf("   printf: |%+ 15.5lf|\n", atof(av[1]));
-		ft_printf("ft_printf: |%+ 15.5lf|\n", atof(av[1]));
-	}
-
-	/*
 	if (0)
 	{
 		long long		ioro = 2;

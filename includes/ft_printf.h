@@ -6,17 +6,17 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/10 11:37:16 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/11 12:43:37 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#include <stdarg.h>
-#include <unistd.h>
-#include "../libft/libft.h"
-#include <stdio.h>
+# include <stdarg.h>
+# include <unistd.h>
+# include "../libft/libft.h"
+# include <stdio.h>
 
 /*
 ** Different flag activation constants
@@ -46,7 +46,7 @@
 # define CYAN    "\033[36m"
 # define WHITE   "\033[37m"
 
-typedef union	u_data
+typedef union		u_data
 {
 	int					i;
 	unsigned int		ui;
@@ -63,85 +63,82 @@ typedef union	u_data
 	unsigned long long	ull;
 	double				d;
 	long double			ld;
-}				t_data;
+}					t_data;
 
-typedef enum	e_modifiers
+typedef enum		e_modifiers
 {
 	NO = 0, L = 1, H = 2, LL = 3, HH = 4, BIGL = 5
-}				t_modifiers;
+}					t_modifiers;
 
-typedef enum	e_conversion
+typedef enum		e_conversion
 {
 	NON, S, P, C, D, O, U, X, BIGX, B, F, N
-}				t_conversion;
+}					t_conversion;
 
-typedef struct	s_param
+typedef struct		s_param
 {
 	char			*pf_string;
 	char			conversion;
 	char			*flags;
 	int				width;
 	int				precision;
-	short				ind;
+	short			ind;
 	t_modifiers		mod;
 	t_conversion	conv;
 	t_data			data;
-}				t_param;
+}					t_param;
 
-typedef struct	s_printf
+typedef struct		s_printf
 {
 	const char		*inp;
 	int				len;
 	t_param			*curr;
-}				t_printf;
+}					t_printf;
 
-int				ft_printf(const char *format, ...);
-int				handle_args(const char *format, va_list arg);
-int				handle_conversions(char flags[], va_list al);
-int				colors(t_printf *p);
+int					ft_printf(const char *format, ...);
+int					handle_args(const char *format, va_list arg);
+int					handle_conversions(char flags[], va_list al);
+int					colors(t_printf *p);
 
 /*
 **	USEFUL FUNCTIONS
 */
 
-char			*fstrjoin(char *s1, char *s2);
-void			*malloc_safe(size_t size);
-char			*add_char(char *str, char c);
-char			*data_to_base(t_param *node, int base);
-char			*ft_strndup(const char *s1, size_t n);
-char			*new_str(char c, int size);
+char				*fstrjoin(char *s1, char *s2);
+void				*malloc_safe(size_t size);
+char				*add_char(char *str, char c);
+char				*data_to_base(t_param *node, int base);
+char				*ft_strndup(const char *s1, size_t n);
+char				*new_str(char c, int size);
 /*
 **	MANAGE PARAMETERS
 */
 
-t_param		*init_param(char *flags, va_list al);
-char		ret_conversion(char *flags, t_param *curr);
-int			is_conversion(char c);
-void		search_width(t_param *new);
-void		search_precision(t_param *new);
-void		search_modifier(t_param *new);
+t_param				*init_param(char *flags, va_list al);
+char				ret_conversion(char *flags, t_param *curr);
+int					is_conversion(char c);
+void				search_width(t_param *new);
+void				search_precision(t_param *new);
+void				search_modifier(t_param *new);
 
 /*
 **	DEBUG
 */
-void		set_conversion(char con, t_param *curr);
 
-
-void		print_full_param(t_param curr);
-char		*dec_to_hex(int nb);
-void		print_reverse(char *str);
-char		*ft_itoa_base(unsigned long long value, int base);
-char		*ft_decimal_itoa(long long nbr);
-
-// FUNCTIONS TO HANDLE DIFFERENT FLAGS
-
-char			*add_ind(char *str, t_param *node);
-char			*add_prec(char *str, t_param *node);
-void			handle_str(t_param *node);
-void			handle_ptr(t_param *node);
-void			handle_integer(t_param *node);
-void			handle_c(t_param *node, t_printf *head);
-void			handle_float(t_param *a);
-void			handle_base(t_param *n, unsigned int base);
+void				set_conversion(char con, t_param *curr);
+void				print_full_param(t_param curr);
+char				*dec_to_hex(int nb);
+void				print_reverse(char *str);
+char				*ft_itoa_base(unsigned long long value, int base);
+char				*ft_decimal_itoa(long long nbr);
+char				*add_ind(char *str, t_param *node);
+char				*add_prec(char *str, t_param *node);
+void				handle_str(t_param *node);
+void				handle_ptr(t_param *node);
+void				handle_integer(t_param *node);
+void				handle_c(t_param *node, t_printf *head);
+void				handle_float(t_param *a);
+void				handle_base(t_param *n, unsigned int base);
+void				handle_hexa(t_param *n, unsigned int base);
 
 #endif

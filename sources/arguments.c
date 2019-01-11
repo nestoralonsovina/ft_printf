@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 11:28:37 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/10 15:55:11 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/11 14:31:25 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void		set_conversion(char con, t_param *curr)
 	else
 		curr->conv = NON;
 }
-
 void		search_arg(t_param *new, va_list al)
 {
 	if (new->conv == P)
@@ -81,9 +80,7 @@ void		search_arg(t_param *new, va_list al)
 	}
 }
 
-void handle_hexa(t_param *n, unsigned int base);
-
-void	convert_arg(t_printf *p)
+void		convert_arg(t_printf *p)
 {
 	if (p->curr->conv == S)
 		handle_str(p->curr);
@@ -105,7 +102,7 @@ void	convert_arg(t_printf *p)
 		handle_base(p->curr, 2);
 }
 
-void	search_width_precision(t_printf *p)
+void		search_width_precision(t_printf *p)
 {
 	if (ft_isdigit(*p->inp))
 	{
@@ -127,33 +124,25 @@ void	search_width_precision(t_printf *p)
 		p->curr->ind |= NONE;
 }
 
-void	assign_flag(t_printf *p)
-{
-	t_param	*a;
-
-	a = p->curr;
-	if (*p->inp == '#')
-		a->ind |= SHARP;
-	else if (*p->inp == '+')
-		a->ind |= PLUS;
-	else if (*p->inp == '-')
-		a->ind |= MINUS;
-	else if (*p->inp == ' ')
-		a->ind |= SPACE;
-	else if (*p->inp == '0')
-		a->ind |= ZERO;
-}
-
-void	parse_flags(t_printf *p)
+void		parse_flags(t_printf *p)
 {
 	while (ft_strchr("#+- 0", *p->inp))
 	{
-		assign_flag(p);
+		if (*p->inp == '#')
+			p->curr->ind |= SHARP;
+		else if (*p->inp == '+')
+			p->curr->ind |= PLUS;
+		else if (*p->inp == '-')
+			p->curr->ind |= MINUS;
+		else if (*p->inp == ' ')
+			p->curr->ind |= SPACE;
+		else if (*p->inp == '0')
+			p->curr->ind |= ZERO;
 		++p->inp;
 	}
 }
 
-void	parse_modifiers(t_printf *p)
+void		parse_modifiers(t_printf *p)
 {
 	t_param *a;
 
@@ -173,7 +162,7 @@ void	parse_modifiers(t_printf *p)
 	}
 }
 
-void	parse_arg(t_printf *p, va_list al)
+void		parse_arg(t_printf *p, va_list al)
 {
 	t_param	*a;
 
@@ -193,7 +182,7 @@ void	parse_arg(t_printf *p, va_list al)
 		*va_arg(al, int *) = p->len;
 		p->curr->pf_string = NULL;
 	}
-	else if (ft_strchr("bcspdiouxXfODU", *p->inp) == NULL || !*p->inp)
+	else if (ft_strchr("bcspdiouxXfFODU", *p->inp) == NULL || !*p->inp)
 	{
 		if (*p->inp)
 			p->len += write(1, p->inp, 1);
@@ -201,7 +190,7 @@ void	parse_arg(t_printf *p, va_list al)
 	}
 	else if (*p->inp)
 	{
-		if (ft_strchr("ODU", *p->inp) != NULL)
+		if (ft_strchr("ODUF", *p->inp) != NULL)
 			a->mod = a->mod == L ? LL : L;
 		set_conversion(*p->inp, p->curr);
 		if ((a->ind & ZERO) && (a->ind & PRECISION) \
@@ -215,7 +204,7 @@ void	parse_arg(t_printf *p, va_list al)
 	}
 }
 
-int		handle_args(const char *format, va_list al)
+int			handle_args(const char *format, va_list al)
 {
 	t_printf	p;
 
