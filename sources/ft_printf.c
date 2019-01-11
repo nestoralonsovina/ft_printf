@@ -18,7 +18,7 @@ int	ft_printf(const char *format, ...)
 	int			done;
 
 	va_start(arg, format);
-	done = handle_args(format, arg);
+	done = handle_args(format, 1, arg);
 	va_end(arg);
 	return (done);
 }

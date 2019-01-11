@@ -97,9 +97,9 @@ void	reverse(char str[], int length)
 	}
 }
 
-char	*ft_itoa_base(unsigned long long num, int base)
+char	*ft_itoa_base(uintmax_t num, int base)
 {
-	char	str[66];
+	char	str[128];
 	int		i;
 	int		rem;
 

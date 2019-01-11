@@ -19,7 +19,13 @@ int		main(int ac, char **av)
 	char *name = "Nestor";
 	char *surname = "Alonso";
 
+
+
 	if (1) {
+		printf("%zd\n", -1);
+		ft_printf("%zd\n", -1);
+	}
+	if (0) {
 		double arg = 0.000000;
 		int ret, ter;
 		

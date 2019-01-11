@@ -37,6 +37,10 @@ char		*data_to_base(t_param *n, int base)
 		res = ft_itoa_base(n->data.ul, base);
 	else if (n->mod == LL)
 		res = ft_itoa_base(n->data.ull, base);
+	else if (n->mod == Z)
+		res = ft_itoa_base(n->data.st, base);
+	else if (n->mod == J)
+		res = ft_itoa_base(n->data.uimax, base);
 	else
 		res = ft_itoa_base(n->data.ui, base);
 	return (res);
@@ -101,7 +105,7 @@ void		handle_ptr(t_param *n)
 	if (n->precision == 0)
 		res = ft_strdup("");
 	else
-		res = ft_itoa_base((unsigned long long)n->data.ptr, 16);
+		res = ft_itoa_base((uintmax_t)n->data.ptr, 16);
 	if (n->ind & CLEAR && n->width > n->precision)
 	{
 		res = fstrjoin(ft_strdup("0x"), res);

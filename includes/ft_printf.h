@@ -63,11 +63,15 @@ typedef union		u_data
 	unsigned long long	ull;
 	double				d;
 	long double			ld;
+	ssize_t				sst;
+	size_t				st;
+	intmax_t			imax;
+	uintmax_t			uimax;
 }					t_data;
 
 typedef enum		e_modifiers
 {
-	NO = 0, L = 1, H = 2, LL = 3, HH = 4, BIGL = 5
+	NO, L, H, LL, HH, BIGL, Z, J
 }					t_modifiers;
 
 typedef enum		e_conversion
@@ -88,15 +92,24 @@ typedef struct		s_param
 	t_data			data;
 }					t_param;
 
+typedef struct		s_str
+{
+	char			*buff;
+	size_t			current_len;
+	size_t			current_size;
+}					t_str;
+
 typedef struct		s_printf
 {
 	const char		*inp;
 	int				len;
+	t_str			buff;
+	int 			fd;
 	t_param			*curr;
 }					t_printf;
 
 int					ft_printf(const char *format, ...);
-int					handle_args(const char *format, va_list arg);
+int					handle_args(const char *format, int fd, va_list arg);
 int					handle_conversions(char flags[], va_list al);
 int					colors(t_printf *p);
 
@@ -129,7 +142,7 @@ void				set_conversion(char con, t_param *curr);
 void				print_full_param(t_param curr);
 char				*dec_to_hex(int nb);
 void				print_reverse(char *str);
-char				*ft_itoa_base(unsigned long long value, int base);
+char				*ft_itoa_base(uintmax_t value, int base);
 char				*ft_decimal_itoa(long long nbr);
 char				*add_ind(char *str, t_param *node);
 char				*add_prec(char *str, t_param *node);

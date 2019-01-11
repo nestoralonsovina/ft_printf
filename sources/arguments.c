@@ -55,6 +55,10 @@ void		search_arg(t_param *new, va_list al)
 			new->data.l = va_arg(al, long);
 		else if (new->mod == LL)
 			new->data.ll = va_arg(al, long long);
+		else if (new->mod == Z)
+			new->data.sst = va_arg(al, ssize_t);
+		else if (new->mod == J)
+			new->data.imax = va_arg(al, intmax_t);
 		else
 			new->data.i = va_arg(al, int);
 	}
@@ -68,6 +72,10 @@ void		search_arg(t_param *new, va_list al)
 			new->data.ul = va_arg(al, unsigned long);
 		else if (new->mod == LL)
 			new->data.ull = va_arg(al, unsigned long long);
+		else if (new->mod == Z)
+			new->data.st = va_arg(al, size_t);
+		else if (new->mod == J)
+			new->data.uimax = va_arg(al, uintmax_t);
 		else
 			new->data.ui = va_arg(al, unsigned int);
 	}
@@ -156,6 +164,10 @@ void		parse_modifiers(t_printf *p)
 			a->mod = (p->inp[1] == 'h' && ++p->inp) ? HH : H;
 		else if (*p->inp == 'L')
 			a->mod = BIGL;
+		else if (*p->inp == 'z')
+			a->mod = Z;
+		else if (*p->inp == 'j')
+			a->mod = J;
 		else
 			break ;
 		++p->inp;
@@ -209,7 +221,7 @@ void		parse_arg(t_printf *p, va_list al)
 	}
 }
 
-int			handle_args(const char *format, va_list al)
+int			handle_args(const char *format, int fd, va_list al)
 {
 	t_printf	p;
 
@@ -225,7 +237,7 @@ int			handle_args(const char *format, va_list al)
 			parse_arg(&p, al);
 			if (p.curr->pf_string)
 			{
-				p.len += write(1, p.curr->pf_string, ft_strlen(p.curr->pf_string));
+				p.len += write(fd, p.curr->pf_string, ft_strlen(p.curr->pf_string));
 				free(p.curr->pf_string);
 			}
 			free(p.curr);

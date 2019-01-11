@@ -24,6 +24,10 @@ static int		is_negative(t_param *n)
 		return (-1);
 	else if (n->data.sc < 0 && n->mod == HH)
 		return (-1);
+	else if (n->data.sst < 0 && n->mod == Z)
+		return (-1);
+	else if (n->data.imax < 0 && n->mod == J)
+		return (-1);
 	return (1);
 }
 
@@ -39,6 +43,10 @@ static void		to_unsigned(t_param *n, int neg)
 		n->data.us = neg * n->data.s;
 	else if (n->mod == HH)
 		n->data.uc = neg * n->data.sc;
+	else if (n->mod == Z)
+		n->data.st = neg * n->data.sst;
+	else if (n->mod == J)
+		n->data.uimax = neg * n->data.imax;
 }
 
 static char		*int_indentation(char *res, int neg, t_param *n)
