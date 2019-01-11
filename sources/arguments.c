@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 11:28:37 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/11 14:31:25 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/11 16:06:56 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,15 +162,20 @@ void		parse_modifiers(t_printf *p)
 	}
 }
 
+t_param		*init_curr(t_printf *p)
+{
+	p->curr = (t_param *)malloc_safe(sizeof(t_param));
+	p->curr->ind = 0;
+	p->curr->width = 0;
+	p->curr->precision = 1;
+	return (p->curr);
+}
+
 void		parse_arg(t_printf *p, va_list al)
 {
 	t_param	*a;
 
-	p->curr = (t_param *)malloc_safe(sizeof(t_param));
-	a = p->curr;
-	a->ind = 0;
-	a->width = 0;
-	a->precision = 1;
+	a = init_curr(p);
 	parse_flags(p);
 	search_width_precision(p);
 	parse_modifiers(p);
