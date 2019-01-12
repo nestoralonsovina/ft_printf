@@ -3,7 +3,7 @@
 void	reset_buffer(t_printf *p)
 {
 	p->buff.current_index = 0;
-	ft_memset(p->buff.str, '\0', BUFF_SIZE);
+	ft_memset(p->buff.str, '\0', PF_BUFF_SIZE);
 }
 
 void	write_buffer(t_printf *p)
@@ -18,9 +18,9 @@ void	buffer(t_printf *p, void *data, size_t size)
 	size_t data_i;
 
 	data_i = 0;
-	while (BUFF_SIZE - p->buff.current_index < size)
+	while (PF_BUFF_SIZE - p->buff.current_index < size)
 	{
-		diff = BUFF_SIZE - p->buff.current_index;
+		diff = PF_BUFF_SIZE - p->buff.current_index;
 		ft_memcpy(&(p->buff.str[p->buff.current_index]), &(data[data_i]), diff);
 		size -= diff;
 		data_i += diff;

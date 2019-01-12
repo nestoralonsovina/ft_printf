@@ -46,7 +46,7 @@
 # define CYAN    "\033[36m"
 # define WHITE   "\033[37m"
 
-# define BUFF_SIZE 64
+# define PF_BUFF_SIZE 64
 
 typedef union		u_data
 {
