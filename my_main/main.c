@@ -25,12 +25,12 @@ int		main(int ac, char **av)
 		printf("%zd\n", -1);
 		ft_printf("%zd\n", -1);
 	}
-	if (0) {
+	if (1) {
 		double arg = 0.000000;
 		int ret, ter;
 		
-		ret=   printf("   printf: |{%.15lf}{%.15lF}|\n", atof(av[1]), atof(av[1]));
-		ter=ft_printf("ft_printf: |{%.15lf}{%.15lF}|\n", atof(av[1]), atof(av[1]));
+		ret=   printf("   printf: |{%0+ 15.5zf}|\n", atof(av[1]), atof(av[1]));
+		ter=ft_printf("ft_printf: |{%0+ 15.5zf}|\n", atof(av[1]), atof(av[1]));
 		printf("ft_printf: %d printf: %d\n", ret, ter);
 	}
 	//printf("Flags test: "); ft_printf("%#10d");
@@ -38,7 +38,7 @@ int		main(int ac, char **av)
 	{
 		ft_printf("%2c", (char)-26);
 	}
-	if (1) {
+	if (0) {
 		int ret = 0, ter = 0;
 
 		printf("printf: !%#-08x!", 42);

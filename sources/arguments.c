@@ -220,6 +220,7 @@ void		parse_arg(t_printf *p, va_list al)
 		search_arg(p->curr, al);
 		convert_arg(p);
 	}
+	free(a);
 }
 
 int			handle_args(const char *format, int fd, va_list al)

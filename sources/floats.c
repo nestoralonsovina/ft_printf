@@ -29,12 +29,15 @@ static double	ft_pow(double n, int pow)
 		(p->f & F_PLUS && n >= 0) ? s[0] = '+' : 0;
  *
  * */
-/*
-void			float_indentation(char *res, t_param *a, long double n)
-{
 
+void			float_indentation(char *res, t_param *a, long double n, t_printf *p)
+{
+	if (n)
+		res = add_ind(res, a);
+	buffer(p, res, ft_strlen(res));
+	free(res);
 }
-*/
+
 
 void			dtoa_string(long double n, t_param *a, long value, t_printf *p)
 {
@@ -58,10 +61,9 @@ void			dtoa_string(long double n, t_param *a, long value, t_printf *p)
 		buff = fstrjoin(buff, new_str('0', a->precision - ft_strlen(buff)));
 	ft_strcat(s, buff);
 	free(buff);
+	buff = ft_strdup(s);
 	s[len] = '\0';
-	buff = add_ind(ft_strdup(s), a);
-	buffer(p, buff, ft_strlen(buff));
-	free(buff);
+	float_indentation(buff, a, n, p);
 }
 
 void			handle_float(t_param *a, t_printf *p)
