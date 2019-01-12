@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 11:23:37 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/11 12:19:47 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/12 17:14:32 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	handle_str(t_param *n, t_printf *p)
 {
 	char	*res;
 
+	res = NULL;
 	if (n->data.str == NULL)
 		res = ft_strndup("(null)", n->ind & PRECISION ? n->precision : 6);
 	else

@@ -18,6 +18,8 @@ void	buffer(t_printf *p, void *data, size_t size)
 	size_t data_i;
 
 	data_i = 0;
+	if (!data)
+		return ;
 	while (PF_BUFF_SIZE - p->buff.current_index < size)
 	{
 		diff = PF_BUFF_SIZE - p->buff.current_index;

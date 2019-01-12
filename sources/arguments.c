@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 11:28:37 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/11 16:06:56 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/12 17:14:31 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,7 @@ int			handle_args(const char *format, int fd, va_list al)
 	p.inp = format;
 	p.len = 0;
 	p.fd = fd;
+	reset_buffer(&p);
 	while (*p.inp)
 	{
 		if (*p.inp == '%')
