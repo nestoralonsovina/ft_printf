@@ -29,7 +29,8 @@ SOURCES = arguments.c \
 		  ft_printf.c \
 		  hand_di.c \
 		  indentation.c \
-		  bonus.c
+		  bonus.c \
+		  buff.c
 
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 

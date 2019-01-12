@@ -46,6 +46,8 @@
 # define CYAN    "\033[36m"
 # define WHITE   "\033[37m"
 
+# define BUFF_SIZE 64
+
 typedef union		u_data
 {
 	int					i;
@@ -94,8 +96,8 @@ typedef struct		s_param
 
 typedef struct		s_str
 {
-	char			*buff;
-	size_t			current_len;
+	char			str[BUFF_SIZE];
+	size_t			current_index;
 	size_t			current_size;
 }					t_str;
 
@@ -123,9 +125,20 @@ char				*add_char(char *str, char c);
 char				*data_to_base(t_param *node, int base);
 char				*ft_strndup(const char *s1, size_t n);
 char				*new_str(char c, int size);
+
 /*
 **	MANAGE PARAMETERS
 */
+
+
+/*
+** BUFFER MANAGEMENT
+*/
+
+void				reset_buffer(t_printf *p);
+void				write_buffer(t_printf *p);
+void				buffer(t_printf *p, void *data, size_t size);
+
 
 t_param				*init_param(char *flags, va_list al);
 char				ret_conversion(char *flags, t_param *curr);
@@ -146,12 +159,12 @@ char				*ft_itoa_base(uintmax_t value, int base);
 char				*ft_decimal_itoa(long long nbr);
 char				*add_ind(char *str, t_param *node);
 char				*add_prec(char *str, t_param *node);
-void				handle_str(t_param *node);
-void				handle_ptr(t_param *node);
-void				handle_integer(t_param *node);
+void				handle_str(t_param *node, t_printf *p);
+void				handle_ptr(t_param *node, t_printf *p);
+void				handle_integer(t_param *node, t_printf *p);
 void				handle_c(t_param *node, t_printf *head);
-void				handle_float(t_param *a);
-void				handle_base(t_param *n, unsigned int base);
-void				handle_hexa(t_param *n, unsigned int base);
+void				handle_float(t_param *a, t_printf *p);
+void				handle_base(t_param *n, unsigned int base, t_printf *p);
+void				handle_hexa(t_param *n, unsigned int base, t_printf *p);
 
 #endif

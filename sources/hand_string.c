@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-void	handle_c(t_param *n, t_printf *head)
+void	handle_c(t_param *n, t_printf *p)
 {
 	char	*ind;
 
@@ -23,21 +23,21 @@ void	handle_c(t_param *n, t_printf *head)
 		ind = add_ind(ft_strdup(""), n);
 		if (n->ind & MINUS)
 		{
-			head->len += write(1, &n->data.c, 1);
-			head->len += write(1, ind, ft_strlen(ind));
+			buffer(p, &n->data.c, 1);
+			buffer(p, ind, ft_strlen(ind));
 		}
 		else
 		{
-			head->len += write(1, ind, ft_strlen(ind));
-			head->len += write(1, &n->data.c, 1);
+			buffer(p, ind, ft_strlen(ind));
+			buffer(p, &n->data.c, 1);
 		}
+		free(ind);
 	}
 	else
-		head->len += write(1, &n->data.c, 1);
-	n->pf_string = NULL;
+		buffer(p, &n->data.c, 1);
 }
 
-void	handle_str(t_param *n)
+void	handle_str(t_param *n, t_printf *p)
 {
 	char	*res;
 
@@ -48,5 +48,6 @@ void	handle_str(t_param *n)
 				n->precision : (int)ft_strlen(n->data.str));
 	if (!(n->ind & NONE))
 		res = add_ind(res, n);
-	n->pf_string = res;
+	buffer(p, res, ft_strlen(res));
+	free(res);
 }

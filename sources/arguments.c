@@ -91,23 +91,23 @@ void		search_arg(t_param *new, va_list al)
 void		convert_arg(t_printf *p)
 {
 	if (p->curr->conv == S)
-		handle_str(p->curr);
+		handle_str(p->curr, p);
 	else if (p->curr->conv == P)
-		handle_ptr(p->curr);
+		handle_ptr(p->curr, p);
 	else if (p->curr->conv == D)
-		handle_integer(p->curr);
+		handle_integer(p->curr, p);
 	else if (p->curr->conv == O)
-		handle_base(p->curr, 8);
+		handle_base(p->curr, 8, p);
 	else if (p->curr->conv == X || p->curr->conv == BIGX)
-		handle_hexa(p->curr, 16);
+		handle_hexa(p->curr, 16, p);
 	else if (p->curr->conv == U)
-		handle_base(p->curr, 10);
+		handle_base(p->curr, 10, p);
 	else if (p->curr->conv == C)
 		handle_c(p->curr, p);
 	else if (p->curr->conv == F)
-		handle_float(p->curr);
+		handle_float(p->curr, p);
 	else if (p->curr->conv == B)
-		handle_base(p->curr, 2);
+		handle_base(p->curr, 2, p);
 }
 
 void		search_width_precision(t_printf *p)
@@ -193,21 +193,22 @@ void		parse_arg(t_printf *p, va_list al)
 	parse_modifiers(p);
 	parse_flags(p);
 	if (*p->inp == '%')
+	{
 		a->pf_string = add_ind(ft_strdup("%"), a);
+		buffer(p, a->pf_string, ft_strlen(a->pf_string));
+	}
 	else if (*p->inp == 'n')
 	{
 		*va_arg(al, int *) = p->len;
-		p->curr->pf_string = NULL;
 	}
 	else if (ft_strchr("bcspdiouxXfFODU", *p->inp) == NULL || !*p->inp)
 	{
 		if (*p->inp)
-			p->len += write(1, p->inp, 1);
-		a->pf_string = NULL;
+			buffer(p, (void *)p->inp, 1);
 	}
 	else if (*p->inp)
 	{
-		if (ft_strchr("ODUF", *p->inp) != NULL)
+		if (ft_strchr("ODU", *p->inp) != NULL)
 			a->mod = a->mod == L ? LL : L;
 		set_conversion(*p->inp, p->curr);
 		if ((a->ind & ZERO) && (a->ind & PRECISION) \
@@ -227,6 +228,7 @@ int			handle_args(const char *format, int fd, va_list al)
 
 	p.inp = format;
 	p.len = 0;
+	p.fd = fd;
 	while (*p.inp)
 	{
 		if (*p.inp == '%')
@@ -235,20 +237,13 @@ int			handle_args(const char *format, int fd, va_list al)
 			if (!*p.inp)
 				break ;
 			parse_arg(&p, al);
-			if (p.curr->pf_string)
-			{
-				p.len += write(fd, p.curr->pf_string, ft_strlen(p.curr->pf_string));
-				free(p.curr->pf_string);
-			}
-			free(p.curr);
 		}
-		else
+		else if (!(colors(&p)))
 		{
-			if (!colors(&p))
-				p.len += write(1, p.inp, 1);
+			buffer(&p, (void *)p.inp, 1);
 		}
-		if (*p.inp)
-			++p.inp;
+		++p.inp;
 	}
+	write_buffer(&p);
 	return (p.len);
 }

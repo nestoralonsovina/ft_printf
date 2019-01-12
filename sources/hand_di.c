@@ -78,7 +78,7 @@ static char		*int_indentation(char *res, int neg, t_param *n)
 	return (res);
 }
 
-void			handle_integer(t_param *n)
+void			handle_integer(t_param *n, t_printf *p)
 {
 	char	*res;
 	int		neg;
@@ -88,5 +88,6 @@ void			handle_integer(t_param *n)
 	neg = (neg < 0) ? 1 : 0;
 	res = data_to_base(n, 10);
 	res = int_indentation(res, neg, n);
-	n->pf_string = res;
+	buffer(p, res, ft_strlen(res));
+	free(res);
 }

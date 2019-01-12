@@ -46,7 +46,7 @@ char		*data_to_base(t_param *n, int base)
 	return (res);
 }
 
-void		handle_base(t_param *n, unsigned int base)
+void		handle_base(t_param *n, unsigned int base, t_printf *p)
 {
 	char	*res;
 	char	i[2];
@@ -68,10 +68,11 @@ void		handle_base(t_param *n, unsigned int base)
 	res = add_ind(res, n);
 	if (err && base == 8 && n->precision == 0)
 		res = fstrjoin(ft_strdup(i), res);
-	n->pf_string = res;
+	buffer(p, res, ft_strlen(res));
+	free(res);
 }
 
-void		handle_hexa(t_param *n, unsigned int base)
+void		handle_hexa(t_param *n, unsigned int base, t_printf *p)
 {
 	char	*res;
 	char	i[3];
@@ -95,10 +96,12 @@ void		handle_hexa(t_param *n, unsigned int base)
 	if (n->ind & PRECISION || n->ind & ZERO)
 		res = fstrjoin(ft_strdup(i), res);
 	res = add_ind(res, n);
-	n->pf_string = (n->conv == BIGX) ? ft_strupper(res) : res;
+	res =  (n->conv == BIGX) ? ft_strupper(res) : res;
+	buffer(p, res, ft_strlen(res));
+	free(res);
 }
 
-void		handle_ptr(t_param *n)
+void		handle_ptr(t_param *n, t_printf *p)
 {
 	char	*res;
 
@@ -120,5 +123,6 @@ void		handle_ptr(t_param *n)
 		res = add_ind(res, n);
 		res = fstrjoin(ft_strdup("0x"), res);
 	}
-	n->pf_string = res;
+	buffer(p, res, ft_strlen(res));
+	free(res);
 }

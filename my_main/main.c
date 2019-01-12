@@ -21,7 +21,7 @@ int		main(int ac, char **av)
 
 
 
-	if (1) {
+	if (0) {
 		printf("%zd\n", -1);
 		ft_printf("%zd\n", -1);
 	}
@@ -34,16 +34,15 @@ int		main(int ac, char **av)
 		printf("ft_printf: %d printf: %d\n", ret, ter);
 	}
 	//printf("Flags test: "); ft_printf("%#10d");
-	/*
 	if (0)
 	{
 		ft_printf("%2c", (char)-26);
 	}
-	if (0) {
+	if (1) {
 		int ret = 0, ter = 0;
 
-		printf("!%#-08x!", 42);
-		ft_printf("!%#-08x!", 42);
+		printf("printf: !%#-08x!", 42);
+		ft_printf("ft_printf: !%#-08x!", 42);
 		ter =    printf("   printf: |%-#16.2hhx|", -1503432331);
 		ret = ft_printf("ft_printf: |%-#16.2hhx|", -1503432331);
 		printf("!ft_printf: %d printf: %d\n", ret, ter);
@@ -52,7 +51,7 @@ int		main(int ac, char **av)
 		//ter = printf("!%+015.10u!", 0);
 		//printf("!ret: %d ter: %d", ret, ter);
 	}
-
+	/*
 	if (0)
 	{
 		long long		ioro = 2;

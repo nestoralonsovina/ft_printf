@@ -51,7 +51,7 @@ int				colors(t_printf *p)
 	{
 		++p->inp;
 		color = search_color(*p->inp);
-		p->len += write(1, color, ft_strlen(color));
+		buffer(p, color, ft_strlen(color));
 		++p->inp;
 		return (1);
 	}

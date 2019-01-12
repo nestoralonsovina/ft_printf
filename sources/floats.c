@@ -36,7 +36,7 @@ void			float_indentation(char *res, t_param *a, long double n)
 }
 */
 
-void			dtoa_string(long double n, t_param *a, long value)
+void			dtoa_string(long double n, t_param *a, long value, t_printf *p)
 {
 	int		len;
 	char	s[256];
@@ -60,10 +60,11 @@ void			dtoa_string(long double n, t_param *a, long value)
 	free(buff);
 	s[len] = '\0';
 	buff = add_ind(ft_strdup(s), a);
-	a->pf_string = buff;
+	buffer(p, buff, ft_strlen(buff));
+	free(buff);
 }
 
-void			handle_float(t_param *a)
+void			handle_float(t_param *a, t_printf *p)
 {
 
 	long double			n;
@@ -78,6 +79,6 @@ void			handle_float(t_param *a)
 	decimal = (decimal - (long long)(ft_dabs(n))) * ft_pow(10, a->precision + 1);
 	decimal = ((long long)decimal % 10 > 4) ? decimal / 10 + 1 : decimal / 10;
 	value = (long long)decimal;
-	dtoa_string(n, a, value);
+	dtoa_string(n, a, value, p);
 }
 
