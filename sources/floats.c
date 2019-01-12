@@ -22,17 +22,27 @@ static double	ft_pow(double n, int pow)
 	return (pow ? n * ft_pow(n, pow - 1) : 1);
 }
 
-/*
- *(p->f & F_APP_PRECI && p->f & F_ZERO) ? s[0] = ' ' : 0;
- 	(p->f & F_SPACE) ? s[0] = ' ' : 0;
-		(n < 0) ? s[0] = '-' : 0;
-		(p->f & F_PLUS && n >= 0) ? s[0] = '+' : 0;
- *
- * */
 
 void			float_indentation(char *res, t_param *a, long double n, t_printf *p)
 {
-	if (n)
+	char i;
+
+	i = 0;
+	if (n < 0.0 || a->ind & SPACE || a->ind & PLUS)
+	{
+		if (a->ind & ZERO)
+			--a->width;
+		(a->ind & SPACE) ? i = ' ' : 0;
+		(a->ind & PLUS) ?i  = '+' : 0;
+		(n < 0.0) ? i = '-' : 0;
+	}
+	if (i && a->ind & ZERO)
+		res = add_char(add_ind(res, a), i);
+	else if (i && a->ind & CLEAR)
+		res = add_ind(add_char(res, i), a);
+	else if (i && a->ind & NONE)
+		res = add_char(res, i);
+	else
 		res = add_ind(res, a);
 	buffer(p, res, ft_strlen(res));
 	free(res);
@@ -50,17 +60,19 @@ void			dtoa_string(long double n, t_param *a, long value, t_printf *p)
 	buff = NULL;
 	len = 0;
 	tmp = (long)(n > 0 ? n : -n);
-	(n < 0.0) ? s[len++] = '-' : 0;
 	ft_strcat(s, ft_itoa_base(tmp, 10));
 	len = ft_strlen(s);
-	s[len++] = '.';
-	s[len] = '\0';
-	len += a->precision;
-	buff = ft_itoa_base(value, 10);
-	if (a->precision > (int)ft_strlen(buff))
-		buff = fstrjoin(buff, new_str('0', a->precision - ft_strlen(buff)));
-	ft_strcat(s, buff);
-	free(buff);
+	if (a->precision != 0)
+	{
+		s[len++] = '.';
+		s[len] = '\0';
+		len += a->precision;
+		buff = ft_itoa_base(value, 10);
+		if (a->precision > (int) ft_strlen(buff))
+			buff = fstrjoin(buff, new_str('0', a->precision - ft_strlen(buff)));
+		ft_strcat(s, buff);
+		free(buff);
+	}
 	buff = ft_strdup(s);
 	s[len] = '\0';
 	float_indentation(buff, a, n, p);

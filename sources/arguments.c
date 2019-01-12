@@ -212,7 +212,7 @@ void		parse_arg(t_printf *p, va_list al)
 			a->mod = a->mod == L ? LL : L;
 		set_conversion(*p->inp, p->curr);
 		if ((a->ind & ZERO) && (a->ind & PRECISION) \
-				&& a->conv != C && a->conv != S)
+				&& a->conv != C && a->conv != S && a->conv != F)
 		{
 			a->ind &= ~ZERO;
 			a->ind |= CLEAR;

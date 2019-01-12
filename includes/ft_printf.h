@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/11 12:43:37 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/12 15:39:52 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct		s_param
 
 typedef struct		s_str
 {
-	char			str[BUFF_SIZE];
+	char			str[PF_BUFF_SIZE];
 	size_t			current_index;
 	size_t			current_size;
 }					t_str;

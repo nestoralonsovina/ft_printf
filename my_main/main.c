@@ -14,12 +14,15 @@
 #include "../includes/ft_printf.h"
 #include <limits.h>
 
+int stdsign(double d) {
+	unsigned short *pd = (unsigned short * ) & d;
+	return (pd[3] & 0x8000) != 0;
+}
+
 int		main(int ac, char **av)
 {
 	char *name = "Nestor";
 	char *surname = "Alonso";
-
-
 
 	if (0) {
 		printf("%zd\n", -1);
@@ -28,9 +31,10 @@ int		main(int ac, char **av)
 	if (1) {
 		double arg = 0.000000;
 		int ret, ter;
-		
-		ret=   printf("   printf: |{%0+ 15.5zf}|\n", atof(av[1]), atof(av[1]));
-		ter=ft_printf("ft_printf: |{%0+ 15.5zf}|\n", atof(av[1]), atof(av[1]));
+		printf("%d\n", stdsign(arg));
+		printf("%d\n", stdsign(arg));
+		ret=   printf("   printf: |{%f}{%F}|\n", atof(av[1]), atof(av[1]));
+		ter=ft_printf("ft_printf: |{%f}{%F}|\n", atof(av[1]), atof(av[1]));
 		printf("ft_printf: %d printf: %d\n", ret, ter);
 	}
 	//printf("Flags test: "); ft_printf("%#10d");
