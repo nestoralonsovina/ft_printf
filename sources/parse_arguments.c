@@ -6,13 +6,13 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 12:04:32 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/14 14:34:24 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/14 15:38:52 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void		search_arg2(t_param *new, va_list al)
+static void		search_arg2(t_param *new, va_list al)
 {
 	if (new->conv > D && new->conv < F)
 	{
@@ -40,7 +40,7 @@ void		search_arg2(t_param *new, va_list al)
 	}
 }
 
-void		search_arg(t_param *new, va_list al)
+void			search_arg(t_param *new, va_list al)
 {
 	if (new->conv == P)
 		new->data.ptr = va_arg(al, void *);
@@ -69,7 +69,7 @@ void		search_arg(t_param *new, va_list al)
 		search_arg2(new, al);
 }
 
-void		convert_arg(t_printf *p)
+void			convert_arg(t_printf *p)
 {
 	if (p->curr->conv == S)
 		handle_str(p->curr, p);
@@ -91,7 +91,7 @@ void		convert_arg(t_printf *p)
 		handle_base(p->curr, 2, p);
 }
 
-void		search_width_precision(t_printf *p)
+void			search_width_precision(t_printf *p)
 {
 	if (ft_isdigit(*p->inp))
 	{
@@ -113,7 +113,7 @@ void		search_width_precision(t_printf *p)
 		p->curr->ind |= NONE;
 }
 
-void		parse_flags(t_printf *p)
+void			parse_flags(t_printf *p)
 {
 	while (ft_strchr("#+- 0", *p->inp))
 	{

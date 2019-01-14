@@ -49,7 +49,7 @@ $(NAME): $(OBJS)
 
 $(DIR_O)/%.o: $(DIR_S)/%.c
 	@mkdir -p temporary
-	@$(CC) $(FLAGS) -I $(DIR_H) -o $@ -c $<
+	$(CC) $(FLAGS) -I $(DIR_H) -o $@ -c $<
 
 clean:
 	@rm -f $(OBJS)
@@ -61,15 +61,5 @@ fclean: clean
 	@make fclean -C $(LIBFT)
 
 re: fclean all
-
-leaks:
-	make
-	gcc -o printf my_main/main.c libftprintf.a -g
-	valgrind --leak-check=full ./printf
-
-test:
-	make re
-	gcc -g -o printf my_main/main.c libftprintf.a -I includes/f
-	./printf
 
 .PHONY: clean fclean all re

@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/14 14:39:09 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/14 15:48:36 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include "../libft/libft.h"
-# include <stdio.h>
 
 /*
 ** Different flag activation constants
@@ -45,6 +44,10 @@
 # define MAGENTA "\033[35m"
 # define CYAN    "\033[36m"
 # define WHITE   "\033[37m"
+
+/*
+** Buff size used in buffer() function
+*/
 
 # define PF_BUFF_SIZE 64
 
@@ -86,7 +89,6 @@ typedef struct		s_param
 	int				width;
 	int				precision;
 	short			ind;
-	char			*pf_string;
 	t_modifiers		mod;
 	t_conversion	conv;
 	t_data			data;
@@ -108,50 +110,28 @@ typedef struct		s_printf
 	t_param			*curr;
 }					t_printf;
 
+int					ft_fprintf(int fd, const char *format, ...);
 int					ft_printf(const char *format, ...);
 int					handle_args(const char *format, int fd, va_list arg);
-int					handle_conversions(char flags[], va_list al);
 int					colors(t_printf *p);
-
-/*
-**	USEFUL FUNCTIONS
-*/
-
 char				*fstrjoin(char *s1, char *s2);
 void				*malloc_safe(size_t size);
 char				*add_char(char *str, char c);
 char				*data_to_base(t_param *node, int base);
 char				*new_str(char c, int size);
-
-/*
-**	MANAGE PARAMETERS
-*/
-
-/*
-** BUFFER MANAGEMENT
-*/
-
 void				reset_buffer(t_printf *p);
 void				write_buffer(t_printf *p);
 void				buffer(t_printf *p, void *data, size_t size);
 t_param				*init_param(char *flags, va_list al);
 char				ret_conversion(char *flags, t_param *curr);
-int					is_conversion(char c);
 void				search_width(t_param *new);
 void				search_precision(t_param *new);
 void				search_modifier(t_param *new);
-
-/*
-**	DEBUG
-*/
-
 void				handle_percent(t_printf *p);
-void				set_conversion(char con, t_param *curr);
+void				set_conversion(char con, t_param *curr, t_printf *p);
 void				print_full_param(t_param curr);
-char				*dec_to_hex(int nb);
 void				print_reverse(char *str);
 char				*ft_itoa_base(uintmax_t value, int base);
-char				*ft_decimal_itoa(long long nbr);
 char				*add_ind(char *str, t_param *node);
 char				*add_prec(char *str, t_param *node);
 void				handle_str(t_param *node, t_printf *p);

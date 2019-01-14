@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-void		set_conversion(char con, t_param *curr)
+void		set_conversion(char con, t_param *curr, t_printf *p)
 {
 	if (con == 's')
 		curr->conv = S;
@@ -36,6 +36,8 @@ void		set_conversion(char con, t_param *curr)
 		curr->conv = B;
 	else
 		curr->conv = NON;
+	if (ft_strchr("ODU", *p->inp) != NULL)
+		p->curr->mod = p->curr->mod == L ? LL : L;
 }
 
 void		parse_modifiers(t_printf *p)
@@ -62,25 +64,23 @@ void		parse_modifiers(t_printf *p)
 	}
 }
 
-void		parse_arg(t_printf *p, va_list al)
+void		parse_options(t_printf *p)
 {
-	t_param	*a;
-
 	p->curr = (t_param *)malloc_safe(sizeof(t_param));
 	p->curr->ind = 0;
 	p->curr->width = 0;
 	p->curr->precision = 1;
-	a = p->curr;
 	parse_flags(p);
 	search_width_precision(p);
 	parse_modifiers(p);
 	parse_flags(p);
-	//parse_options(p, al);
+}
+
+void		parse_arg(t_printf *p, va_list al)
+{
+	parse_options(p);
 	if (*p->inp == '%')
-	{
-		p->curr->pf_string = add_ind(ft_strdup("%"), p->curr);
-		buffer(p, p->curr->pf_string, ft_strlen(p->curr->pf_string));
-	}
+		handle_percent(p);
 	else if (*p->inp == 'n')
 	{
 		*va_arg(al, int *) = p->len;
@@ -92,11 +92,9 @@ void		parse_arg(t_printf *p, va_list al)
 	}
 	else if (*p->inp)
 	{
-		if (ft_strchr("ODU", *p->inp) != NULL)
-			p->curr->mod = p->curr->mod == L ? LL : L;
-		set_conversion(*p->inp, p->curr);
+		set_conversion(*p->inp, p->curr, p);
 		if ((p->curr->ind & ZERO) && (p->curr->ind & PRECISION) \
-				&& p->curr->conv != C && p->curr->conv != S && p->curr->conv != F)
+		&& p->curr->conv != C && p->curr->conv != S && p->curr->conv != F)
 		{
 			p->curr->ind &= ~ZERO;
 			p->curr->ind |= CLEAR;
@@ -104,7 +102,7 @@ void		parse_arg(t_printf *p, va_list al)
 		search_arg(p->curr, al);
 		convert_arg(p);
 	}
-	free(a);
+	free(p->curr);
 }
 
 int			handle_args(const char *format, int fd, va_list al)

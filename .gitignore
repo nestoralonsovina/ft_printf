@@ -1,6 +1,0 @@
-*.o
-.DS_Store
-printf
-.vscode
-printf.dSYM/
-.idea/

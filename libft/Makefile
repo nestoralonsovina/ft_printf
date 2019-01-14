@@ -96,12 +96,10 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@$(AR) $(NAME) $(OBJS)
 	@$(RLIB) $(NAME)
-	@echo "\033[0;32m Libft compiled \033[0m"
 
 # This won't run if the source files don't exit or are not modified
 $(OBJS): $(SRCS)
 	@$(CC) $(CFLAGS) -c $(SRCS)
-	@echo "\033[0;32m Object files compiled \033[0m"
 
 # Removes all the object files and directory
 clean:
