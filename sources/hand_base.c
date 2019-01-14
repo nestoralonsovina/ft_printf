@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 12:28:06 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/11 12:30:54 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/14 14:34:26 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char		*data_to_base(t_param *n, int base)
 void		handle_base(t_param *n, unsigned int base, t_printf *p)
 {
 	char	*res;
-	char	i[2];
+	char	i;
 	int		err;
 
 	res = data_to_base(n, base);
@@ -59,15 +59,14 @@ void		handle_base(t_param *n, unsigned int base, t_printf *p)
 	(base == 8 && ((n->ind & ZERO) && n->width <= (int)ft_strlen(res)) \
 			&& n->ind & SHARP) ? n->ind &= ~ZERO : 0;
 	if ((base == 8) && !(n->ind & ZERO) && (n->ind & SHARP))
-		i[0] = '0';
-	i[1] = '\0';
+		i = '0';
 	if ((!err))
-		res = fstrjoin(ft_strdup(i), res);
+		res = add_char(res, i);
 	if ((n->ind & PRECISION && !(n->ind & ZERO) && (n->precision != 0)) || err)
 		res = add_prec(res, n);
 	res = add_ind(res, n);
 	if (err && base == 8 && n->precision == 0)
-		res = fstrjoin(ft_strdup(i), res);
+		res = add_char(res, i);
 	buffer(p, res, ft_strlen(res));
 	free(res);
 }

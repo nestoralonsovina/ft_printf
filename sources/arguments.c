@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 11:28:37 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/14 12:14:03 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/14 15:07:15 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,33 +62,6 @@ void		parse_modifiers(t_printf *p)
 	}
 }
 
-void		parse_options(t_param *a, t_printf *p, va_list al)
-{
-	if (*p->inp == '%')
-		buffer(p, add_ind(ft_strdup("%"), a), ft_strlen(a->pf_string));
-	else if (*p->inp == 'n')
-		*va_arg(al, int *) = p->len;
-	else if (ft_strchr("bcspdiouxXfFODU", *p->inp) == NULL || !*p->inp)
-	{
-		if (*p->inp)
-			buffer(p, (void *)p->inp, 1);
-	}
-	else if (*p->inp)
-	{
-		if (ft_strchr("ODU", *p->inp) != NULL)
-			a->mod = a->mod == L ? LL : L;
-		set_conversion(*p->inp, p->curr);
-		if ((a->ind & ZERO) && (a->ind & PRECISION) \
-				&& a->conv != C && a->conv != S && a->conv != F)
-		{
-			a->ind &= ~ZERO;
-			a->ind |= CLEAR;
-		}
-		search_arg(p->curr, al);
-		convert_arg(p);
-	}
-}
-
 void		parse_arg(t_printf *p, va_list al)
 {
 	t_param	*a;
@@ -102,7 +75,35 @@ void		parse_arg(t_printf *p, va_list al)
 	search_width_precision(p);
 	parse_modifiers(p);
 	parse_flags(p);
-	parse_options(a, p, al);
+	//parse_options(p, al);
+	if (*p->inp == '%')
+	{
+		p->curr->pf_string = add_ind(ft_strdup("%"), p->curr);
+		buffer(p, p->curr->pf_string, ft_strlen(p->curr->pf_string));
+	}
+	else if (*p->inp == 'n')
+	{
+		*va_arg(al, int *) = p->len;
+	}
+	else if (ft_strchr("bcspdiouxXfFODU", *p->inp) == NULL || !*p->inp)
+	{
+		if (*p->inp)
+			buffer(p, (void *)p->inp, 1);
+	}
+	else if (*p->inp)
+	{
+		if (ft_strchr("ODU", *p->inp) != NULL)
+			p->curr->mod = p->curr->mod == L ? LL : L;
+		set_conversion(*p->inp, p->curr);
+		if ((p->curr->ind & ZERO) && (p->curr->ind & PRECISION) \
+				&& p->curr->conv != C && p->curr->conv != S && p->curr->conv != F)
+		{
+			p->curr->ind &= ~ZERO;
+			p->curr->ind |= CLEAR;
+		}
+		search_arg(p->curr, al);
+		convert_arg(p);
+	}
 	free(a);
 }
 

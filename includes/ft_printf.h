@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/14 12:14:03 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/14 14:39:09 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,10 @@ typedef enum		e_conversion
 
 typedef struct		s_param
 {
-	char			*pf_string;
-	char			conversion;
-	char			*flags;
 	int				width;
 	int				precision;
 	short			ind;
+	char			*pf_string;
 	t_modifiers		mod;
 	t_conversion	conv;
 	t_data			data;
@@ -147,6 +145,7 @@ void				search_modifier(t_param *new);
 **	DEBUG
 */
 
+void				handle_percent(t_printf *p);
 void				set_conversion(char con, t_param *curr);
 void				print_full_param(t_param curr);
 char				*dec_to_hex(int nb);

@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 11:23:37 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/12 17:14:32 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/14 14:38:16 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,13 @@ void	handle_str(t_param *n, t_printf *p)
 		res = add_ind(res, n);
 	buffer(p, res, ft_strlen(res));
 	free(res);
+}
+
+void	handle_percent(t_printf *p)
+{
+	char *ind;
+
+	ind = add_ind(ft_strdup("%"), p->curr);
+	buffer(p, ind, ft_strlen(ind));
+	free(ind);
 }

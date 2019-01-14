@@ -22,7 +22,7 @@ DIR_H = include
 # Files
 
 SOURCES = arguments.c \
-		  parse_arguments.c \
+		  parse_arguments.c	 \
 		  floats.c \
 		  hand_base.c \
 		  hand_string.c \
