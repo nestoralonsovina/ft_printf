@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/11 12:43:37 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/14 10:49:03 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct		s_param
 
 typedef struct		s_str
 {
-	char			str[BUFF_SIZE];
+	char			str[PF_BUFF_SIZE];
 	size_t			current_index;
 	size_t			current_size;
 }					t_str;
@@ -106,7 +106,7 @@ typedef struct		s_printf
 	const char		*inp;
 	int				len;
 	t_str			buff;
-	int 			fd;
+	int				fd;
 	t_param			*curr;
 }					t_printf;
 
@@ -130,7 +130,6 @@ char				*new_str(char c, int size);
 **	MANAGE PARAMETERS
 */
 
-
 /*
 ** BUFFER MANAGEMENT
 */
@@ -138,8 +137,6 @@ char				*new_str(char c, int size);
 void				reset_buffer(t_printf *p);
 void				write_buffer(t_printf *p);
 void				buffer(t_printf *p, void *data, size_t size);
-
-
 t_param				*init_param(char *flags, va_list al);
 char				ret_conversion(char *flags, t_param *curr);
 int					is_conversion(char c);

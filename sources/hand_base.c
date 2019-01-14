@@ -96,7 +96,7 @@ void		handle_hexa(t_param *n, unsigned int base, t_printf *p)
 	if (n->ind & PRECISION || n->ind & ZERO)
 		res = fstrjoin(ft_strdup(i), res);
 	res = add_ind(res, n);
-	res =  (n->conv == BIGX) ? ft_strupper(res) : res;
+	res = (n->conv == BIGX) ? ft_strupper(res) : res;
 	buffer(p, res, ft_strlen(res));
 	free(res);
 }

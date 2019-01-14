@@ -64,34 +64,37 @@ char	*add_char(char *str, char c)
 char	*fstrjoin(char *s1, char *s2)
 {
 	char	*ptr;
+	int		len1;
+	int 	len2;
 
-	ptr = ft_strjoin(s1, s2);
-	if (s1)
+	if (s1 && s2)
+	{
+		len1 = ft_strlen(s1);
+		len2 = ft_strlen(s2);
+		ptr = (char *)malloc_safe(len1 + len2 + 1);
+		ft_strcpy(ptr, s1);
+		ft_strcat(ptr, s2);
 		free(s1);
-	if (s2)
 		free(s2);
+	}
+	else
+		return (NULL);
 	return (ptr);
-}
-
-void	swap(char *start, char *end)
-{
-	char	tmp;
-
-	tmp = *start;
-	*start = *end;
-	*end = tmp;
 }
 
 void	reverse(char str[], int length)
 {
-	int	start;
-	int	end;
+	int		start;
+	int		end;
+	char	tmp;
 
 	start = 0;
 	end = length - 1;
 	while (start < end)
 	{
-		swap((str + start), (str + end));
+		tmp = *(str + start);
+		*(str + start) = *(str + end);
+		*(str + end) = tmp;
 		start++;
 		end--;
 	}

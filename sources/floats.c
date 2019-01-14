@@ -22,8 +22,8 @@ static double	ft_pow(double n, int pow)
 	return (pow ? n * ft_pow(n, pow - 1) : 1);
 }
 
-
-void			float_indentation(char *res, t_param *a, long double n, t_printf *p)
+void			float_indentation(char *res, t_param *a, \
+									long double n, t_printf *p)
 {
 	char i;
 
@@ -33,7 +33,7 @@ void			float_indentation(char *res, t_param *a, long double n, t_printf *p)
 		if (a->ind & ZERO)
 			--a->width;
 		(a->ind & SPACE) ? i = ' ' : 0;
-		(a->ind & PLUS) ?i  = '+' : 0;
+		(a->ind & PLUS) ? i = '+' : 0;
 		(n < 0.0) ? i = '-' : 0;
 	}
 	if (i && a->ind & ZERO)
@@ -48,14 +48,13 @@ void			float_indentation(char *res, t_param *a, long double n, t_printf *p)
 	free(res);
 }
 
-
 void			dtoa_string(long double n, t_param *a, long value, t_printf *p)
 {
 	int		len;
 	char	s[256];
 	char	*buff;
 	long	tmp;
-	
+
 	ft_bzero(s, 256);
 	buff = NULL;
 	len = 0;
@@ -68,7 +67,7 @@ void			dtoa_string(long double n, t_param *a, long value, t_printf *p)
 		s[len] = '\0';
 		len += a->precision;
 		buff = ft_itoa_base(value, 10);
-		if (a->precision > (int) ft_strlen(buff))
+		if (a->precision > (int)ft_strlen(buff))
 			buff = fstrjoin(buff, new_str('0', a->precision - ft_strlen(buff)));
 		ft_strcat(s, buff);
 		free(buff);
@@ -80,19 +79,17 @@ void			dtoa_string(long double n, t_param *a, long value, t_printf *p)
 
 void			handle_float(t_param *a, t_printf *p)
 {
-
 	long double			n;
-	long double			decimal;
+	long double			dec;
 	long long			value;
 
 	n = (a->mod == BIGL) ? a->data.ld : a->data.d;
 	value = 0;
 	if (!(a->ind & PRECISION))
 		a->precision = 6;
-	decimal = ft_dabs(a->data.d);
-	decimal = (decimal - (long long)(ft_dabs(n))) * ft_pow(10, a->precision + 1);
-	decimal = ((long long)decimal % 10 > 4) ? decimal / 10 + 1 : decimal / 10;
-	value = (long long)decimal;
+	dec = ft_dabs(a->data.d);
+	dec = (dec - (long long)(ft_dabs(n))) * ft_pow(10, a->precision + 1);
+	dec = ((long long)dec % 10 > 4) ? dec / 10 + 1 : dec / 10;
+	value = (long long)dec;
 	dtoa_string(n, a, value, p);
 }
-
