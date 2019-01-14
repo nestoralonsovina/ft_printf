@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:52:20 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/14 10:53:19 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/14 13:17:06 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,6 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 int					ft_isspace(int c);
 void				*ft_realloc(void *ptr, size_t n_size, size_t o_size);
+char				*ft_strndup(const char *s1, size_t n);
 
 #endif

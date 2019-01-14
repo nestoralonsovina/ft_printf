@@ -73,16 +73,16 @@ SRCS += ft_memalloc.c	\
 		ft_putnbr.c		\
 		ft_putnbr_fd.c	\
 		ft_putendl.c	\
-		ft_putendl_fd.c
-
+		ft_putendl_fd.c \
+		ft_strndup.c		
 #					CHAINED LIST FUNCTIONS
 SRCS += ft_lstnew.c		\
 		ft_lstdelone.c	\
 		ft_lstdel.c		\
 		ft_lstadd.c		\
 		ft_lstiter.c	\
-		ft_lstmap.c		
-		
+		ft_lstmap.c
+
 OBJS := $(SRCS:%.c=%.o)
 
 # Path to the directories

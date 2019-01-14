@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/14 10:49:03 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/14 12:14:03 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ char				*fstrjoin(char *s1, char *s2);
 void				*malloc_safe(size_t size);
 char				*add_char(char *str, char c);
 char				*data_to_base(t_param *node, int base);
-char				*ft_strndup(const char *s1, size_t n);
 char				*new_str(char c, int size);
 
 /*
@@ -163,5 +162,9 @@ void				handle_c(t_param *node, t_printf *head);
 void				handle_float(t_param *a, t_printf *p);
 void				handle_base(t_param *n, unsigned int base, t_printf *p);
 void				handle_hexa(t_param *n, unsigned int base, t_printf *p);
+void				parse_flags(t_printf *p);
+void				search_width_precision(t_printf *p);
+void				convert_arg(t_printf *p);
+void				search_arg(t_param *new, va_list al);
 
 #endif

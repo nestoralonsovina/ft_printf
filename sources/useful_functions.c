@@ -17,27 +17,8 @@ void	*malloc_safe(size_t size)
 	void	*tmp;
 
 	if (!(tmp = malloc(size)))
-	{
-		write(2, "malloc failure !\n", 17);
 		exit(1);
-	}
 	return (tmp);
-}
-
-char	*ft_strndup(const char *s1, size_t n)
-{
-	char	*s2;
-	size_t	i;
-
-	i = 0;
-	if (!(s2 = ft_strnew(n)))
-		return (NULL);
-	while (s1[i] && i < n)
-	{
-		s2[i] = s1[i];
-		i++;
-	}
-	return (s2);
 }
 
 char	*add_char(char *str, char c)
@@ -65,7 +46,7 @@ char	*fstrjoin(char *s1, char *s2)
 {
 	char	*ptr;
 	int		len1;
-	int 	len2;
+	int		len2;
 
 	if (s1 && s2)
 	{
