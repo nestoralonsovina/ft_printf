@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bonus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jallen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/10 11:21:36 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/14 15:39:33 by nalonso          ###   ########.fr       */
+/*   Created: 2019/01/14 16:11:13 by jallen            #+#    #+#             */
+/*   Updated: 2019/01/14 16:42:38 by jallen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,26 @@ int				colors(t_printf *p)
 		return (1);
 	}
 	return (0);
+}
+
+void			handle_n(t_printf *p, va_list al)
+{
+	write_buffer(p);
+	*va_arg(al, int *) = p->len;
+}
+
+void			handle_binary(t_printf *p)
+{
+	char	*res;
+
+	res = data_to_base(p->curr, 2);
+	if (p->curr->ind & ZERO)
+	{
+		p->curr->ind &= ~ZERO;
+		p->curr->ind |= CLEAR;
+	}
+	if (!(p->curr->ind & NONE))
+		res = add_ind(res, p->curr);
+	buffer(p, res, ft_strlen(res));
+	free(res);
 }

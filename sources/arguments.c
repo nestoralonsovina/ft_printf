@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jallen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/10 11:28:37 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/14 15:07:15 by nalonso          ###   ########.fr       */
+/*   Created: 2019/01/14 16:08:45 by jallen            #+#    #+#             */
+/*   Updated: 2019/01/14 16:44:35 by jallen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,16 @@ void		parse_options(t_printf *p)
 	search_width_precision(p);
 	parse_modifiers(p);
 	parse_flags(p);
+	if (*p->inp == 'b')
+	{
+		if (p->curr->ind & PRECISION)
+			p->curr->ind &= ~PRECISION;
+		if (p->curr->ind & ZERO)
+		{
+			p->curr->ind &= ~ZERO;
+			p->curr->ind |= CLEAR;
+		}
+	}
 }
 
 void		parse_arg(t_printf *p, va_list al)
@@ -82,9 +92,7 @@ void		parse_arg(t_printf *p, va_list al)
 	if (*p->inp == '%')
 		handle_percent(p);
 	else if (*p->inp == 'n')
-	{
-		*va_arg(al, int *) = p->len;
-	}
+		handle_n(p, al);
 	else if (ft_strchr("bcspdiouxXfFODU", *p->inp) == NULL || !*p->inp)
 	{
 		if (*p->inp)
