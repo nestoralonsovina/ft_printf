@@ -3,7 +3,7 @@
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror
+### FLAGS = -Wall -Wextra -Werror
 
 # Libraries
 

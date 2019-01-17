@@ -59,7 +59,9 @@ void			dtoa_string(long double n, t_param *a, long value, t_printf *p)
 	buff = NULL;
 	len = 0;
 	tmp = (long)(n > 0 ? n : -n);
-	ft_strcat(s, ft_itoa_base(tmp, 10));
+	buff = ft_itoa_base(tmp, 10);
+	ft_strcat(s, buff);
+	free(buff);
 	len = ft_strlen(s);
 	if (a->precision != 0)
 	{
