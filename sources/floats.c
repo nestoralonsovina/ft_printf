@@ -89,7 +89,7 @@ void			handle_float(t_param *a, t_printf *p)
 	value = 0;
 	if (!(a->ind & PRECISION))
 		a->precision = 6;
-	dec = ft_dabs(a->data.d);
+	dec = ft_dabs(n);
 	dec = (dec - (long long)(ft_dabs(n))) * ft_pow(10, a->precision + 1);
 	dec = ((long long)dec % 10 > 4) ? dec / 10 + 1 : dec / 10;
 	value = (long long)dec;
