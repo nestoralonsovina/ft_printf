@@ -3,7 +3,7 @@
 
 CC = gcc
 
-### FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 # Libraries
 
@@ -17,7 +17,7 @@ DIR_S = sources
 
 DIR_O = temporary
 
-DIR_H = include
+DIR_H = includes
 
 # Files
 
