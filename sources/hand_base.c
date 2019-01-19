@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 12:28:06 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/18 16:09:46 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/19 15:25:05 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,28 @@ char		*data_to_base(t_param *n, int base)
 void		handle_base(t_param *n, unsigned int base, t_printf *p)
 {
 	char	*res;
-	char	i;
+	char	i[2];
 	int		err;
 
 	res = data_to_base(n, base);
 	err = (!(ft_strcmp("0", res))) ? 1 : 0;
 	n->width = ((n->precision > n->width) && (n->ind & ZERO))\
-			? n->precision : n->width;
+				? n->precision : n->width;
 	(base == 8 && ((n->ind & ZERO) && n->width <= (int)ft_strlen(res)) \
-			&& n->ind & SHARP) ? n->ind &= ~ZERO : 0;
+	&& n->ind & SHARP) ? n->ind &= ~ZERO : 0;
 	if ((base == 8) && !(n->ind & ZERO) && (n->ind & SHARP))
-		i = '0';
+		i[0] = '0';
+	i[1] = '\0';
 	if ((!err) && n->ind & SHARP)
-		res = add_char(res, i);
-	if ((n->ind & PRECISION && !(n->ind & ZERO) && (n->precision != 0)) || err)
+		res = fstrjoin(ft_strdup(i), res);
+	if (((n->ind & PRECISION && !(n->ind & ZERO) && (n->precision != 0)) || \
+		(err && !(n->ind & SHARP)) || (n->ind & SHARP && err \
+		&& n->precision == 0 && (n->ind & ZERO || n->ind & NONE))))
 		res = add_prec(res, n);
 	res = add_ind(res, n);
-	if (err && base == 8 && n->precision == 0 && n->ind & SHARP)
-		res = add_char(res, i);
+	if (err && base == 8 && n->precision == 0 && n->ind & SHARP \
+			&& !(n->precision == 0 && err && n->ind & CLEAR))
+		res = fstrjoin(ft_strdup(i), res);
 	buffer(p, res, ft_strlen(res));
 	free(res);
 }
@@ -82,7 +86,7 @@ void		handle_hexa(t_param *n, unsigned int base, t_printf *p)
 	(n->ind & ZERO && n->ind & MINUS) ? n->ind &= ~ZERO : 0;
 	(n->ind & SHARP && n->ind & ZERO && nb) ? n->width -= 2 : 0;
 	n->precision = (n->ind & ZERO && n->width > n->precision) ? \
-		n->width : n->precision;
+					n->width : n->precision;
 	if (nb && (n->ind & SHARP) && (base == 16))
 		i[0] = '0';
 	if (nb && (n->ind & SHARP) && (base == 16))

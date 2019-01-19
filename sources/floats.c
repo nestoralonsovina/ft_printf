@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 12:13:23 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/18 13:46:49 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/19 15:23:22 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void			dtoa_string(long double n, t_param *a, long value, t_printf *p)
 	char	*buff;
 	long	tmp;
 
-	ft_bzero(s, 256);
+	ft_memset(s, '\0', 256);
 	buff = NULL;
 	len = 0;
 	tmp = (long)(n > 0 ? n : -n);
@@ -66,7 +66,6 @@ void			dtoa_string(long double n, t_param *a, long value, t_printf *p)
 	if (a->precision != 0)
 	{
 		s[len++] = '.';
-		s[len] = '\0';
 		len += a->precision;
 		buff = ft_itoa_base(value, 10);
 		if (a->precision > (int)ft_strlen(buff))
