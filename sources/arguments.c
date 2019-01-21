@@ -6,7 +6,7 @@
 /*   By: jallen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 16:08:45 by jallen            #+#    #+#             */
-/*   Updated: 2019/01/14 16:44:35 by jallen           ###   ########.fr       */
+/*   Updated: 2019/01/21 12:39:29 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		parse_modifiers(t_printf *p)
 
 	a = p->curr;
 	a->mod = NO;
-	while (42)
+	while (69)
 	{
 		if (*p->inp == 'l')
 			a->mod = (p->inp[1] == 'l' && ++p->inp) ? LL : L;

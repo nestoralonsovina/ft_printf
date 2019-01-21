@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/19 15:25:48 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/21 12:42:31 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,4 +146,6 @@ void				convert_arg(t_printf *p);
 void				search_arg(t_param *new, va_list al);
 void				handle_n(t_printf *p, va_list al);
 void				handle_binary(t_printf *p);
+char				*ft_strdup_safe(const char *s1);
+
 #endif
