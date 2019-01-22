@@ -3,56 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jallen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 16:47:53 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/14 10:53:00 by nalonso          ###   ########.fr       */
+/*   Created: 2018/11/15 11:22:36 by jallen            #+#    #+#             */
+/*   Updated: 2018/11/16 17:02:44 by jallen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-static int	count_length(int nb)
+static int		ft_lensize(int n)
 {
-	int count;
+	int		counter;
 
-	count = 0;
-	while (nb /= 10)
-		count++;
-	return (count);
-}
-
-static void	nbr_is_negative(int *n, int *bl)
-{
-	if (*n < 0)
+	counter = 0;
+	if (n < 0)
+		counter++;
+	while (n > 0 || n < 0)
 	{
-		*n *= -1;
-		*bl = 1;
+		counter++;
+		n = n / 10;
 	}
+	return (counter);
 }
 
-char		*ft_itoa(int nbr)
+static char		*ft_posn(int n, char *dest)
 {
-	char	*res;
+	int		i;
 	int		len;
-	int		negative;
 
-	len = 1;
-	negative = 0;
-	if (nbr == -2147483648)
-		return (ft_strdup("-2147483648"));
-	nbr_is_negative(&nbr, &negative);
-	len += negative + count_length(nbr);
-	if ((res = (char*)malloc(sizeof(char) * (len + 1))) == NULL)
-		return (NULL);
-	res[len] = '\0';
-	while (len--)
+	i = ft_lensize(n) - 1;
+	len = ft_lensize(n);
+	while (n > 0)
 	{
-		res[len] = nbr % 10 + '0';
-		nbr /= 10;
+		dest[i] = n % 10 + 48;
+		n /= 10;
+		i--;
 	}
-	if (negative)
-		res[0] = '-';
-	return (res);
+	dest[len] = '\0';
+	return (dest);
+}
+
+static char		*ft_negn(int n, char *dest)
+{
+	int		i;
+	int		len;
+
+	i = ft_lensize(n) - 1;
+	len = ft_lensize(n);
+	dest[0] = '-';
+	while (n < 0)
+	{
+		dest[i] = -(n % 10) + 48;
+		n /= 10;
+		i--;
+	}
+	dest[len] = '\0';
+	return (dest);
+}
+
+char			*ft_itoa(int n)
+{
+	char	*dest;
+
+	if (!(dest = malloc(sizeof(char) * (ft_lensize(n) + 1))))
+		return (0);
+	if (n == 0)
+	{
+		if (!(dest = malloc(sizeof(char) * 2)))
+			return (0);
+		dest[0] = '0';
+		dest[1] = '\0';
+	}
+	if (n > 0)
+	{
+		ft_posn(n, dest);
+		return (dest);
+	}
+	if (n < 0)
+	{
+		ft_negn(n, dest);
+		return (dest);
+	}
+	return (dest);
 }

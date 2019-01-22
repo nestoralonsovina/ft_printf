@@ -3,32 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jallen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 16:49:52 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/14 10:41:00 by nalonso          ###   ########.fr       */
+/*   Created: 2018/11/16 14:35:51 by jallen            #+#    #+#             */
+/*   Updated: 2018/11/16 14:36:14 by jallen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int nbr, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-	if (nbr == -2147483648)
-	{
-		ft_putstr_fd("-2147483648", fd);
-		return ;
-	}
-	if (nbr < 0)
-	{
-		nbr *= -1;
-		ft_putchar_fd('-', fd);
-	}
-	if (nbr < 10)
-		ft_putchar_fd(nbr + '0', fd);
-	else
-	{
-		ft_putnbr_fd(nbr / 10, fd);
-		ft_putchar_fd(nbr % 10 + '0', fd);
-	}
+	if (n >= 10 || n <= -10)
+		ft_putnbr_fd(n / 10, fd);
+	else if (n < 0)
+		ft_putchar_fd(45, fd);
+	ft_putchar_fd((48 + (n < 0 ? -(n % 10) : (n % 10))), fd);
 }
