@@ -64,13 +64,13 @@ void		parse_modifiers(t_printf *p)
 	}
 }
 
-void		parse_options(t_printf *p)
+void		parse_options(t_printf *p, va_list al)
 {
 	p->curr = (t_param *)malloc_safe(sizeof(t_param));
 	p->curr->ind = 0;
 	p->curr->width = 0;
 	p->curr->precision = 1;
-	parse_flags(p);
+	parse_flags(p, al);
 	search_width_precision(p);
 	parse_modifiers(p);
 	parse_flags(p);
@@ -88,7 +88,7 @@ void		parse_options(t_printf *p)
 
 void		parse_arg(t_printf *p, va_list al)
 {
-	parse_options(p);
+	parse_options(p, al);
 	if (*p->inp == '%')
 		handle_percent(p);
 	else if (*p->inp == 'n')

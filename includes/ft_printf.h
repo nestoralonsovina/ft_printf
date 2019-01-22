@@ -30,6 +30,7 @@
 # define SHARP (1 << 6)
 # define PRECISION (1 << 7)
 # define NEGATIVE (1 << 8)
+# define WILDCARD (1 << 9)
 
 /*
 ** Color escape codes
@@ -140,7 +141,7 @@ void				handle_c(t_param *node, t_printf *head);
 void				handle_float(t_param *a, t_printf *p);
 void				handle_base(t_param *n, unsigned int base, t_printf *p);
 void				handle_hexa(t_param *n, unsigned int base, t_printf *p);
-void				parse_flags(t_printf *p);
+void				parse_flags(t_printf *p, va_list al);
 void				search_width_precision(t_printf *p);
 void				convert_arg(t_printf *p);
 void				search_arg(t_param *new, va_list al);
