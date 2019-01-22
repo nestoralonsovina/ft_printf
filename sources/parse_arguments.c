@@ -6,7 +6,7 @@
 /*   By: jallen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 16:11:26 by jallen            #+#    #+#             */
-/*   Updated: 2019/01/14 16:11:28 by jallen           ###   ########.fr       */
+/*   Updated: 2019/01/22 19:44:50 by nestoralo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,10 @@ void			parse_flags(t_printf *p, va_list al)
 	}
 	if (p->curr->ind & WILDCARD)
 	{
+		p->curr->ind &= ~WILDCARD;
 		if ((p->curr->width = va_arg(al, int)) < 0)
 			p->curr->ind |= MINUS;
 		p->curr->ind |= CLEAR;
 	}
 }
+

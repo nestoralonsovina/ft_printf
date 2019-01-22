@@ -6,7 +6,7 @@
 /*   By: jallen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 16:08:45 by jallen            #+#    #+#             */
-/*   Updated: 2019/01/21 12:39:29 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/01/22 19:26:51 by nestoralo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		parse_options(t_printf *p, va_list al)
 	parse_flags(p, al);
 	search_width_precision(p);
 	parse_modifiers(p);
-	parse_flags(p);
+	parse_flags(p, al);
 	if (*p->inp == 'b')
 	{
 		if (p->curr->ind & PRECISION)
