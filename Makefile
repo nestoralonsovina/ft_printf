@@ -50,7 +50,7 @@ $(NAME): $(OBJS)
 
 $(DIR_O)/%.o: $(DIR_S)/%.c
 	@mkdir -p temporary
-	$(CC) $(FLAGS) -I $(DIR_H) -o $@ -c $<
+	@$(CC) $(FLAGS) -I $(DIR_H) -o $@ -c $<
 
 clean:
 	@rm -f $(OBJS)

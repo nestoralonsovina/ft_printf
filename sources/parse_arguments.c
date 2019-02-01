@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arguments.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jallen <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 16:11:26 by jallen            #+#    #+#             */
-/*   Updated: 2019/01/22 19:44:50 by nestoralo        ###   ########.fr       */
+/*   Updated: 2019/01/29 14:49:55 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,4 +139,3 @@ void			parse_flags(t_printf *p, va_list al)
 		p->curr->ind |= CLEAR;
 	}
 }
-

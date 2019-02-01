@@ -1,21 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 16:49:57 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/14 10:53:52 by nalonso          ###   ########.fr       */
+/*   Created: 2018/11/09 22:06:42 by nalonso           #+#    #+#             */
+/*   Updated: 2018/11/14 10:50:05 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
+#include <stdlib.h>
 
-void	ft_putstr(char *str)
+void	*ft_realloc(void *ptr, size_t new_size, size_t original_size)
 {
-	if (str)
-		while (*str)
-			write(1, str++, 1);
+	void	*new;
+
+	if (new_size == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	else if (!ptr)
+		return (malloc(new_size));
+	else if (new_size <= original_size)
+		return (ptr);
+	else
+	{
+		new = malloc(new_size);
+		if (new)
+		{
+			new = ft_memcpy(new, ptr, original_size);
+			free(ptr);
+		}
+		ptr = new;
+		return (ptr);
+	}
 }

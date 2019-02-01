@@ -3,39 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jallen <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 16:50:08 by jallen            #+#    #+#             */
-/*   Updated: 2018/11/09 16:42:48 by jallen           ###   ########.fr       */
+/*   Created: 2018/11/06 16:44:35 by nalonso           #+#    #+#             */
+/*   Updated: 2018/11/07 11:47:45 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	int		i;
-	long	hold;
-	int		neg;
+	long	res;
+	long	sign;
+	int		check;
 
-	i = 0;
-	hold = 0;
-	neg = 0;
-	while (str[i] >= 0 && str[i] <= 32 && str[i] != 27)
-		i++;
-	if (str[i] == '-' && str[i + 1] >= 48)
+	sign = 1;
+	res = 0;
+	check = 2;
+	while (ft_isspace((unsigned char)(*str)))
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		neg++;
-		i++;
+		if (*str == '-')
+			sign = -1;
+		str++;
 	}
-	if (str[i] == '+')
-		i++;
-	while (str[i] >= 48 && str[i] <= 57)
+	while (ft_isdigit((int)*str))
 	{
-		if (hold > hold * 10 + str[i] - 48)
-			return (neg == 1 ? 0 : -1);
-		hold = hold * 10 + str[i] - 48;
-		i++;
+		if (res > res * 10 + (*str - '0'))
+			check = (sign == -1) ? 0 : -1;
+		res = res * 10 + (*str++ - '0');
 	}
-	return (neg == 1 ? -((int)hold) : (int)hold);
+	return (check == -1 || check == 0 ? check : (int)(res * sign));
 }
