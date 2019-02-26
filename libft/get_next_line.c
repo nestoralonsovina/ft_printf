@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/10 19:21:33 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/29 14:49:43 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/02/22 12:05:01 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ static int		read_fd(const int fd, char **saved)
 	int		n_read;
 	char	*new_str;
 
+	new_str = NULL;
 	n_read = read(fd, buff, BUFF_SIZE);
 	if (n_read > 0)
 	{
 		buff[n_read] = '\0';
-		new_str = ft_strjoin(*saved, buff);
+		new_str = (saved) ? ft_strjoin(*saved, buff) : ft_strdup(buff);
 		if (!new_str)
 			return (-1);
 		free(*saved);
@@ -78,11 +79,11 @@ int				get_next_line(const int fd, char **line)
 	char			*nl_index;
 	int				ret;
 
-	if (fd < -1 || line == NULL || BUFF_SIZE < 0 || read(fd, &ret, 0) < 0)
+	if (fd < -1 || line == NULL || BUFF_SIZE < 0)
 		return (-1);
 	if (!(curr = get_current_file(&file, fd)))
 		return (-1);
-	nl_index = ft_strchr(curr->content, '\n');
+	nl_index = (curr->content) ? ft_strchr(curr->content, '\n') : NULL;
 	while (nl_index == NULL)
 	{
 		ret = read_fd(fd, (char **)&(curr->content));

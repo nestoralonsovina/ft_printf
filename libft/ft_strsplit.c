@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:51:43 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/14 10:46:58 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/02/12 11:32:25 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static int		word_length(char const *s, char c)
 	int	len;
 
 	len = 0;
-	while (*s == c)
+	while (*s && *s == c)
 		s++;
-	while (*s++ != c)
+	while (*s++ != c && *s)
 		len++;
 	return (++len);
 }
@@ -48,7 +48,7 @@ static char		*sp_strdup(char const *s, char c)
 	if (!(ret = (char *)malloc(sizeof(char) * (word_length(s, c) + 1))))
 		return (NULL);
 	ptr = ret;
-	while (*s != c && *s)
+	while (*s && *s != c)
 		*ret++ = *s++;
 	*ret = '\0';
 	return (ptr);
@@ -77,9 +77,9 @@ char			**ft_strsplit(char const *s, char c)
 		return (NULL);
 	while (i < nb_word)
 	{
-		while (*s == c)
+		while (*s && *s == c)
 			s++;
-		if (!(tab[i] = sp_strdup(s, c)))
+		if (*s && !(tab[i] = sp_strdup(s, c)))
 			return (free_tab(tab));
 		while (*s != c && *s)
 			s++;

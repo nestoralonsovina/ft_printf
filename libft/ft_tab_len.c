@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strequ.c                                        :+:      :+:    :+:   */
+/*   ft_tab_len.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 16:50:38 by nalonso           #+#    #+#             */
-/*   Updated: 2019/02/22 11:54:05 by nalonso          ###   ########.fr       */
+/*   Created: 2019/02/12 11:04:59 by nalonso           #+#    #+#             */
+/*   Updated: 2019/02/12 11:05:05 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strequ(char const *s1, char const *s2)
+size_t	ft_tab_len(char **tab)
 {
-	if (!s1 || !s2)
-		return (0);
-	while (*s1 && *s2)
-	{
-		if (*s1 != *s2)
-			return (0);
-		s1++;
-		s2++;
-	}
-	if ((!*s1 && *s2) || (*s2 && !*s1))
-		return (0);
-	return (1);
+	size_t	len;
+
+	len = 0;
+	while (tab && tab[len])
+		++len;
+	return (len);
 }

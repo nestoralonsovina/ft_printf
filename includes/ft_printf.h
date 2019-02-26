@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/21 12:42:31 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/02/05 16:30:35 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ void				reset_buffer(t_printf *p);
 void				write_buffer(t_printf *p);
 void				buffer(t_printf *p, void *data, size_t size);
 char				ret_conversion(char *flags, t_param *curr);
-void				search_width(t_param *new);
-void				search_precision(t_param *new);
-void				search_modifier(t_param *new);
+void				search_width(t_param *nw);
+void				search_precision(t_param *nw);
+void				search_modifier(t_param *nw);
 void				handle_percent(t_printf *p);
 void				set_conversion(char con, t_param *curr, t_printf *p);
 void				print_full_param(t_param curr);
@@ -144,7 +144,7 @@ void				handle_hexa(t_param *n, unsigned int base, t_printf *p);
 void				parse_flags(t_printf *p, va_list al);
 void				search_width_precision(t_printf *p);
 void				convert_arg(t_printf *p);
-void				search_arg(t_param *new, va_list al);
+void				search_arg(t_param *nw, va_list al);
 void				handle_n(t_printf *p, va_list al);
 void				handle_binary(t_printf *p);
 char				*ft_strdup_safe(const char *s1);

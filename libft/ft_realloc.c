@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 22:06:42 by nalonso           #+#    #+#             */
-/*   Updated: 2018/11/14 10:50:05 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/02/20 12:40:48 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	*ft_realloc(void *ptr, size_t new_size, size_t original_size)
 			new = ft_memcpy(new, ptr, original_size);
 			free(ptr);
 		}
-		ptr = new;
-		return (ptr);
+		return (new);
 	}
 }

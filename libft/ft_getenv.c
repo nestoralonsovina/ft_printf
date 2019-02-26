@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/06 16:51:49 by nalonso           #+#    #+#             */
-/*   Updated: 2019/02/26 17:36:25 by nalonso          ###   ########.fr       */
+/*   Created: 2019/02/12 11:12:05 by nalonso           #+#    #+#             */
+/*   Updated: 2019/02/12 11:31:35 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-char	*ft_strsub(char const *s, unsigned int start, size_t n)
+char	*ft_getenv(const char *name, char **env)
 {
-	unsigned int	i;
-	char			*str;
+	size_t len;
 
-	i = 0;
-	str = malloc(sizeof(char) * (n + 1));
-	if (!str)
+	len = ft_strlen(name);
+	if (env == NULL || name[0] == '\0')
 		return (NULL);
-	while (i < n)
+	while (env && *env)
 	{
-		str[i] = s[start + i];
-		i++;
+		if (ft_strncmp(*env, name, len) == 0\
+			&& *(*env + len) && *(*env + len) == '=')
+			return (ft_strchr(*env, '=') + 1);
+		env += 1;
 	}
-	str[i] = '\0';
-	return (str);
+	return (0);
 }

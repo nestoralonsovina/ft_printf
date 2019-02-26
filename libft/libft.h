@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:52:20 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/29 12:45:43 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/02/26 17:20:03 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ typedef	struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_point
+{
+	int				x;
+	int				y;
+}					t_point;
 
 /*
 ** Libc functions
@@ -55,7 +61,15 @@ int					ft_isprint(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
 char				*ft_strndup(const char *s1, size_t n);
-
+char				*ft_strrnstr(const char *str,\
+								const char *to_find, size_t len);
+size_t				ft_tab_len(char **tab);
+void				ft_free_tab(char **tab);
+void				ft_print_tab(char **tab);
+char				**ft_getenv_address(const char *name, char **env);
+char				*ft_getenv(const char *name, char **env);
+int					ft_isquote(char c);
+int					ft_isblank(char c);
 /*
 ** Aditional functions
 */
@@ -92,7 +106,7 @@ void				ft_putendl_fd(char const *str, int fd);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstadd(t_list **alst, t_list *new);
+void				ft_lstadd(t_list **alst, t_list *nw);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 

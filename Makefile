@@ -1,3 +1,8 @@
+ccred="\033[0;31m"
+ccyellow="\033[0;33m"
+ccend="\033[0m"
+ccgreen= "\033[0;32m"
+
 
 # Compiler
 
@@ -41,14 +46,21 @@ SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
 all: $(NAME)
+	@:
 
-$(NAME): $(OBJS)
-	@make -C $(LIBFT)
+$(NAME): $(OBJS) lib
 	@cp libft/libft.a ./$(NAME)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
+lib:
+	@printf $(ccgreen)"\t[OK]\n"$(ccend)
+	@printf $(ccyellow)"%-20s"$(ccred) $(LIBFT)
+	@make -C $(LIBFT)
+	@printf $(ccgreen)"\t[OK]\n"$(ccend)
+
 $(DIR_O)/%.o: $(DIR_S)/%.c
+	@echo -n '#'
 	@mkdir -p temporary
 	@$(CC) $(FLAGS) -I $(DIR_H) -o $@ -c $<
 

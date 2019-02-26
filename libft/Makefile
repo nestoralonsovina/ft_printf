@@ -47,7 +47,9 @@ SRCS += ft_memset.c		\
 		ft_isprint.c	\
 		ft_toupper.c	\
 		ft_tolower.c	\
-		ft_isspace.c
+		ft_isspace.c	\
+		ft_isblank.c	\
+		ft_isquote.c
 
 #					ADDITIONAL FUNCTIONS
 SRCS += ft_memalloc.c	\
@@ -76,15 +78,21 @@ SRCS += ft_memalloc.c	\
 		ft_putendl_fd.c
 
 #					CHAINED LIST FUNCTIONS
-SRCS += ft_lstnew.c		\
-		ft_lstdelone.c	\
-		ft_lstdel.c		\
-		ft_lstadd.c		\
-		ft_lstiter.c	\
-		ft_lstmap.c		\
-		get_next_line.c \
-		ft_strndup.c
-		
+SRCS += ft_lstnew.c			\
+		ft_lstdelone.c		\
+		ft_lstdel.c			\
+		ft_lstadd.c			\
+		ft_lstiter.c		\
+		ft_lstmap.c			\
+		get_next_line.c 	\
+		ft_strndup.c		\
+		ft_strrnstr.c		\
+		ft_tab_len.c		\
+		ft_print_tab.c		\
+		ft_free_tab.c		\
+		ft_getenv.c			\
+		ft_getenv_address.c	\
+		ft_realloc.c
 OBJS := $(SRCS:%.c=%.o)
 
 # Path to the directories
@@ -93,6 +101,7 @@ OBJS := $(SRCS:%.c=%.o)
 
 # Compile and create everything.
 all: $(NAME)
+	@:
 
 # This won't run if the .o files don't exist or are not modified
 $(NAME): $(OBJS)
@@ -100,8 +109,9 @@ $(NAME): $(OBJS)
 	@$(RLIB) $(NAME)
 
 # This won't run if the source files don't exit or are not modified
-$(OBJS): $(SRCS)
-	@$(CC) $(CFLAGS) -c $(SRCS)
+./%.o: ./%.c
+	@echo -n '#'
+	@$(CC) $(CFLAGS) -I. -o $@ -c $<
 
 # Removes all the object files and directory
 clean:

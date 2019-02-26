@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strrnstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 13:58:06 by nalonso           #+#    #+#             */
-/*   Updated: 2019/02/22 11:58:36 by nalonso          ###   ########.fr       */
+/*   Created: 2019/02/12 11:03:40 by nalonso           #+#    #+#             */
+/*   Updated: 2019/02/12 11:03:49 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 10000
+#include "libft.h"
 
-# include "libft.h"
-# include <fcntl.h>
-# include <unistd.h>
+char		*ft_strrnstr(const char *str, const char *to_find, size_t len)
+{
+	size_t i;
+	size_t j;
 
-int		get_next_line(const int fd, char **line);
-
-#endif
+	i = 0;
+	j = 0;
+	if (!to_find[0])
+		return ((char *)(&str[i]));
+	while (str[i] && (i < len))
+	{
+		while (str[i + j] == to_find[j] && to_find[j] && (i + j) < len)
+			j++;
+		if (to_find[j] == '\0')
+			return ((char *)(&str[j + i]));
+		j = 0;
+		i += 1;
+	}
+	return (NULL);
+}

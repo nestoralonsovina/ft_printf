@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:51:01 by nalonso           #+#    #+#             */
-/*   Updated: 2019/01/15 12:15:37 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/02/09 19:13:59 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t len;
 
 	len = 0;
+	if (!s)
+		return (0);
 	while (s[len] != '\0')
 	{
 		len++;
