@@ -49,7 +49,8 @@ SRCS += ft_memset.c		\
 		ft_tolower.c	\
 		ft_isspace.c	\
 		ft_isblank.c	\
-		ft_isquote.c
+		ft_isquote.c	\
+		ft_read_stdin.c
 
 #					ADDITIONAL FUNCTIONS
 SRCS += ft_memalloc.c	\

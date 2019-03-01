@@ -6,12 +6,13 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:52:20 by nalonso           #+#    #+#             */
-/*   Updated: 2019/02/26 17:20:03 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/03/01 13:07:59 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# define _EOF -1
 
 # include <stdlib.h>
 
@@ -70,6 +71,10 @@ char				**ft_getenv_address(const char *name, char **env);
 char				*ft_getenv(const char *name, char **env);
 int					ft_isquote(char c);
 int					ft_isblank(char c);
+int					ft_getc(int fd);
+int					ft_getdelim(char **lineptr, size_t *n, int delim, int fd);
+int					ft_getline(char **lineptr, size_t *n, int fd);
+
 /*
 ** Aditional functions
 */

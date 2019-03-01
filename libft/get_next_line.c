@@ -3,100 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jallen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 19:21:33 by nalonso           #+#    #+#             */
-/*   Updated: 2019/02/22 12:05:01 by nalonso          ###   ########.fr       */
+/*   Created: 2018/11/19 13:57:24 by jallen            #+#    #+#             */
+/*   Updated: 2019/02/27 17:45:49 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "get_next_line.h"
+#include <stdio.h>
 
-static t_list	*get_current_file(t_list **file, const int fd)
+t_list			*ft_get_file(t_list **file, int fd)
 {
-	t_list	*ptr;
+	t_list			*tmp;
 
-	ptr = *file;
-	while (ptr)
+	tmp = *file;
+	while (tmp)
 	{
-		if ((int)ptr->content_size == fd)
-			return (ptr);
-		ptr = ptr->next;
+		if ((int)tmp->content_size == fd)
+			return (tmp);
+		tmp = tmp->next;
 	}
-	if (!(ptr = ft_lstnew("", fd)))
+	tmp = ft_lstnew("\0", fd);
+	ft_lstadd(file, tmp);
+	tmp = *file;
+	return (tmp);
+}
+
+char			*ft_vef_line(char *tmp, char **line)
+{
+	char			*ptr;
+	char			*index;
+
+	ptr = tmp;
+	index = ft_strchr(tmp, '\n');
+	if (index == 0)
+	{
+		*line = ft_strdup(tmp);
+		free(ptr);
+		tmp = ft_strdup("");
+		return (tmp);
+	}
+	if (!(*line = ft_strsub(tmp, 0, index - tmp)))
 		return (NULL);
-	ft_lstadd(file, ptr);
-	ptr = *file;
-	return (ptr);
-}
-
-static int		read_fd(const int fd, char **saved)
-{
-	char	buff[BUFF_SIZE + 1];
-	int		n_read;
-	char	*new_str;
-
-	new_str = NULL;
-	n_read = read(fd, buff, BUFF_SIZE);
-	if (n_read > 0)
-	{
-		buff[n_read] = '\0';
-		new_str = (saved) ? ft_strjoin(*saved, buff) : ft_strdup(buff);
-		if (!new_str)
-			return (-1);
-		free(*saved);
-		*saved = new_str;
-	}
-	return (n_read);
-}
-
-static int		ft_new_line(t_list *curr, char **line, char *nl_index)
-{
-	*line = ft_strsub(curr->content, 0, nl_index - (char *)curr->content);
-	if (!*line)
-		return (-1);
-	if (*nl_index != '\0')
-		if (!(nl_index = ft_strdup(nl_index + 1)))
-			return (-1);
-	free(curr->content);
-	curr->content = nl_index;
-	return (1);
-}
-
-static int		handle_eof(t_list *curr)
-{
-	if (curr->content != NULL)
-		free(curr->content);
-	free(curr);
-	return (0);
+	tmp = ft_strdup(index + 1);
+	free(ptr);
+	return (tmp);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	static t_list	*file;
-	t_list			*curr;
-	char			*nl_index;
+	char			buf[BUFF_SIZE + 1];
 	int				ret;
+	static t_list	*file;
+	t_list			*tmp;
+	char			*ptr;
 
-	if (fd < -1 || line == NULL || BUFF_SIZE < 0)
+	if (fd < 0 || line == NULL || read(fd, buf, 0) < 0 || BUFF_SIZE <= 0)
 		return (-1);
-	if (!(curr = get_current_file(&file, fd)))
-		return (-1);
-	nl_index = (curr->content) ? ft_strchr(curr->content, '\n') : NULL;
-	while (nl_index == NULL)
+	tmp = ft_get_file(&file, fd);
+	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
-		ret = read_fd(fd, (char **)&(curr->content));
-		if (ret == 0)
-		{
-			if ((nl_index = ft_strchr(curr->content, '\0'))\
-					== (char *)curr->content)
-				return (handle_eof(curr));
-		}
-		else if (ret < 0)
-			return (-1);
-		else
-			nl_index = ft_strchr(curr->content, '\n');
+		ptr = tmp->content;
+		buf[ret] = '\0';
+		tmp->content = ft_strjoin(tmp->content, buf);
+		free(ptr);
+		if (ft_strchr(tmp->content, '\n') != NULL)
+			break ;
 	}
-	return (ft_new_line(curr, line, nl_index));
+	if (ret < BUFF_SIZE && !ft_strlen(tmp->content))
+	{
+		exit(0);
+		return (0);
+	}
+	tmp->content = ft_vef_line(tmp->content, line);
+	return (1);
 }
