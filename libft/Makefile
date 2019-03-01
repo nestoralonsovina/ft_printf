@@ -91,9 +91,8 @@ SRCS += ft_lstnew.c			\
 		ft_tab_len.c		\
 		ft_print_tab.c		\
 		ft_free_tab.c		\
-		ft_getenv.c			\
-		ft_getenv_address.c	\
 		ft_realloc.c
+
 OBJS := $(SRCS:%.c=%.o)
 
 # Path to the directories

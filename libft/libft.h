@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:52:20 by nalonso           #+#    #+#             */
-/*   Updated: 2019/03/01 13:07:59 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/03/01 17:17:37 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ char				*ft_strrnstr(const char *str,\
 size_t				ft_tab_len(char **tab);
 void				ft_free_tab(char **tab);
 void				ft_print_tab(char **tab);
-char				**ft_getenv_address(const char *name, char **env);
-char				*ft_getenv(const char *name, char **env);
 int					ft_isquote(char c);
 int					ft_isblank(char c);
 int					ft_getc(int fd);
