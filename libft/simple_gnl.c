@@ -6,7 +6,7 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 14:07:38 by nalonso           #+#    #+#             */
-/*   Updated: 2019/03/02 14:10:12 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/03/02 15:49:05 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*readfile(char *str, int fd)
 	return (str);
 }
 
-int		simple_gnl(char **line)
+int			simple_gnl(char **line)
 {
 	static char	*str;
 	size_t		i;
