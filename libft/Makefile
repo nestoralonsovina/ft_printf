@@ -87,6 +87,7 @@ SRCS += ft_lstnew.c			\
 		ft_lstiter.c		\
 		ft_lstmap.c			\
 		get_next_line.c 	\
+		simple_gnl.c		\
 		ft_strndup.c		\
 		ft_strrnstr.c		\
 		ft_tab_len.c		\
