@@ -6,13 +6,12 @@
 /*   By: jallen <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 13:57:24 by jallen            #+#    #+#             */
-/*   Updated: 2019/03/01 15:18:37 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/03/02 14:08:12 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "get_next_line.h"
-#include <stdio.h>
 
 t_list			*ft_get_file(t_list **file, int fd)
 {
