@@ -77,7 +77,8 @@ SRCS += ft_memalloc.c	\
 		ft_putnbr.c		\
 		ft_putnbr_fd.c	\
 		ft_putendl.c	\
-		ft_putendl_fd.c
+		ft_putendl_fd.c	\
+		ft_strver.c
 
 #					CHAINED LIST FUNCTIONS
 SRCS += ft_lstnew.c			\
