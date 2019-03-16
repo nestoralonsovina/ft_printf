@@ -51,6 +51,7 @@ SRCS += ft_memset.c		\
 		ft_isblank.c	\
 		ft_isquote.c	\
 		ft_read_stdin.c	\
+		ft_max.c		\
 		ft_realloc_tab.c
 
 #					ADDITIONAL FUNCTIONS

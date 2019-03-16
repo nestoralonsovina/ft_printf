@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:52:20 by nalonso           #+#    #+#             */
-/*   Updated: 2019/03/08 14:02:49 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/03/16 15:05:21 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct		s_point
 ** Libc functions
 */
 
+int 				ft_max(int a, int b);
 int					ft_strver(char *str, int (f)(int));
 void				**realloc_tab(void **ptr, size_t new_size,\
 		size_t original_size);
