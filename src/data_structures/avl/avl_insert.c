@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   avl_insert.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/09 16:10:41 by nalonso           #+#    #+#             */
+/*   Updated: 2019/04/09 16:47:43 by nalonso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "avl.h"
 
-static int 	avl_height(t_avl_node *n)
+static int		avl_height(t_avl_node *n)
 {
 	if (n == NULL)
 		return (0);
 	return (n->height);
 }
 
-static int 		avl_get_balance(t_avl_node *n)
+static int		avl_get_balance(t_avl_node *n)
 {
 	if (n == NULL)
 		return (0);
@@ -21,10 +33,8 @@ static t_avl_node	*avl_right_rotate(t_avl_node *root)
 
 	left_child = root->left;
 	temp = left_child->right;
-
 	left_child->right = root;
 	root->left = temp;
-
 	return (left_child);
 }
 
@@ -35,58 +45,58 @@ static t_avl_node	*avl_left_rotate(t_avl_node *root)
 
 	right_child = root->right;
 	temp = right_child->left;
-
 	right_child->left = root;
 	root->right = temp;
-
 	root->height = ft_max(avl_height(root->left), avl_height(root->right)) + 1;
-	right_child->height = ft_max(avl_height(right_child->left), avl_height(right_child->right)) + 1;
-	return right_child;
+	right_child->height =\
+	ft_max(avl_height(right_child->left), avl_height(right_child->right)) + 1;
+	return (right_child);
 }
 
-static t_avl_node		*avl_insert_node(t_avl_node *node, unsigned long key, int index)
+static t_avl_node	*avl_insert_node_norme(t_avl_node *node,\
+									unsigned long key)
 {
-	int	balance;
+	int balance;
 
+	node->height = 1 + ft_max(avl_height(node->left), avl_height(node->right));
+	balance = avl_get_balance(node);
+	if (balance > 1 && key < node->left->key)
+		return (avl_right_rotate(node));
+	if (balance < -1 && key > node->right->key)
+		return (avl_left_rotate(node));
+	if (balance > 1 && key > node->left->key)
+	{
+		node->left = avl_left_rotate(node->left);
+		return (avl_right_rotate(node));
+	}
+	if (balance < -1 && key < node->right->key)
+	{
+		node->right = avl_right_rotate(node->right);
+		return (avl_left_rotate(node));
+	}
+	return (node);
+}
+
+static t_avl_node	*avl_insert_node(t_avl_node *node,\
+									unsigned long key, int index)
+{
 	if (node == NULL)
 		return (new_avl_node(key, index));
-
-	if (key < node->key) {
+	if (key < node->key)
+	{
 		node->left = avl_insert_node(node->left, key, index);
 		if (node->left == NULL)
 			return (NULL);
 	}
-	else if (key > node->key) {
+	else if (key > node->key)
+	{
 		node->right = avl_insert_node(node->right, key, index);
 		if (node->right == NULL)
 			return (NULL);
 	}
 	else
 		return (NULL);
-
-
-	node->height = 1 + ft_max(avl_height(node->left), avl_height(node->right));
-	balance = avl_get_balance(node);
-
-	if (balance > 1 && key < node->left->key)
-		return (avl_right_rotate(node));
-
-	if (balance < -1 && key > node->right->key)
-		return (avl_left_rotate(node));
-
-	if (balance > 1 && key > node->left->key)
-	{
-		node->left = avl_left_rotate(node->left);
-		return (avl_right_rotate(node));
-	}
-
-	if (balance < -1 && key < node->right->key)
-	{
-		node->right = avl_right_rotate(node->right);
-		return (avl_left_rotate(node));
-	}
-
-	return (node);
+	return (avl_insert_node_norme(node, key));
 }
 
 int				avl_insert(t_avl *self, unsigned long key, int index)

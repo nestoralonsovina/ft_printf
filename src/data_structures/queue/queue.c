@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   queue.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/09 16:37:52 by nalonso           #+#    #+#             */
+/*   Updated: 2019/04/09 16:37:53 by nalonso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "queue.h"
 
 void		queue_push(struct s_queue *self, int item)
@@ -38,7 +50,7 @@ int			queue_rear(struct s_queue *self)
 t_queue		create_queue(size_t capacity)
 {
 	t_queue	queue;
-	
+
 	queue.capacity = capacity;
 	queue.start = 0;
 	queue.size = 0;

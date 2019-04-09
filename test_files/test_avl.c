@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "includes/avl.h"
-#include "includes/libft.h"
+#include "../includes/avl.h"
+#include "../includes/libft.h"
 
 
 void	print_avl(t_avl_node *root) {

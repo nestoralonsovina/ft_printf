@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   avl.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/09 16:32:03 by nalonso           #+#    #+#             */
+/*   Updated: 2019/04/09 16:32:04 by nalonso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "avl.h"
 
-void	avl_free(t_avl_node *node)
+void		avl_free(t_avl_node *node)
 {
 	if (!node)
 		return ;
@@ -22,16 +34,16 @@ t_avl_node	*new_avl_node(unsigned long key, int index)
 	return (node);
 }
 
-int 		avl_get_index(t_avl_node *root, unsigned long key)
+int			avl_get_index(t_avl_node *root, unsigned long key)
 {
 	if (root == NULL)
 		return (-1);
 	if (key < root->key)
-		return avl_get_index(root->left, key);
+		return (avl_get_index(root->left, key));
 	else if (key > root->key)
-		return avl_get_index(root->right, key);
+		return (avl_get_index(root->right, key));
 	else
-		return root->index;
+		return (root->index);
 }
 
 t_avl		avl_init(void)
