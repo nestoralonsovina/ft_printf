@@ -11,9 +11,10 @@ CFLAGS += -Wall -Werror -Wextra
 NAME = libft.a
 
 SRC_DIR 	= src/
-DATA_STUCTS	= data_structures/
+DATA_STRUCTS	= data_structures/
 IO			= io/
 PRINTF		= printf/srcs/
+TOOLS 		= tools/
 LIBFT 		= libft/
 
 HEADERS 	= ./includes
@@ -90,7 +91,14 @@ SRC += 	$(SRC_DIR)$(LIBFT)ft_memset.c		\
 		$(SRC_DIR)$(LIBFT)ft_realloc.c 		\
 		$(SRC_DIR)$(IO)ft_read_stdin.c 		\
 		$(SRC_DIR)$(IO)get_next_line.c 		\
-		$(SRC_DIR)$(IO)gnl_stdout.c 		
+		$(SRC_DIR)$(IO)gnl_stdout.c 		\
+		$(SRC_DIR)$(DATA_STRUCTS)avl/avl.c 					\
+		$(SRC_DIR)$(DATA_STRUCTS)avl/avl_insert.c 			\
+		$(SRC_DIR)$(DATA_STRUCTS)binary_heap/binary_heap.c 	\
+		$(SRC_DIR)$(DATA_STRUCTS)queue/queue.c 				\
+		$(SRC_DIR)$(TOOLS)djb2.c
+
+
 
 
 

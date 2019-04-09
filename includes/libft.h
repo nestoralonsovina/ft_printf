@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:52:20 by nalonso           #+#    #+#             */
-/*   Updated: 2019/04/09 12:32:42 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/04/09 13:25:40 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,6 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 int					ft_isspace(int c);
 void				*ft_realloc(void *ptr, size_t n_size, size_t o_size);
+unsigned long		ft_djb2(char *str);
 
 #endif
