@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:52:20 by nalonso           #+#    #+#             */
-/*   Updated: 2019/04/09 12:21:17 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/04/09 12:32:42 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # define _EOF -1
 
 # include <stdlib.h>
-# include "get_next_line.h"
 
 typedef	struct		s_list
 {
