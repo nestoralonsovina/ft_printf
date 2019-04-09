@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 11:23:56 by nalonso           #+#    #+#             */
-/*   Updated: 2019/02/05 16:30:35 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/04/09 12:17:52 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdarg.h>
 # include <unistd.h>
-# include "../libft/libft.h"
+# include "libft.h"
 
 /*
 ** Different flag activation constants

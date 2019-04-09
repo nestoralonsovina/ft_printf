@@ -18,8 +18,8 @@ OBJ_DIR := objs/
 
 # Files
 HEAD = libft.h
-#				LIBC FUNCTIONS
 SRCS += ft_memset.c		\
+#				LIBC FUNCTIONS
 		ft_bzero.c		\
 		ft_memcpy.c		\
 		ft_memccpy.c	\

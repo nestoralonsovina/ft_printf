@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:52:20 by nalonso           #+#    #+#             */
-/*   Updated: 2019/03/16 15:05:21 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/04/09 12:21:17 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ typedef struct		s_point
 	int				x;
 	int				y;
 }					t_point;
+
+
+
+int 				ft_printf(const char *format, ...);
 
 /*
 ** Libc functions
@@ -74,9 +78,6 @@ void				ft_free_tab(char **tab);
 void				ft_print_tab(char **tab);
 int					ft_isquote(char c);
 int					ft_isblank(char c);
-int					ft_getc(int fd);
-int					ft_getdelim(char **lineptr, size_t *n, int delim, int fd);
-int					ft_getline(char **lineptr, size_t *n, int fd);
 
 /*
 ** Aditional functions

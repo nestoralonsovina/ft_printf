@@ -6,12 +6,11 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 12:47:05 by nalonso           #+#    #+#             */
-/*   Updated: 2019/03/01 13:08:04 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/04/09 11:30:01 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
+#include "gnl.h"
 
 int			ft_getc(int fd)
 {
