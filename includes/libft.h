@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:52:20 by nalonso           #+#    #+#             */
-/*   Updated: 2019/04/09 13:25:40 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/04/10 13:30:49 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_point
 
 
 int 				ft_printf(const char *format, ...);
+int					ft_fprintf(int fd, const char *format, ...);	
 
 /*
 ** Libc functions

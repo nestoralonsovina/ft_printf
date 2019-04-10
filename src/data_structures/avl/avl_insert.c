@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 16:10:41 by nalonso           #+#    #+#             */
-/*   Updated: 2019/04/09 16:47:43 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/04/10 15:06:41 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,14 @@ static t_avl_node	*avl_right_rotate(t_avl_node *root)
 
 	left_child = root->left;
 	temp = left_child->right;
+
 	left_child->right = root;
 	root->left = temp;
+
+	root->height = ft_max(avl_height(root->left), avl_height(root->right)) + 1;
+	left_child->height =\
+	ft_max(avl_height(left_child->left), avl_height(left_child->right)) + 1;
+	
 	return (left_child);
 }
 
@@ -45,8 +51,10 @@ static t_avl_node	*avl_left_rotate(t_avl_node *root)
 
 	right_child = root->right;
 	temp = right_child->left;
+
 	right_child->left = root;
 	root->right = temp;
+
 	root->height = ft_max(avl_height(root->left), avl_height(root->right)) + 1;
 	right_child->height =\
 	ft_max(avl_height(right_child->left), avl_height(right_child->right)) + 1;
