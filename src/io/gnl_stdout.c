@@ -57,7 +57,7 @@ int			gnl_stdout(char **line)
 		else
 		{
 			*line = ft_strsub(str, 0, i);
-			str = &str[i + 1];
+			str += i + 1;
 		}
 		return (1);
 	}
