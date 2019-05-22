@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:52:20 by nalonso           #+#    #+#             */
-/*   Updated: 2019/04/10 13:30:49 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/05/22 10:51:01 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct		s_point
 
 
 int 				ft_printf(const char *format, ...);
-int					ft_fprintf(int fd, const char *format, ...);	
+int					ft_fprintf(int fd, const char *format, ...);
 
 /*
 ** Libc functions
@@ -107,6 +107,7 @@ void				ft_putnbr(int nbr);
 void				ft_putnbr_fd(int nbr, int fd);
 void				ft_putendl(char const *str);
 void				ft_putendl_fd(char const *str, int fd);
+int					ft_endswith(const char *str, const char *suffix);
 
 /*
 ** List manipulation

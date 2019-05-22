@@ -80,6 +80,7 @@ SRC += 	$(SRC_DIR)$(LIBFT)ft_memset.c		\
 		$(SRC_DIR)$(LIBFT)ft_lstnew.c		\
 		$(SRC_DIR)$(LIBFT)ft_lstdelone.c	\
 		$(SRC_DIR)$(LIBFT)ft_lstdel.c		\
+		$(SRC_DIR)$(LIBFT)ft_endswith.c		\
 		$(SRC_DIR)$(LIBFT)ft_lstadd.c		\
 		$(SRC_DIR)$(LIBFT)ft_lstiter.c		\
 		$(SRC_DIR)$(LIBFT)ft_lstmap.c		\
