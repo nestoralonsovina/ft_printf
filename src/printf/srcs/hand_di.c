@@ -61,7 +61,7 @@ static char		*int_indentation(char *res, int neg, t_param *n)
 			res = add_prec(res, n);
 	}
 	(n->ind & SPACE) ? f = ' ' : 0;
-	(neg) ? f = '-' : 0;
+	f = (neg) ? '-' : 0;
 	(n->ind & PLUS && !neg) ? f = '+' : 0;
 	if (n->ind & ZERO && f)
 	{

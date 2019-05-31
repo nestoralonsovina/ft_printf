@@ -70,6 +70,7 @@ void		parse_options(t_printf *p, va_list al)
 	p->curr->ind = 0;
 	p->curr->width = 0;
 	p->curr->precision = 1;
+	ft_bzero(&p->curr->data, sizeof(p->curr->data));
 	parse_flags(p, al);
 	search_width_precision(p);
 	parse_modifiers(p);
