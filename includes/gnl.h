@@ -6,12 +6,12 @@
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 11:25:18 by nalonso           #+#    #+#             */
-/*   Updated: 2019/04/09 12:20:58 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/05/31 16:32:43 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GNL_H
+# define GNL_H
 # define BUFF_SIZE 1000000
 
 # include <fcntl.h>
