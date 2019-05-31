@@ -49,7 +49,7 @@ int			avl_insert(t_avl *self, unsigned long key, int index)
 	tmp = avl_insert_node(self->head, key, index);
 	if (tmp == NULL)
 	{
-		self->free(self->head);
+		avl_free(self->head);
 		return (0);
 	}
 	self->head = tmp;

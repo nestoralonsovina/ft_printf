@@ -54,7 +54,11 @@ t_avl_node			*avl_insert_node(t_avl_node *node,\
 			return (NULL);
 	}
 	else
+	{
+		ft_putendl_fd("ERROR", 2);
+		exit(1);
 		return (NULL);
+	}
 	return (avl_insert_node_norme(node, key));
 }
 
