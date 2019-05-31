@@ -35,12 +35,12 @@ void	buffer(t_printf *p, void *data, size_t size)
 	while (PF_BUFF_SIZE - p->buff.current_index < size)
 	{
 		diff = PF_BUFF_SIZE - p->buff.current_index;
-		ft_memcpy(&(p->buff.str[p->buff.current_index]), &(data[data_i]), diff);
+		ft_memcpy(&(p->buff.str[p->buff.current_index]), (data + data_i), diff);
 		size -= diff;
 		data_i += diff;
 		p->buff.current_index += diff;
 		write_buffer(p);
 	}
-	ft_memcpy(&(p->buff.str[p->buff.current_index]), &(data[data_i]), size);
+	ft_memcpy(&(p->buff.str[p->buff.current_index]), (data + data_i), size);
 	p->buff.current_index += size;
 }
