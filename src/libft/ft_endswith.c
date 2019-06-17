@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl.h                                              :+:      :+:    :+:   */
+/*   ft_endswith.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/09 11:25:18 by nalonso           #+#    #+#             */
-/*   Updated: 2019/05/31 16:32:43 by nalonso          ###   ########.fr       */
+/*   Created: 2019/05/31 16:22:11 by nalonso           #+#    #+#             */
+/*   Updated: 2019/05/31 16:22:15 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GNL_H
-# define GNL_H
-# define BUFF_SIZE 1000000
+#include "libft.h"
 
-# include <fcntl.h>
-# include <unistd.h>
-# include "libft.h"
+int			ft_endswith(const char *str, const char *suffix)
+{
+	size_t	len_str;
+	size_t	len_suffix;
 
-int		get_next_line(const int fd, char **line);
-int		gnl_stdout(char **line);
-int		ft_getc(int fd);
-int		ft_getdelim(char **lineptr, size_t *n, int delim, int stream);
-int		ft_getline(char **lineptr, size_t *n, int stream);
-
-#endif
+	if (!str || !suffix)
+		return (0);
+	len_str = ft_strlen(str);
+	len_suffix = ft_strlen(suffix);
+	if (len_suffix > len_str)
+		return (0);
+	return (ft_strncmp(str + len_str - len_suffix, suffix, len_suffix) == 0);
+}

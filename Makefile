@@ -5,8 +5,6 @@ ccgreen= "\033[0;32m"
 
 CC = gcc
 CFLAGS += -Wall -Werror -Wextra
-#CFLAGS += -g
-#CFLAGS += -fsanitize=address
 
 NAME = libft.a
 
@@ -81,6 +79,7 @@ SRC += 	$(SRC_DIR)$(LIBFT)ft_memset.c		\
 		$(SRC_DIR)$(LIBFT)ft_lstnew.c		\
 		$(SRC_DIR)$(LIBFT)ft_lstdelone.c	\
 		$(SRC_DIR)$(LIBFT)ft_lstdel.c		\
+		$(SRC_DIR)$(LIBFT)ft_endswith.c		\
 		$(SRC_DIR)$(LIBFT)ft_lstadd.c		\
 		$(SRC_DIR)$(LIBFT)ft_lstiter.c		\
 		$(SRC_DIR)$(LIBFT)ft_lstmap.c		\
@@ -95,7 +94,7 @@ SRC += 	$(SRC_DIR)$(LIBFT)ft_memset.c		\
 		$(SRC_DIR)$(IO)gnl_stdout.c 		\
 		$(SRC_DIR)$(DATA_STRUCTS)avl/avl.c 					\
 		$(SRC_DIR)$(DATA_STRUCTS)avl/avl_insert.c 			\
-		$(SRC_DIR)$(DATA_STRUCTS)binary_heap/binary_heap.c 	\
+		$(SRC_DIR)$(DATA_STRUCTS)avl/avl_norme.c 			\
 		$(SRC_DIR)$(DATA_STRUCTS)queue/queue.c 				\
 		$(SRC_DIR)$(TOOLS)djb2.c
 

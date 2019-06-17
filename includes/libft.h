@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:52:20 by nalonso           #+#    #+#             */
-/*   Updated: 2019/04/10 13:30:49 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/05/31 16:31:11 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,17 @@ typedef struct		s_point
 	int				y;
 }					t_point;
 
-
-
-int 				ft_printf(const char *format, ...);
-int					ft_fprintf(int fd, const char *format, ...);	
+int					ft_printf(const char *format, ...);
+int					ft_fprintf(int fd, const char *format, ...);
 
 /*
 ** Libc functions
 */
 
-int 				ft_max(int a, int b);
+int					ft_max(int a, int b);
 int					ft_strver(char *str, int (f)(int));
 void				**realloc_tab(void **ptr, size_t new_size,\
-		size_t original_size);
+						size_t original_size);
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
@@ -115,6 +113,7 @@ void				ft_putnbr(int nbr);
 void				ft_putnbr_fd(int nbr, int fd);
 void				ft_putendl(char const *str);
 void				ft_putendl_fd(char const *str, int fd);
+int					ft_endswith(const char *str, const char *suffix);
 
 /*
 ** List manipulation

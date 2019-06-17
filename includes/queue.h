@@ -1,19 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   queue.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nalonso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/31 16:34:49 by nalonso           #+#    #+#             */
+/*   Updated: 2019/05/31 16:36:40 by nalonso          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef QUEUE_H
-#define QUEUE_H
+# define QUEUE_H
 
 # include <stdlib.h>
 
-typedef struct s_queue
+typedef struct	s_queue
 {
 	size_t		size;
 	size_t		capacity;
 	int			end;
 	int			start;
 	int			*array;
-	void		(*push)(struct s_queue *self, int item);
-	int 		(*pop)(struct s_queue *self);
-	int 		(*front)(struct s_queue *self);
-	int 		(*rear)(struct s_queue *self);
+	void		(*push) (struct s_queue *self, int item);
+	int			(*pop) (struct s_queue *self);
+	int			(*front) (struct s_queue *self);
+	int			(*rear) (struct s_queue *self);
 }				t_queue;
 
 t_queue			create_queue(size_t capacity);

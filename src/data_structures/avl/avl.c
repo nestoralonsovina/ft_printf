@@ -6,19 +6,20 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 16:32:03 by nalonso           #+#    #+#             */
-/*   Updated: 2019/04/09 16:32:04 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/05/31 16:42:20 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "avl.h"
 
-void		avl_free(t_avl_node *node)
+void		*avl_free(t_avl_node *node)
 {
 	if (!node)
-		return ;
+		return (NULL);
 	avl_free(node->left);
 	avl_free(node->right);
 	free(node);
+	return (NULL);
 }
 
 t_avl_node	*new_avl_node(unsigned long key, int index)
@@ -26,6 +27,8 @@ t_avl_node	*new_avl_node(unsigned long key, int index)
 	t_avl_node	*node;
 
 	node = malloc(sizeof(t_avl_node));
+	if (!node)
+		return (NULL);
 	node->height = 0;
 	node->key = key;
 	node->index = index;
