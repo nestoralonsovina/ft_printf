@@ -16,6 +16,14 @@
 
 # include <stdlib.h>
 
+typedef struct	s_garbage
+{
+	void		**pointers;
+	size_t		arr_len;
+	size_t		mem_len;
+}				t_garbage;
+
+
 typedef	struct		s_list
 {
 	void			*content;
@@ -126,5 +134,15 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_isspace(int c);
 void				*ft_realloc(void *ptr, size_t n_size, size_t o_size);
 unsigned long		ft_djb2(char *str);
+
+/*
+** t_garbage Funcions
+*/
+
+t_garbage		gb_init(void);
+void			*gb_malloc(t_garbage *gb, size_t size);
+void			gb_freeall(t_garbage *gb);
+
+
 
 #endif

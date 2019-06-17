@@ -21,6 +21,7 @@ HEADERS 	= ./includes
 
 SRC += 	$(SRC_DIR)$(LIBFT)ft_memset.c		\
 		$(SRC_DIR)$(LIBFT)ft_bzero.c		\
+		$(SRC_DIR)$(LIBFT)t_garbage.c		\
 		$(SRC_DIR)$(LIBFT)ft_memcpy.c		\
 		$(SRC_DIR)$(LIBFT)ft_memccpy.c		\
 		$(SRC_DIR)$(LIBFT)ft_memmove.c		\
