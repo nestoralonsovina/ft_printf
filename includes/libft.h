@@ -6,7 +6,7 @@
 /*   By: nalonso <nalonso@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:52:20 by nalonso           #+#    #+#             */
-/*   Updated: 2019/05/31 16:31:11 by nalonso          ###   ########.fr       */
+/*   Updated: 2019/06/22 15:43:24 by nalonso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 
 # include <stdlib.h>
 
-typedef struct	s_garbage
+typedef struct		s_garbage
 {
-	void		**pointers;
-	size_t		arr_len;
-	size_t		mem_len;
-}				t_garbage;
-
+	void			**pointers;
+	size_t			arr_len;
+	size_t			mem_len;
+}					t_garbage;
 
 typedef	struct		s_list
 {
@@ -138,10 +137,8 @@ unsigned long		ft_djb2(char *str);
 ** t_garbage Funcions
 */
 
-t_garbage		gb_init(void);
-void			*gb_malloc(t_garbage *gb, size_t size);
-void			gb_freeall(t_garbage *gb);
-
-
+t_garbage			gb_init(void);
+void				*gb_malloc(t_garbage *gb, size_t size);
+void				gb_freeall(t_garbage *gb);
 
 #endif
